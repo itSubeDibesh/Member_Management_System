@@ -33,7 +33,7 @@ router.get('/Dashboard', isLoggedIn, (request, response) => {
     if (UserName.length != 0 && request.session.LoginInformation != undefined && request.session.UserInfromation != undefined) {
         if (UserName == request.session.LoginInformation.UserName && request.session.UserInfromation.UserName == UserName) {
             response.render('dashboard', {
-                title: 'Dashboard',
+                title: 'Designation',
                 layout: 'main',
                 success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
                 UserInfromation: request.session.UserInfromation
@@ -60,8 +60,7 @@ router.post('/Login', [
             // Destructuring requestuest Body 
             const { UserName, Password } = request.body;
             // Validate Database
-            const mySqlQuery = queryBox.LoginQuery;
-            Exe.queryExecuator(mySqlQuery, [UserName, Password], (error, result) => {
+            Exe.queryExecuator(queryBox.LoginQuery, [UserName, Password], (error, result) => {
                 if (error != null) Error.log(error);
                 if (result.length !== 0) {
                     request.session.LoginInformation = { UserName, LoggedIn: true };

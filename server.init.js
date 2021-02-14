@@ -22,6 +22,16 @@ const { PORT, SECRET } = process.env;
 // Create New Application Instance To Utilize Express
 const APP = express();
 
+// Handle Bar Helpers 
+const handleBars = expressHandleBars.create({
+    helpers: {
+        ifEquals: function(a, b, options) {
+            if (a === b) return options.fn(this);
+            return options.inverse(this);
+        }
+    }
+});
+
 // Configuration Management
 APP.use(helmet());
 
@@ -53,7 +63,7 @@ APP.use(express.static('./Public'));
 new Request_Logger(APP, Request, Error);
 
 //#region HandleBars Configuration Start
-APP.engine('handlebars', expressHandleBars());
+APP.engine('handlebars', handleBars.engine);
 APP.set('view engine', 'handlebars');
 //#endregion
 
