@@ -1,0 +1,3 @@
+{
+    "LoginQuery": "SELECT User.UserId,USER.RoleId,MEMBER.MemberId, MEMBER.DesignationId, USER.UserName,USER.Password,ROLE.Name AS Role,DESIGNATION.Name AS Designation,DESIGNATION.Hierarchy_Value,DESIGNATION.Membership_Fee, MEMBER.Status AS Member_Status,MEMBER.Joined_Date,MEMBER.Membership_Renew_Status,MEMBER.Last_Renewed_Date FROM `user` User LEFT JOIN `role` ROLE ON ROLE.RoleId = USER.RoleId LEFT JOIN `member` MEMBER ON MEMBER.UserId = USER.UserId LEFT JOIN `designation` DESIGNATION ON DESIGNATION.DesignationId = MEMBER.DesignationId WHERE UserName= ? AND Password= ?"
+}

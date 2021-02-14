@@ -1,4 +1,4 @@
-const { router, check, validationResult } = require('../Config/Http');
+const { router, check, validationResult, queryBox } = require('../Config/Http');
 const { Error } = require('../Config/Logs');
 const QueryExecuator = require('../Database/QueryExe'),
     Exe = new QueryExecuator();
@@ -12,7 +12,7 @@ router.get('/', isLoggedIn, (request, response) => {
         response.render('login', { title: 'Login', layout: false });
     } else {
         const { UserName, LoggedIn } = request.session.LoginInformation;
-        if (LoggedIn == true && request.session.LoginInformation.UserName == request.session.UserInfromation.UserName)
+        if (LoggedIn == true)
             response.redirect(`/Dashboard?UserName=${UserName}`);
         else
             response.redirect(`/Logout`);
@@ -35,7 +35,8 @@ router.get('/Dashboard', isLoggedIn, (request, response) => {
             response.render('dashboard', {
                 title: 'Dashboard',
                 layout: 'main',
-                data: { msg: `Welcome ${UserName}, Have a wonderful day!` }
+                success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
+                UserInfromation: request.session.UserInfromation
             });
         } else
             response.redirect(`/Logout`);
@@ -59,19 +60,21 @@ router.post('/Login', [
             // Destructuring requestuest Body 
             const { UserName, Password } = request.body;
             // Validate Database
-            Exe.queryExecuator('SELECT * FROM `user` WHERE UserName=? AND Password=?', [UserName, Password], (error, result) => {
-                if (error) Error.log(error);
-                if (request.length != 0 && result[0].UserName == UserName) {
+            const mySqlQuery = queryBox.LoginQuery;
+            Exe.queryExecuator(mySqlQuery, [UserName, Password], (error, result) => {
+                if (error != null) Error.log(error);
+                if (result.length !== 0) {
                     request.session.LoginInformation = { UserName, LoggedIn: true };
                     request.session.UserInfromation = result[0];
                     response.redirect(`/Dashboard?UserName=${UserName}`);
-                } else
+                } else {
                     response.render('login', {
                         title: 'Login',
                         layout: false,
                         errors: [{ msg: `Invalid Username or Password!` }],
                         data: request.body
                     });
+                }
             });
         } else {
             response.render('login', {

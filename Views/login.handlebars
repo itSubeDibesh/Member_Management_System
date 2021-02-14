@@ -103,12 +103,12 @@
                 User Name
             </label>
             <input type="text" id="UserName" name="UserName" class="form-control" placeholder="User Name" minlength="5"
-                maxlength="20" required autofocus />
+                maxlength="20" value="{{data.UserName}}" required autofocus />
             <label for="Password" class="visually-hidden">
                 Password
             </label>
             <input type="password" id="Password" name="Password" class="form-control" placeholder="Password"
-                minlength="8" maxlength="20" required />
+                minlength="8" maxlength="20" value="{{data.Password}}" required />
             <button class="w-100 btn btn-lg btn-success" type="submit">
                 Log in
                 <i class="fas fa-sign-in-alt"></i>

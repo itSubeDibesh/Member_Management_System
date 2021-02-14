@@ -1,5 +1,5 @@
 module.exports = function(request, response, next) {
-    if (request.session.LoginInformation === undefined && request.session.UserInfromation.UserName === undefined) {
+    if (request.session.LoginInformation === undefined && request.session.UserInfromation === undefined) {
         response.render('login', {
             title: 'Login',
             layout: false,
@@ -7,9 +7,10 @@ module.exports = function(request, response, next) {
         });
     } else {
         const { LoggedIn } = request.session.LoginInformation;
-        if (LoggedIn == true && request.session.LoginInformation.UserName == request.session.UserInfromation.UserName)
+        if (LoggedIn == true)
             next();
         else {
+            console.log("Here")
             response.render('login', {
                 title: 'Login',
                 layout: false,

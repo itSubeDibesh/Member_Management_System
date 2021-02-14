@@ -131,7 +131,7 @@ A Basic database Schema Concept is Explained Below.
         |--------> MemberId [FK]
 </pre>
 
-Following schema diagram can be extracted after implementing the avove schema
+Following schema diagram can be extracted after implementing the above schema
 
 <img src="./Database/Schema/Schema Diagram.png">
 

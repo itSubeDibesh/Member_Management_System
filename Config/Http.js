@@ -1,6 +1,7 @@
 const express = require("express"),
     router = express.Router();
 const { check, validationResult } = require('express-validator');
+const queryBox = require('../Database/Queries.json');
 
 /**
  * Route and Validator Export
@@ -11,4 +12,4 @@ const { check, validationResult } = require('express-validator');
  * 
  * @description Sets a exporter express router and validator as well
  */
-module.exports = { router, check, validationResult }
+module.exports = { router, check, validationResult, queryBox }
