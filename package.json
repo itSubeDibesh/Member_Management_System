@@ -1,0 +1,33 @@
+{
+    "name": "member_management_system",
+    "version": "1.0.0",
+    "description": "A complete Member management system for 4th semester assignment",
+    "main": "server.init",
+    "scripts": {
+        "watch": "open-cli http://localhost:8000 -- chrome && nodemon server.init",
+        "start": "node server.init"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/itSubeDibesh/Member_Management_System.git"
+    },
+    "keywords": [
+        "Member_Mangement",
+        "Management"
+    ],
+    "dependencies": {
+        "appmetrics-dash": "^5.3.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^5.2.0",
+        "express-session": "^1.17.1",
+        "express-validator": "^6.9.2",
+        "helmet": "^4.4.1",
+        "mysql": "^2.18.1",
+        "nodefslogger": "^0.0.3"
+    },
+    "devDependencies": {
+        "open-cli": "^6.0.1"
+    }
+}
