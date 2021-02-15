@@ -1,5 +1,5 @@
 ## __Member Management System__ [![time tracker](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System.svg)](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System)
-___
+
 ## __Setup__ 
 Setting up project is piece of cake. Follow the steps below.
 
@@ -27,7 +27,7 @@ ___
 | __MySql__      	| Database                        	| Used for Storing and Quering Datas           	| !["MySql"](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)                              	|
 | __PhpMyAdmin__ 	| Database Management Software    	| Helps to Organize MariaDb Database(MySql)    	| !["phpMyAdmin"](https://img.shields.io/badge/phpMyAdmin-ff8800?style=for-the-badge&logo=phpmyadmin&logoColor=white)                             	|
 | __Npm__        	| Package Manager                 	| Package Server                               	| !["NPM"](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)                              	|
-| __MDm__        	| Documenting Tool                 	| Document on Github                              	| !["MD"](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)                              	|
+| __MD__        	| Documenting Tool                 	| Document on Github                              	| !["MD"](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)                              	|
 
 ___
 
