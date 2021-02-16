@@ -1,4 +1,4 @@
-# __Member Management System__
+## __Member Management System__ [![time tracker](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System.svg)](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System)
 
 ## __Setup__ 
 Setting up project is piece of cake. Follow the steps below.
@@ -14,17 +14,20 @@ Setting up project is piece of cake. Follow the steps below.
 __Note :__ Your MySql Server is only required so you can turn off __apache__ if you are using __xampp server__.
 ___
 ## __Tools and Languages Utilized__
-| Name       	| Type                            	| Purpose                                      	|
-|------------	|---------------------------------	|----------------------------------------------	|
-| __HTML__       	| Language                        	| Basic Structure                              	|
-| __Css__        	| Tool                            	| Design and Decorating HTML                   	|
-| __JS__         	| Scripting Tool                  	| Used to Write Scripts                        	|
-| __Node__       	| Server Side Scripting Tool      	| Used to Write Server Side Script             	|
-| __Express__    	| Server Side Scripting Framework 	| Used to Optimize Server Side Code            	|
-| __HandleBars__ 	| Templating Engine               	| Used to create Dynamic Client Side Templates 	|
-| __MySql__      	| Database                        	| Used for Storing and Quering Datas           	|
-| __PhpMyAdmin__ 	| Database Management Software    	| Helps to Organize MariaDb Database(MySql)    	|
-| __Npm__        	| Package Manager                 	| Package Server                               	|
+
+| Name       	| Type                            	| Purpose                                      	| Icones                                      	|
+|------------	|---------------------------------	|----------------------------------------------	|----------------------------------------------	|
+| __HTML__       	| Language                        	| Basic Structure                              	| !["HTML"](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)                              	|
+| __Css__        	| Tool                            	| Design and Decorating HTML                   	| !["Css"](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)     
+| __Bootstrap__        	| Designing Tool                            	| Design and Decorating HTML                   	| !["Bootstrap"](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)    |
+| __JS__         	| Scripting Tool                  	| Used to Write Scripts                        	| !["JS"](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)                              	|
+| __Node__       	| Server Side Scripting Tool      	| Used to Write Server Side Script             	| !["Node"](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)                              	|
+| __Express__    	| Server Side Scripting Framework 	| Used to Optimize Server Side Code            	| !["Express"](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)                              	|
+| __HandleBars__ 	| Templating Engine               	| Used to create Dynamic Client Side Templates 	| !["HandleBars"](https://img.shields.io/badge/Handlebars-FDB22A?style=for-the-badge&logoColor=white)                              	|
+| __MySql__      	| Database                        	| Used for Storing and Quering Datas           	| !["MySql"](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)                              	|
+| __PhpMyAdmin__ 	| Database Management Software    	| Helps to Organize MariaDb Database(MySql)    	| !["phpMyAdmin"](https://img.shields.io/badge/phpMyAdmin-ff8800?style=for-the-badge&logo=phpmyadmin&logoColor=white)                             	|
+| __Npm__        	| Package Manager                 	| Package Server                               	| !["NPM"](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)                              	|
+| __MD__        	| Documenting Tool                 	| Document on Github                              	| !["MD"](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)                              	|
 
 ___
 
