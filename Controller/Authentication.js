@@ -1,13 +1,7 @@
-const { router, check, validationResult, queryBox } = require('../Config/Http');
-const { Error } = require('../Config/Logs');
-const QueryExecuator = require('../Database/QueryExe'),
-    Exe = new QueryExecuator();
-
-// Extracting Middleware
-const isLoggedIn = require('../Middlewares/isLoggedIn');
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn } = require('../Config/Http'), authenticationRouter = express.Router();
 
 // Dashboard if the Session has data set Else Login
-router.get('/', isLoggedIn, (request, response) => {
+authenticationRouter.get('/', isLoggedIn, (request, response) => {
     if (request.session.LoginInformation === undefined && request.session.UserInfromation != undefined) {
         response.render('login', { title: 'Login', layout: false });
     } else {
@@ -20,7 +14,7 @@ router.get('/', isLoggedIn, (request, response) => {
 });
 
 // Clears Up The Session
-router.get('/Logout', (request, response) => {
+authenticationRouter.get('/Logout', (request, response) => {
     request.session.destroy((err) => {
         if (err) Error.log(err);
         response.redirect(`/`);
@@ -28,23 +22,31 @@ router.get('/Logout', (request, response) => {
 });
 
 // Redirects To Dashboard
-router.get('/Dashboard', isLoggedIn, (request, response) => {
+authenticationRouter.get('/Dashboard', isLoggedIn, (request, response) => {
     const { UserName } = request.query;
     if (UserName.length != 0 && request.session.LoginInformation != undefined && request.session.UserInfromation != undefined) {
         if (UserName == request.session.LoginInformation.UserName && request.session.UserInfromation.UserName == UserName) {
-            response.render('dashboard', {
-                title: 'Designation',
-                layout: 'main',
-                success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
-                UserInfromation: request.session.UserInfromation
+            Exe.queryExecuator(queryBox.RolePermisionByRoleId, request.session.UserInfromation.RoleId, (error, result) => {
+                if (error != null) Error.log(error);
+                if (result)
+                    if (result.length !== 0) request.session.RoleInformation = result;
+                response.render('dashboard', {
+                    title: 'Dashboard',
+                    layout: 'main',
+                    success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
+                    UserInfromation: request.session.UserInfromation,
+                    LoginInformation: request.session.LoginInformation,
+                    RoleInformation: request.session.RoleInformation
+                });
             });
+
         } else
             response.redirect(`/Logout`);
     }
 });
 
 // Logins The User 
-router.post('/Login', [
+authenticationRouter.post('/Login', [
     check('UserName')
     .isLength({ min: 5, max: 20 })
     .withMessage('User Name must have 5-20 characters.'),
@@ -62,15 +64,24 @@ router.post('/Login', [
             // Validate Database
             Exe.queryExecuator(queryBox.LoginQuery, [UserName, Password], (error, result) => {
                 if (error != null) Error.log(error);
-                if (result.length !== 0) {
-                    request.session.LoginInformation = { UserName, LoggedIn: true };
-                    request.session.UserInfromation = result[0];
-                    response.redirect(`/Dashboard?UserName=${UserName}`);
+                if (result) {
+                    if (result.length !== 0) {
+                        request.session.LoginInformation = { UserName, LoggedIn: true };
+                        request.session.UserInfromation = result[0];
+                        response.redirect(`/Dashboard?UserName=${UserName}`);
+                    } else {
+                        response.render('login', {
+                            title: 'Login',
+                            layout: false,
+                            errors: [{ msg: `Invalid Username or Password!` }],
+                            data: request.body
+                        });
+                    }
                 } else {
                     response.render('login', {
                         title: 'Login',
                         layout: false,
-                        errors: [{ msg: `Invalid Username or Password!` }],
+                        errors: [{ msg: `Internal Issues, Try Again later!` }],
                         data: request.body
                     });
                 }
@@ -87,4 +98,4 @@ router.post('/Login', [
 });
 
 // Exporting Routeer to WebRoute Handler
-module.exports = router;
+module.exports = authenticationRouter;

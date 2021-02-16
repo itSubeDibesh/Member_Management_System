@@ -1,7 +1,31 @@
-const express = require("express"),
-    router = express.Router();
+/**
+ * Express Router Set
+ */
+const express = require("express");
+
+/**
+ * Validation Handler
+ */
 const { check, validationResult } = require('express-validator');
+
+/**
+ * Query List
+ */
 const queryBox = require('../Database/Queries.json');
+
+/**
+ * Query Execuator
+ */
+const queryExecuator = require('../Database/QueryExe'),
+    Exe = new queryExecuator()
+
+/**
+ * Error Logger Component
+ */
+const { Error } = require('../Config/Logs');
+
+// Extracting Middleware
+const isLoggedIn = require('../Middlewares/isLoggedIn');
 
 /**
  * Route and Validator Export
@@ -10,6 +34,6 @@ const queryBox = require('../Database/Queries.json');
  * 
  * Contributors : 
  * 
- * @description Sets a exporter express router and validator as well
+ * @description Export Http Requirements
  */
-module.exports = { router, check, validationResult, queryBox }
+module.exports = { express, check, validationResult, queryBox, Exe, Error, isLoggedIn }

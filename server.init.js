@@ -28,8 +28,16 @@ const handleBars = expressHandleBars.create({
         ifEquals: function(a, b, options) {
             if (a === b) return options.fn(this);
             return options.inverse(this);
+        },
+        ifNotEquals: function(a, b, options) {
+            if (a !== b) return options.fn(this);
+            return options.inverse(this);
+        },
+        SN: function(value, options) {
+            return parseInt(value + 1);
         }
     }
+
 });
 
 // Configuration Management
@@ -72,6 +80,7 @@ new WebRoutes(APP);
 
 // The 404 Route (ALWAYS Keep this as the last route)
 APP.get('*', function(_request, _response) {
+    // Set 404 Partial view
     return _response.status(404).send({ status: !1, status_code: 404, response: 'Page not found' });
 });
 

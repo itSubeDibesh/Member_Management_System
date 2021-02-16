@@ -16,7 +16,7 @@ const
 require("dotenv").config();
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env,
-    database_exists = `SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME ="${DB_NAME}";`;
+    database_exists = `SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = "${DB_NAME}";`;
 
 let
     sql_con_obj = {
@@ -24,7 +24,7 @@ let
         port: DB_PORT,
         user: DB_USER,
         password: DB_PASSWORD || null,
-        database: DB_NAME,
+        database: DB_NAME
     },
     sql_connection = sql.createConnection(sql_con_obj);
 
@@ -84,6 +84,6 @@ module.exports = class mysql_database {
      */
     queryExecuator(query, params, callback) {
         let execuated = this.connection.query(query, params || null, callback);
-        Query.log(execuated.sql);
+        Query.log(`Request : [${execuated.sql}]`);
     }
 }

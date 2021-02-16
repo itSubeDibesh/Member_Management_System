@@ -1,0 +1,72 @@
+<div class="card">
+    <h5 class="card-header">Role Permission List</h5>
+    <div class="card-body">
+        {{#ifEquals RoleInformation.success true}}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Permission</th>
+                        <th scope="col">Permission Remarks</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each RoleInformation.result}}
+                    <tr>
+                        <td>{{SN @index}}</td>
+                        <td>{{this.Role}}</td>
+                        <td>{{this.Permission}}</td>
+                        <td>{{this.Permission_Remarks}}</td>
+                        <td>{{this.RolePermission_Status}}</td>
+                        <td><a
+                                href="/RolePermission/editRolePermission?Role={{this.RoleId}}&Permission={{this.PermissionId}}"><i
+                                    class="fas fa-edit text-success"></i></a> | <a href=""><i
+                                    class="fas fa-trash text-danger"></i></a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <ul class="pagination justify-content-center">
+                                {{#if RoleInformation.navigation.previous_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{RoleInformation.navigation.previous_page}}">Previous</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{RoleInformation.navigation.previous_page}}" tabindex="-1"
+                                        aria-disabled="true">Previous</a></li>
+                                {{/if}}
+
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{RoleInformation.navigation.current_page}}" tabindex="-1"
+                                        aria-disabled="true">Current</a></li>
+
+                                {{#if RoleInformation.navigation.next_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{RoleInformation.navigation.next_page}}">Next</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{RoleInformation.navigation.next_page}}" tabindex="-1"
+                                        aria-disabled="true">Next</a></li>
+                                {{/if}}
+
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {{/ifEquals}}
+
+        {{#ifNotEquals RoleInformation.success true}}
+        <div class="text-center">
+            <h3 class="text-danger">Role Permission Not Found! </h3>
+        </div>
+        {{/ifNotEquals}}
+    </div>
+</div>

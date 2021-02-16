@@ -7,10 +7,10 @@ module.exports = class WebRoutes {
      * @param {Object} APP -> Express APP instance 
      */
     constructor(APP) {
-        // Authirize Route handeled By AuthirizeController
-        APP.use('/', require('../Controller/Authorize'))
+        // Authentication Route handeled By AuthenticationController
+        APP.use('/', require('../Controller/Authentication'));
 
-        // Authorization Route
-        // APP.use('/auth')
+        // RolePermission Route handeled By RolePermissionController
+        APP.use('/RolePermission', require('../Controller/RolePermission'));
     }
 }
