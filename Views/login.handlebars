@@ -8,8 +8,8 @@
     <meta name="author" content="Dibesh Raj Subedi, Appar Dahal">
     <title>{{title}} | Member Management System</title>
 
-    <link href="./Assets/Css/bootstrap.min.css" rel="stylesheet">
-    <link href="./Assets/Vendor/fontawesom/css/all.min.css" rel="stylesheet">
+    <link href="/Assets/Css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Assets/Vendor/fontawesom/css/all.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <meta name="theme-color" content="#7952b3">
@@ -82,7 +82,7 @@
 
 <body class="text-center">
     <main class="form-signin">
-        <form method="POST" action="./Login">
+        <form method="POST" action="/Login">
             <div>
                 {{#if errors}}
                 {{#each errors as |item|}}
@@ -95,7 +95,7 @@
                 {{/each}}
                 {{/if}}
             </div>
-            <img class="mb-4 bg-transparent" src="./Assets/Images/Lions_Clubs.png" alt="" width="auto" height="200" />
+            <img class="mb-4 bg-transparent" src="/Assets/Images/Lions_Clubs.png" alt="" width="auto" height="200" />
             <h1 class="h3 mb-3 fw-normal">
                 Please sign in
             </h1>
@@ -118,8 +118,8 @@
     </main>
 </body>
 
-<script src="./Assets/Vendor/jquery/jquery-3.5.1.min.js"></script>
-<script src="./Assets/Js/bootstrap.min.js"></script>
-<script src="./Assets/Vendor/fontawesom/js/all.min.js"></script>
+<script src="/Assets/Vendor/jquery/jquery-3.5.1.min.js"></script>
+<script src="/Assets/Js/bootstrap.min.js"></script>
+<script src="/Assets/Vendor/fontawesom/js/all.min.js"></script>
 
 </html>

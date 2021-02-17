@@ -64,14 +64,12 @@ A Basic database Schema Concept is Explained Below.
 
 [Role]---------> RoleID [PK]
          |-----> Name [Varchar(100)]
-         |-----> Status [Enum(Active,Inactive)]
          |-----> Remarks [Text]
          |-----> CreatedAt [TimeStamp]
          |-----> UpdatedAt [TimeStamp(ON Update)]
 
 [Permission]---> PermissionId [PK]
          |-----> Name [Varchar(100)]
-         |-----> Status [Enum(Active,Inactive)]
          |-----> Remarks [Text]
          |-----> CreatedAt [TimeStamp]
          |-----> UpdatedAt [TimeStamp(ON Update)]
@@ -79,6 +77,7 @@ A Basic database Schema Concept is Explained Below.
 [RolePermission]
          |-----> RoleID [FK]
          |-----> PermissionId [FK]
+         |-----> Status [Enum(Active,Inactive)]
 
 [User]-------> UserID [PK]
          |-----> RoleID [FK]

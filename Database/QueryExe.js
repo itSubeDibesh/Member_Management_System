@@ -24,7 +24,8 @@ let
         port: DB_PORT,
         user: DB_USER,
         password: DB_PASSWORD || null,
-        database: DB_NAME
+        database: DB_NAME,
+        multipleStatements: true
     },
     sql_connection = sql.createConnection(sql_con_obj);
 

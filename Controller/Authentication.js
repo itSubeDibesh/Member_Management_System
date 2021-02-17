@@ -26,6 +26,7 @@ authenticationRouter.get('/Dashboard', isLoggedIn, (request, response) => {
     const { UserName } = request.query;
     if (UserName.length != 0 && request.session.LoginInformation != undefined && request.session.UserInfromation != undefined) {
         if (UserName == request.session.LoginInformation.UserName && request.session.UserInfromation.UserName == UserName) {
+            // Need to fetch all the role permission associated with user using RolePermisionByRoleId
             Exe.queryExecuator(queryBox.RolePermisionByRoleId, request.session.UserInfromation.RoleId, (error, result) => {
                 if (error != null) Error.log(error);
                 if (result)

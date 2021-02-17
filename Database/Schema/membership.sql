@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2021 at 07:46 PM
+-- Generation Time: Feb 17, 2021 at 10:37 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -34,7 +34,7 @@ CREATE TABLE `alligationsandrewards` (
   `Title` text NOT NULL,
   `Description` text DEFAULT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE `branch` (
   `Contact` varchar(20) DEFAULT NULL,
   `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -93,7 +93,7 @@ CREATE TABLE `designation` (
   `Hierarchy_Value` int(11) NOT NULL,
   `Remarks` text DEFAULT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -117,7 +117,7 @@ CREATE TABLE `member` (
   `Membership_Renew_Status` tinyint(4) DEFAULT NULL,
   `Last_Renewed_Date` date DEFAULT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -132,7 +132,7 @@ CREATE TABLE `payments` (
   `Payment_Title` enum('Membership_Renew','Penalty','New_Membership') NOT NULL,
   `Amount` double NOT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -156,10 +156,9 @@ CREATE TABLE `penaltycriteria` (
 CREATE TABLE `permission` (
   `PermissionId` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL,
-  `Status` enum('Active','Inactive') NOT NULL,
   `Remarks` text DEFAULT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -171,10 +170,9 @@ CREATE TABLE `permission` (
 CREATE TABLE `role` (
   `RoleId` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL,
-  `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
   `Remarks` text DEFAULT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -185,7 +183,8 @@ CREATE TABLE `role` (
 
 CREATE TABLE `rolepermission` (
   `RoleId` int(11) DEFAULT NULL,
-  `PermissionId` int(11) DEFAULT NULL
+  `PermissionId` int(11) DEFAULT NULL,
+  `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -200,12 +199,8 @@ CREATE TABLE `user` (
   `UserName` varchar(20) NOT NULL,
   `Password` varchar(20) NOT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UpdatedAt` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `alligationsandrewards`

@@ -19,8 +19,8 @@ function paginate(base_url, current_url, page, sqlQuery, params, total_length, c
             if (error != null) Error.log(error);
             if (result) {
                 const length = result.length,
-                    total_pages = Math.ceil(parseInt(total_length) / length),
-                    limit = parseInt(SELECT_LIMIT);
+                    limit = parseInt(SELECT_LIMIT),
+                    total_pages = Math.ceil(parseInt(total_length) / limit);
                 if (page != null && page >= 1)
                     return callback({
                         response: {

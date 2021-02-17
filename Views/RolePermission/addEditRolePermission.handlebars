@@ -1,0 +1,37 @@
+<div class="card">
+    <h5 class="card-header">{{ToFirstUpper pageType}} Role Permission</h5>
+    <div class="card-body">
+        <form method="POST" action="/RolePermission/Entry">
+            <input type="hidden" name="Task" value="{{pageType}}">
+            <div class="mb-3">
+                <label for="RoleId" class="form-label">Select Role to set a permission</label>
+                <select class="form-select" name="RoleId" id="RoleId" aria-label="Default select example">
+                    <option selected disabled>Select Role</option>
+                    {{#each RolePermissionList.Role as |roles|}}
+                    <option value="{{roles.RoleId}}">{{roles.Name}} - {{roles.Remarks}} </option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="PermissionId" class="form-label">Select Role to set a permission</label>
+                <select class="form-select" name="PermissionId" id="PermissionId" multiple
+                    aria-label="multiple select example">
+                    <option selected disabled>Select Permissions for the role</option>
+                    {{#each RolePermissionList.Permission as |permissions|}}
+                    <option value="{{permissions.PermissionId}}">{{permissions.Name}} - {{permissions.Remarks}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" value="Active" id="Status" name="Status" checked>
+                <label class="form-check-label" for="Status">
+                    Role Permission Status
+                </label>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> Submit</button>
+                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
