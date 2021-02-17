@@ -40,7 +40,6 @@ authenticationRouter.get('/Dashboard', isLoggedIn, (request, response) => {
                     RoleInformation: request.session.RoleInformation
                 });
             });
-
         } else
             response.redirect(`/Logout`);
     }

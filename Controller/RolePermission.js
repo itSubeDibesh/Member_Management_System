@@ -44,7 +44,7 @@ rolePermissionRouter.get('/', isLoggedIn, (request, response) => {
 rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
-    const { Role, Permission } = request.query;
+    const { RolePermission } = request.query;
     // Check if task is null
     if (Task != null) {
         // Fetch Roles and Permission Details to load in form
@@ -57,11 +57,23 @@ rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                 // Check if task is add or edit
                 if (Task == 'edit') {
                     // check if Role and permission are passed
-                    if (Role != null && Permission != null) {
+                    if (RolePermission != null) {
                         // Fetch Role Permission details matching role and permission and send it as well
-
-
-
+                        Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRolePermissionId, parseInt(RolePermission), (editError, editResult) => {
+                            if (editError != null) Error.log(editError);
+                            // Check if Result is not null
+                            if (editResult) response.render('RolePermission/addEditRolePermission', {
+                                title: 'Roles Permission',
+                                layout: 'main',
+                                pageType: Task,
+                                subTitle: "Edit",
+                                link: "/RolePermission",
+                                UserInfromation: request.session.UserInfromation,
+                                LoginInformation: request.session.LoginInformation,
+                                RolePermissionList: rolePermissionObject,
+                                EditRolePermission: editResult[0]
+                            });
+                        })
                     } else response.redirect('/RolePermission');
                 } else if (Task == 'add') {
                     // Render Add form
@@ -75,7 +87,6 @@ rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                         LoginInformation: request.session.LoginInformation,
                         RolePermissionList: rolePermissionObject
                     });
-
                 } else response.redirect('/RolePermission');
             }
         });
@@ -91,15 +102,14 @@ rolePermissionRouter.post('/Entry', [
     .withMessage('Role is Required to set Role Permission!'),
     check('PermissionId')
     .notEmpty()
-    .withMessage('Permission is Required to set Role Permission!'),
-    check('Status')
-    .notEmpty()
-    .withMessage('Status is Required to set Role Permission')
+    .withMessage('Permission is Required to set Role Permission!')
 ], isLoggedIn, (request, response) => {
     // Extracted Elements from request body
-    const { Task, RoleId, PermissionId, Status } = request.body;
+    let { Task, RoleId, PermissionId, Status } = request.body;
     const errors = validationResult(request);
     if (errors.isEmpty()) {
+        // Setting Status
+        Status = Status != null ? Status : "Inactive";
         if (Task == 'add') {
             // Perform Add operation
             let sqlParams = "";
@@ -115,12 +125,12 @@ rolePermissionRouter.post('/Entry', [
                 if (result) response.redirect('/RolePermission');
             });
         } else if (Task == 'edit') {
-            console.log(Task, RoleId, PermissionId, Status)
-                // Perform edit operation
-
-
-
-
+            const { RolePermission } = request.body;
+            // Perform edit operation
+            Exe.queryExecuator(queryBox.RolePermission.Update, [parseInt(RoleId), parseInt(PermissionId), `${Status}`, parseInt(RolePermission)], (error, result) => {
+                if (error != null) Error.log(error);
+                if (result) response.redirect('/RolePermission');
+            });
         } else response.render('RolePermission/rolePermission', {
             title: 'Roles Permission',
             layout: 'main',
@@ -142,10 +152,10 @@ rolePermissionRouter.post('/Entry', [
         });
 });
 
-rolePermissionRouter.post('/remove/:Role/:Permission', isLoggedIn, (request, response) => {
-    const { Role, Permission } = request.params;
-    if (Role != null && Permission != null) {
-        Exe.queryExecuator(queryBox.RolePermission.Delete.ByRolePermissionId, [parseInt(Role), parseInt(Permission)], (error, result) => {
+rolePermissionRouter.post('/remove/:RolePermission', isLoggedIn, (request, response) => {
+    const { RolePermission } = request.params;
+    if (RolePermission != null) {
+        Exe.queryExecuator(queryBox.RolePermission.Delete.ByRolePermissionId, parseInt(RolePermission), (error, result) => {
             if (error != null) Error.log(error);
             // Check if Result is not null
             if (result) response.redirect('/RolePermission');

@@ -43,7 +43,6 @@ const handleBars = expressHandleBars.create({
             return value.charAt(0).toUpperCase() + value.slice(1);
         }
     }
-
 });
 
 // Configuration Management

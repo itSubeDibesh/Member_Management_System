@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2021 at 10:37 AM
+-- Generation Time: Feb 17, 2021 at 03:08 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -182,9 +182,10 @@ CREATE TABLE `role` (
 --
 
 CREATE TABLE `rolepermission` (
+  `RolePermissionId` int(11) NOT NULL,
   `RoleId` int(11) DEFAULT NULL,
   `PermissionId` int(11) DEFAULT NULL,
-  `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Active'
+  `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -201,6 +202,10 @@ CREATE TABLE `user` (
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `alligationsandrewards`
@@ -274,6 +279,7 @@ ALTER TABLE `role`
 -- Indexes for table `rolepermission`
 --
 ALTER TABLE `rolepermission`
+  ADD PRIMARY KEY (`RolePermissionId`),
   ADD KEY `PermissionID_FK_RolePermission_PermissionID` (`PermissionId`),
   ADD KEY `RoleID_FK_RolePermission_RoleID` (`RoleId`);
 
@@ -342,6 +348,12 @@ ALTER TABLE `permission`
 --
 ALTER TABLE `role`
   MODIFY `RoleId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rolepermission`
+--
+ALTER TABLE `rolepermission`
+  MODIFY `RolePermissionId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`

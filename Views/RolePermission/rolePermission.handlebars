@@ -32,15 +32,14 @@
                         <td>{{this.Permission_Remarks}}</td>
                         <td>{{this.RolePermission_Status}}</td>
                         <td class="text-center"><a
-                                href="/RolePermission/action/edit?Role={{this.RoleId}}&Permission={{this.PermissionId}}"
+                                href="/RolePermission/action/edit?RolePermission={{this.RolePermissionId}}"
                                 style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
                                 Edit</a>
                             </form>
                         </td>
                         <td class="text-center">
-                            <form method="POST"
-                                action="/RolePermission/remove/{{this.RoleId}}/{{this.PermissionId}}">
-                                <button type="submit" class="btn text-light "><i class="fas fa-trash text-danger"></i>
+                            <form method="POST" action="/RolePermission/remove/{{this.RolePermissionId}}">
+                                <button type="submit" style="background: transparent; color:white;border:none;"><i class="fas fa-trash text-danger"></i>
                                     Delete</button>
                             </form>
                         </td>

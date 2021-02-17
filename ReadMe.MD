@@ -75,6 +75,7 @@ A Basic database Schema Concept is Explained Below.
          |-----> UpdatedAt [TimeStamp(ON Update)]
 
 [RolePermission]
+         |-----> RolePermissionId [PK]
          |-----> RoleID [FK]
          |-----> PermissionId [FK]
          |-----> Status [Enum(Active,Inactive)]

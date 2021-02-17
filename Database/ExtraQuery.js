@@ -35,7 +35,7 @@ function paginate(base_url, current_url, page, sqlQuery, params, total_length, c
                                 current_page_no: page,
                                 previous_page: (page != 1 ? `${base_url}?page=${page - 1}` : null),
                                 current_page: `${base_url}${current_url.replace('/', '')}`,
-                                next_page: ((page != total_pages) ? `${base_url}?page=${page + 1}` : null),
+                                next_page: ((page != total_pages) && (total_pages != 0) ? `${base_url}?page=${page + 1}` : null),
                             }
                         }
                     });
