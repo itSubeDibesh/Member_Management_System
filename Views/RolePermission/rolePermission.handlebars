@@ -20,7 +20,7 @@
                         <th scope="col">Permission</th>
                         <th scope="col">Permission Remarks</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th class="text-center" colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,15 +31,25 @@
                         <td>{{this.Permission}}</td>
                         <td>{{this.Permission_Remarks}}</td>
                         <td>{{this.RolePermission_Status}}</td>
-                        <td><a href="/RolePermission/action/edit?Role={{this.RoleId}}&Permission={{this.PermissionId}}"><i
-                                    class="fas fa-edit text-success"></i></a> Edit | <a href=""><i
-                                    class="fas fa-trash text-danger"></i></a> Delete</td>
+                        <td class="text-center"><a
+                                href="/RolePermission/action/edit?Role={{this.RoleId}}&Permission={{this.PermissionId}}"
+                                style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
+                                Edit</a>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <form method="POST"
+                                action="/RolePermission/remove/{{this.RoleId}}/{{this.PermissionId}}">
+                                <button type="submit" class="btn text-light "><i class="fas fa-trash text-danger"></i>
+                                    Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <ul class="pagination justify-content-center">
                                 {{#if RolePermissionInformation.navigation.previous_page}}
                                 <li class="page-item"><a class="page-link"

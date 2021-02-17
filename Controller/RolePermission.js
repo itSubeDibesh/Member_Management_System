@@ -10,11 +10,10 @@ rolePermissionRouter.get('/', isLoggedIn, (request, response) => {
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
             offset = (page - 1) * parseInt(SELECT_LIMIT);
-        count(queryBox.RolePermisionCountALL, [parseInt(request.session.UserInfromation.RoleId), parseInt(SELECT_LIMIT), parseInt(offset)], (result) => {
+        count(queryBox.RolePermission.Select.Count.CountALL, [parseInt(request.session.UserInfromation.RoleId), parseInt(SELECT_LIMIT), parseInt(offset)], (result) => {
             if (response)
-                paginate(request.baseUrl, request.url, page, queryBox.RolePermisionPaginated, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
+                paginate(request.baseUrl, request.url, page, queryBox.RolePermission.Select.Paginate.All, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
                     request.session.RolePermissionInformation = res.response;
-                    console.log(res.response)
                     response.render('RolePermission/rolePermission', {
                         title: 'Roles Permission',
                         layout: 'main',
@@ -49,7 +48,7 @@ rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
     // Check if task is null
     if (Task != null) {
         // Fetch Roles and Permission Details to load in form
-        const multipleQueries = `${queryBox.RoleSelectAll}; ${queryBox.PermissionSelectAll}`;
+        const multipleQueries = `${queryBox.Role.Select.All}; ${queryBox.Permission.Select.All}`;
         Exe.queryExecuator(multipleQueries, null, (error, result) => {
             if (error != null) Error.log(error);
             // Check if Result is not null
@@ -109,7 +108,7 @@ rolePermissionRouter.post('/Entry', [
                 sqlParams += `(${RoleId},${element},'${Status}'), `;
             }
             sqlParams = sqlParams.substr(0, sqlParams.lastIndexOf(','));
-            sqlParams = queryBox.BulkInsertRolePermission + sqlParams;
+            sqlParams = queryBox.RolePermission.Insert + sqlParams;
             // Executing Sql Query
             Exe.queryExecuator(sqlParams, null, (error, result) => {
                 if (error != null) Error.log(error);
@@ -141,6 +140,25 @@ rolePermissionRouter.post('/Entry', [
             LoginInformation: request.session.LoginInformation,
             RolePermissionInformation: request.session.RolePermissionInformation
         });
+});
+
+rolePermissionRouter.post('/remove/:Role/:Permission', isLoggedIn, (request, response) => {
+    const { Role, Permission } = request.params;
+    if (Role != null && Permission != null) {
+        Exe.queryExecuator(queryBox.RolePermission.Delete.ByRolePermissionId, [parseInt(Role), parseInt(Permission)], (error, result) => {
+            if (error != null) Error.log(error);
+            // Check if Result is not null
+            if (result) response.redirect('/RolePermission');
+        });
+    } else response.render('RolePermission/rolePermission', {
+        title: 'Roles Permission',
+        layout: 'main',
+        link: "/RolePermission",
+        errors: [{ msg: `Invalid Delete Request, Try again later!` }],
+        UserInfromation: request.session.UserInfromation,
+        LoginInformation: request.session.LoginInformation,
+        RolePermissionInformation: request.session.RolePermissionInformation
+    });
 });
 
 module.exports = rolePermissionRouter;

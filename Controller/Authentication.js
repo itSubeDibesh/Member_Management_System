@@ -27,7 +27,7 @@ authenticationRouter.get('/Dashboard', isLoggedIn, (request, response) => {
     if (UserName.length != 0 && request.session.LoginInformation != undefined && request.session.UserInfromation != undefined) {
         if (UserName == request.session.LoginInformation.UserName && request.session.UserInfromation.UserName == UserName) {
             // Need to fetch all the role permission associated with user using RolePermisionByRoleId
-            Exe.queryExecuator(queryBox.RolePermisionByRoleId, request.session.UserInfromation.RoleId, (error, result) => {
+            Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRoleId, request.session.UserInfromation.RoleId, (error, result) => {
                 if (error != null) Error.log(error);
                 if (result)
                     if (result.length !== 0) request.session.RoleInformation = result;
@@ -63,7 +63,7 @@ authenticationRouter.post('/Login', [
             // Destructuring requestuest Body 
             const { UserName, Password } = request.body;
             // Validate Database
-            Exe.queryExecuator(queryBox.LoginQuery, [UserName, Password], (error, result) => {
+            Exe.queryExecuator(queryBox.User.Login, [UserName, Password], (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) {
                     if (result.length !== 0) {
