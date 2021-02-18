@@ -21,5 +21,8 @@ module.exports = class WebRoutes {
 
         // PenaltyCriteria Route handeled By PenaltyCriteriaController
         APP.use('/PenaltyCriteria', require('../Controller/PenaltyCriteria'));
+
+        // Designation Route handeled By DesignationController
+        APP.use('/Designation', require('../Controller/Designation'));
     }
 }

@@ -1,8 +1,8 @@
 const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
-    penaltyCriteria = express.Router();
+    penaltyCriteriaRouter = express.Router();
 
 // Return List of All Penalty Criteria as Json Dataset
-penaltyCriteria.get('/', isLoggedIn, (request, response) => {
+penaltyCriteriaRouter.get('/', isLoggedIn, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -33,7 +33,7 @@ penaltyCriteria.get('/', isLoggedIn, (request, response) => {
 });
 
 // PenaltyCriteria Add Edit GET request
-penaltyCriteria.get('/action/:Task', isLoggedIn, (request, response) => {
+penaltyCriteriaRouter.get('/action/:Task', isLoggedIn, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { PenaltyCriteria } = request.query;
@@ -74,7 +74,7 @@ penaltyCriteria.get('/action/:Task', isLoggedIn, (request, response) => {
 });
 
 // PenaltyCriteria Add Edit POST request
-penaltyCriteria.post('/Entry', [
+penaltyCriteriaRouter.post('/Entry', [
     check('Task')
     .notEmpty()
     .withMessage('Task is Required to set PenaltyCriteria!'),
@@ -95,14 +95,14 @@ penaltyCriteria.post('/Entry', [
     if (errors.isEmpty()) {
         if (Task == 'add') {
             // Executing Sql Query
-            Exe.queryExecuator(queryBox.PenaltyCriteria.Insert + `(${Number_of_Exceeded_Days},${Amount})`, null, (error, result) => {
+            Exe.queryExecuator(queryBox.PenaltyCriteria.Insert + `(${parseInt(Number_of_Exceeded_Days)},${parseFloat(Amount)})`, null, (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/PenaltyCriteria');
             });
         } else if (Task == 'edit') {
             const { PenaltyCriteria } = request.body;
             // Perform edit operation
-            Exe.queryExecuator(queryBox.PenaltyCriteria.Update, [Number_of_Exceeded_Days, Amount, parseInt(PenaltyCriteria)], (error, result) => {
+            Exe.queryExecuator(queryBox.PenaltyCriteria.Update, [parseInt(Number_of_Exceeded_Days), parseFloat(Amount), parseInt(PenaltyCriteria)], (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/PenaltyCriteria');
             });
@@ -125,7 +125,7 @@ penaltyCriteria.post('/Entry', [
         });
 });
 
-penaltyCriteria.post('/remove/:PenaltyCriteria', isLoggedIn, (request, response) => {
+penaltyCriteriaRouter.post('/remove/:PenaltyCriteria', isLoggedIn, (request, response) => {
     const { PenaltyCriteria } = request.params;
     if (PenaltyCriteria != null) {
         Exe.queryExecuator(queryBox.PenaltyCriteria.Delete, parseInt(PenaltyCriteria), (error, result) => {
@@ -142,4 +142,4 @@ penaltyCriteria.post('/remove/:PenaltyCriteria', isLoggedIn, (request, response)
         EditPenaltyCriteria: request.session.EditPenaltyCriteria
     });
 });
-module.exports = penaltyCriteria;
+module.exports = penaltyCriteriaRouter;

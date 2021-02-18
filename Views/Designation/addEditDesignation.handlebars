@@ -1,0 +1,36 @@
+<div class="card">
+    <h5 class="card-header">{{ToFirstUpper pageType}} Designation</h5>
+    <div class="card-body">
+        <form method="POST" action="/Designation/Entry">
+            <input type="hidden" name="Task" value="{{pageType}}">
+            <div class="mb-3">
+                {{#if EditDesignation}}
+                <input type="hidden" name="Designation" value="{{EditDesignation.DesignationId}}">
+                {{/if}}
+                <label for="Name" class="form-label">Designation Name</label>
+                <input type="text" class="form-control" id="Name" name="Name"
+                    value="{{#if EditDesignation}}{{EditDesignation.Name}}{{/if}}">
+            </div>
+            <div class="mb-3">
+                 <label for="Membership_Fee" class="form-label">Membership Fee in Rs</label>
+                <input type="number" class="form-control" id="Membership_Fee" name="Membership_Fee"
+                    value="{{#if EditDesignation}}{{EditDesignation.Membership_Fee}}{{/if}}">
+            </div>
+            <div class="mb-3">
+                 <label for="Hierarchy_Value" class="form-label">Position Number in Organization</label>
+                <input type="number" class="form-control" id="Hierarchy_Value" name="Hierarchy_Value"
+                    value="{{#if EditDesignation}}{{EditDesignation.Hierarchy_Value}}{{/if}}">
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" id="Remarks"
+                    name="Remarks">{{#if EditDesignation}}{{EditDesignation.Remarks}}{{/if}}</textarea>
+                <label for="Remarks">Remarks</label>
+            </div>
+            <div class="mt-3 text-center">
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals
+                    pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
+                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

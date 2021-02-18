@@ -60,5 +60,16 @@
         "Insert": "INSERT INTO `penaltycriteria` (`Number_of_Exceeded_Days`, `Amount`) VALUES ",
         "Update": "UPDATE `penaltycriteria` SET `Number_of_Exceeded_Days`=?, `Amount`=? WHERE `PenaltyCriteriaId`=?",
         "Delete": "DELETE FROM `penaltycriteria` WHERE `PenaltyCriteriaId`=?"
+    },
+    "Designation": {
+        "Select": {
+            "Count": "SELECT count(*) AS Total_Count FROM `designation`",
+            "All": "SELECT `DesignationId`, `Name`, `Membership_Fee`, `Hierarchy_Value`, `Remarks` FROM `designation` ORDER BY Name",
+            "ById": "SELECT `DesignationId`, `Name`, `Membership_Fee`, `Hierarchy_Value`, `Remarks` FROM `designation` WHERE `DesignationId`=? ORDER BY Name",
+            "Paginate": "SELECT `DesignationId`, `Name`, `Membership_Fee`, `Hierarchy_Value`, `Remarks`  FROM `designation` ORDER BY Name LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `designation` (`Name`, `Membership_Fee`, `Hierarchy_Value`, `Remarks`) VALUES ",
+        "Update": "UPDATE `designation` SET `Name`=?, `Membership_Fee`=?, `Hierarchy_Value`=?, `Remarks`=? WHERE `DesignationId`=?",
+        "Delete": "DELETE FROM `designation` WHERE `DesignationId`=?"
     }
 }

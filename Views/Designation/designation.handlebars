@@ -1,0 +1,89 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <h5>Designation List</h5>
+            </div>
+            <div class="col-6 text-end">
+                <a class="btn btn-primary btn-sm " href="/Designation/action/add"><i class="fas fa-pen"></i> Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {{#ifEquals DesignationInformation.success true}}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Membership Fee</th>
+                        <th scope="col">Hierarchy Value</th>
+                        <th scope="col">Membership Fee</th>
+                        <th class="text-center" colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each DesignationInformation.result}}
+                    <tr>
+                        <td>{{SN @index}}</td>
+                        <td>{{this.Name}}</td>
+                        <td>Rs {{this.Membership_Fee}}/-</td>
+                        <td>Position No {{this.Hierarchy_Value}}</td>
+                        <td>{{this.Remarks}}</td>
+                        <td class="text-center"><a
+                                href="/Designation/action/edit?Designation={{this.DesignationId}}"
+                                style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
+                                Edit</a>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <form method="POST" action="/Designation/remove/{{this.DesignationId}}">
+                                <button type="submit" style="background: transparent; color:white;border:none;"><i class="fas fa-trash text-danger"></i>
+                                    Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <ul class="pagination justify-content-center">
+                                {{#if DesignationInformation.navigation.previous_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{DesignationInformation.navigation.previous_page}}">Previous</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{DesignationInformation.navigation.previous_page}}" tabindex="-1"
+                                        aria-disabled="true">Previous</a></li>
+                                {{/if}}
+
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{DesignationInformation.navigation.current_page}}" tabindex="0"
+                                        aria-disabled="true">Current</a></li>
+
+                                {{#if DesignationInformation.navigation.next_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{DesignationInformation.navigation.next_page}}">Next</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{DesignationInformation.navigation.next_page}}" tabindex="1"
+                                        aria-disabled="true">Next</a></li>
+                                {{/if}}
+
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {{/ifEquals}}
+
+        {{#ifNotEquals DesignationInformation.success true}}
+        <div class="text-center">
+            <h3 class="text-danger">Designation Not Found! </h3>
+        </div>
+        {{/ifNotEquals}}
+    </div>
+</div>
