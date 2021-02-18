@@ -35,7 +35,7 @@
                 {{/if}}
             </div>
             <div class="mb-3 form-check">
-                <input class="form-check-input" type="checkbox" value="Active" id="Status" name="Status" checked>
+                <input class="form-check-input" type="checkbox" value="Active" id="Status" name="Status" {{#ifEquals ditRolePermission.RolePermission_Status 'Active' }}Checked{{/ifEquals}}>
                 <label class="form-check-label" for="Status">
                     Role Permission Status
                 </label>
@@ -45,7 +45,7 @@
                 {{/if}}
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> Submit</button>
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
                 <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
             </div>
         </form>

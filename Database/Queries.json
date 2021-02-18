@@ -10,14 +10,14 @@
                 "CountByPermissionId": "SELECT  count(*) AS Total_Count FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.PermissionId = ?"
             },
             "Paginate": {
-                "ByRoleId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.RoleId = ? LIMIT ? OFFSET ?",
-                "ByPermissionId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.PermissionId = ? LIMIT ? OFFSET ?",
-                "All": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId LIMIT ? OFFSET ?"
+                "ByRoleId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.RoleId = ? ORDER BY R.Name LIMIT ? OFFSET ?",
+                "ByPermissionId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.PermissionId = ? ORDER BY R.Name LIMIT ? OFFSET ?",
+                "All": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId ORDER BY R.Name LIMIT ? OFFSET ?"
             },
             "All": {
-                "ByRoleId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.RoleId = ?",
-                "ByPermissionId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.PermissionId = ?",
-                "ByRolePermissionId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.RolePermissionId = ?"
+                "ByRoleId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.RoleId = ? ORDER BY R.Name",
+                "ByPermissionId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.PermissionId = ? ORDER BY R.Name",
+                "ByRolePermissionId": "SELECT RP.RolePermissionId, RP.RoleId, RP.PermissionId,R.Name AS Role, R.Remarks As Role_Remarks, P.Name AS Permission , P.Remarks AS Permission_Remarks, RP.Status As RolePermission_Status FROM `rolepermission` RP LEFT JOIN `role` R ON R.RoleId = RP.RoleId LEFT JOIN `permission` P ON P.PermissionId = RP.PermissionId WHERE RP.RolePermissionId = ? ORDER BY R.Name"
             }
         },
         "Insert": "INSERT INTO `rolepermission` (`RoleId`, `PermissionId`, `Status`) VALUES ",
@@ -34,6 +34,14 @@
         }
     },
     "Role": {
-        "Select": { "All": "SELECT `RoleId`,`Name`,`Remarks` FROM `role`" }
+        "Select": {
+            "Count": "SELECT count(*) AS Total_Count FROM `role`",
+            "All": "SELECT `RoleId`,`Name`,`Remarks` FROM `role` ORDER BY Name",
+            "ById": "SELECT `RoleId`,`Name`,`Remarks` FROM `role` WHERE `RoleId`=? ORDER BY Name",
+            "Paginate": "SELECT `RoleId`, `Name`, `Remarks` FROM `role` ORDER BY Name LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `role` (`Name`, `Remarks`) VALUES ",
+        "Update": "UPDATE `role` SET `Name`=?, `Remarks`=? WHERE `RoleId`=?",
+        "Delete": "DELETE FROM `role` WHERE `RoleId`=?"
     }
 }

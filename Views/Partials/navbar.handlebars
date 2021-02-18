@@ -10,40 +10,58 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link {{#ifEquals title 'Dashboard'}}active{{/ifEquals}}" aria-current="page"
-                        href="#"><i class="fas fa-chart-line"></i> Dashboard</a>
+                        href="/"><i class="fas fa-chart-line"></i> Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Roles Permission'}}active{{/ifEquals}}"
-                        href="/RolePermission"><i class="fas fa-user-tag"></i> Roles Permission</a>
+                <ul class="navbar-nav ">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{#ifEquals title 'Roles Permission'}}active{{/ifEquals}} {{#ifEquals title 'Roles'}}active{{/ifEquals}}"
+                            href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-users-cog"></i>Role Permission
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/RolePermission"><i class="fas fa-user-tag"></i> Roles
+                                    Permission</a>
+                            </li>
+                            <hr class="dropdown-divider">
+                            <li>
+                                <a class="dropdown-item" href="/Role"><i class="fas fa-hat-cowboy"></i> Role</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#"><i class="fas fa-user-check"></i> Permission</a>
+                            </li>
+                    </li>
+                </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Designation'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-address-card"></i> Designation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Members'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-user-friends"></i> Members</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Committe'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-users"></i> Committe</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Penalty'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-dollar-sign"></i> Penalty</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Branch'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-code-branch"></i> Branch</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Payments'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-file-invoice"></i> Payments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#ifEquals title 'Alligations and Rewards'}}active{{/ifEquals}}" href="#"><i
-                            class="fas fa-trophy"></i> Alligations and Rewards</a>
-                </li>
+            </ul>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Designation'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-address-card"></i> Designation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Members'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-user-friends"></i> Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Committe'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-users"></i> Committe</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Penalty'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-dollar-sign"></i> Penalty</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Branch'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-code-branch"></i> Branch</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Payments'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-file-invoice"></i> Payments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{#ifEquals title 'Alligations and Rewards'}}active{{/ifEquals}}" href="#"><i
+                        class="fas fa-trophy"></i> Alligations and Rewards</a>
+            </li>
             </ul>
             <ul class="navbar-nav ">
                 <li class="nav-item dropdown">
@@ -82,7 +100,7 @@
     </nav>
     {{#if success.msg}}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><i class="fas fa-bullhorn"></i></strong>{{success.msg}}
+        <strong><i class="fas fa-bullhorn"></i></strong> {{success.msg}}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {{/if}}
@@ -93,11 +111,11 @@
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>
                 <i class="fas fa-bullhorn"></i>
-            </strong>{{item.msg}}
+            </strong> {{item.msg}}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {{/each}}
         {{/if}}
     </div>
-    
+
 </div>

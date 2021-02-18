@@ -1,7 +1,4 @@
-// Initializing Environment Variable
-require('dotenv').config();
-const { SELECT_LIMIT } = process.env;
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
     rolePermissionRouter = express.Router();
 
 // Return List of All Roles and Permission as Json Dataset
@@ -19,7 +16,6 @@ rolePermissionRouter.get('/', isLoggedIn, (request, response) => {
                         layout: 'main',
                         link: "/RolePermission",
                         UserInfromation: request.session.UserInfromation,
-                        LoginInformation: request.session.LoginInformation,
                         RolePermissionInformation: res.response
                     });
                 });
@@ -30,11 +26,8 @@ rolePermissionRouter.get('/', isLoggedIn, (request, response) => {
             layout: 'main',
             link: "/RolePermission",
             UserInfromation: request.session.UserInfromation,
-            LoginInformation: request.session.LoginInformation,
             RolePermissionInformation: {
-                success: false,
-                status: 400,
-                message: "Role or page missing!"
+                success: false
             }
         });
     }
@@ -69,7 +62,6 @@ rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                                 subTitle: "Edit",
                                 link: "/RolePermission",
                                 UserInfromation: request.session.UserInfromation,
-                                LoginInformation: request.session.LoginInformation,
                                 RolePermissionList: rolePermissionObject,
                                 EditRolePermission: editResult[0]
                             });
@@ -84,7 +76,6 @@ rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                         subTitle: "Add",
                         link: "/RolePermission",
                         UserInfromation: request.session.UserInfromation,
-                        LoginInformation: request.session.LoginInformation,
                         RolePermissionList: rolePermissionObject
                     });
                 } else response.redirect('/RolePermission');
@@ -137,7 +128,6 @@ rolePermissionRouter.post('/Entry', [
             link: "/RolePermission",
             errors: [{ msg: `Invalid Request, Try again later!` }],
             UserInfromation: request.session.UserInfromation,
-            LoginInformation: request.session.LoginInformation,
             RolePermissionInformation: request.session.RolePermissionInformation
         });
     } else
@@ -147,7 +137,6 @@ rolePermissionRouter.post('/Entry', [
             link: "/RolePermission",
             errors: errors.array(),
             UserInfromation: request.session.UserInfromation,
-            LoginInformation: request.session.LoginInformation,
             RolePermissionInformation: request.session.RolePermissionInformation
         });
 });
@@ -166,7 +155,6 @@ rolePermissionRouter.post('/remove/:RolePermission', isLoggedIn, (request, respo
         link: "/RolePermission",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],
         UserInfromation: request.session.UserInfromation,
-        LoginInformation: request.session.LoginInformation,
         RolePermissionInformation: request.session.RolePermissionInformation
     });
 });

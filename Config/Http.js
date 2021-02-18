@@ -1,4 +1,10 @@
 /**
+ * Initializing Environment Variable
+ */
+require('dotenv').config();
+const { SELECT_LIMIT } = process.env;
+
+/**
  * Express Router Set
  */
 const express = require("express");
@@ -36,4 +42,4 @@ const isLoggedIn = require('../Middlewares/isLoggedIn');
  * 
  * @description Export Http Requirements
  */
-module.exports = { express, check, validationResult, queryBox, Exe, Error, isLoggedIn }
+module.exports = { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT }
