@@ -30,8 +30,14 @@
     },
     "Permission": {
         "Select": {
-            "All": "SELECT `PermissionId`, `Name`, `Remarks` FROM `permission`"
-        }
+            "Count": "SELECT count(*) AS Total_Count FROM `permission`",
+            "All": "SELECT `PermissionId`, `Name`, `Remarks` FROM `permission`",
+            "ById": "SELECT `PermissionId`,`Name`,`Remarks` FROM `permission` WHERE `PermissionId`=? ORDER BY Name",
+            "Paginate": "SELECT `PermissionId`, `Name`, `Remarks` FROM `permission` ORDER BY Name LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `permission` (`Name`, `Remarks`) VALUES ",
+        "Update": "UPDATE `permission` SET `Name`=?, `Remarks`=? WHERE `PermissionId`=?",
+        "Delete": "DELETE FROM `permission` WHERE `PermissionId`=?"
     },
     "Role": {
         "Select": {

@@ -15,5 +15,8 @@ module.exports = class WebRoutes {
 
         // Role Route handeled By RoleController
         APP.use('/Role', require('../Controller/Role'));
+
+        // Permission Route handeled By PermissionController
+        APP.use('/Permission', require('../Controller/Permission'));
     }
 }
