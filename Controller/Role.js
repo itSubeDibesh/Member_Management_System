@@ -32,7 +32,7 @@ roleRouter.get('/', isLoggedIn, (request, response) => {
     }
 });
 
-// Role Edit request
+// Role Add Edit GET request
 roleRouter.get('/action/:Task', isLoggedIn, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
@@ -73,7 +73,7 @@ roleRouter.get('/action/:Task', isLoggedIn, (request, response) => {
     } else response.redirect('/Role');
 });
 
-
+// Role Add Edit POST request
 roleRouter.post('/Entry', [
     check('Task')
     .notEmpty()
@@ -118,4 +118,21 @@ roleRouter.post('/Entry', [
         });
 });
 
+roleRouter.post('/remove/:Role', isLoggedIn, (request, response) => {
+    const { Role } = request.params;
+    if (Role != null) {
+        Exe.queryExecuator(queryBox.Role.Delete, parseInt(Role), (error, result) => {
+            if (error != null) Error.log(error);
+            // Check if Result is not null
+            if (result) response.redirect('/Role');
+        });
+    } else response.render('Role/role', {
+        title: 'Roles ',
+        layout: 'main',
+        link: "/Role",
+        errors: [{ msg: `Invalid Delete Request, Try again later!` }],
+        UserInfromation: request.session.UserInfromation,
+        EditRole: request.session.EditRole
+    });
+});
 module.exports = roleRouter;
