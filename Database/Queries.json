@@ -49,5 +49,16 @@
         "Insert": "INSERT INTO `role` (`Name`, `Remarks`) VALUES ",
         "Update": "UPDATE `role` SET `Name`=?, `Remarks`=? WHERE `RoleId`=?",
         "Delete": "DELETE FROM `role` WHERE `RoleId`=?"
+    },
+    "PenaltyCriteria": {
+        "Select": {
+            "Count": "SELECT count(*) AS Total_Count FROM `penaltycriteria`",
+            "All": "SELECT `PenaltyCriteriaId`, `Number_of_Exceeded_Days`, `Amount` FROM `penaltycriteria` ORDER BY Number_of_Exceeded_Days",
+            "ById": "SELECT `PenaltyCriteriaId`, `Number_of_Exceeded_Days`, `Amount` FROM `penaltycriteria` WHERE `PenaltyCriteriaId`=? ORDER BY Number_of_Exceeded_Days",
+            "Paginate": "SELECT `PenaltyCriteriaId`, `Number_of_Exceeded_Days`, `Amount` FROM `penaltycriteria` ORDER BY Number_of_Exceeded_Days LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `penaltycriteria` (`Number_of_Exceeded_Days`, `Amount`) VALUES ",
+        "Update": "UPDATE `penaltycriteria` SET `Number_of_Exceeded_Days`=?, `Amount`=? WHERE `PenaltyCriteriaId`=?",
+        "Delete": "DELETE FROM `penaltycriteria` WHERE `PenaltyCriteriaId`=?"
     }
 }

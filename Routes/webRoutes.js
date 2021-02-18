@@ -18,5 +18,8 @@ module.exports = class WebRoutes {
 
         // Permission Route handeled By PermissionController
         APP.use('/Permission', require('../Controller/Permission'));
+
+        // PenaltyCriteria Route handeled By PenaltyCriteriaController
+        APP.use('/PenaltyCriteria', require('../Controller/PenaltyCriteria'));
     }
 }
