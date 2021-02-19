@@ -10,6 +10,7 @@ roleRouter.get('/', isLoggedIn, (request, response) => {
         count(queryBox.Role.Select.Count, null, (result) => {
             if (response)
                 paginate(request.baseUrl, request.url, page, queryBox.Role.Select.Paginate, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
+                    request.session.RoleInformation = res.response;
                     response.render('Role/role', {
                         title: 'Roles',
                         layout: 'main',
@@ -105,7 +106,8 @@ roleRouter.post('/Entry', [
             link: "/Role",
             errors: [{ msg: `Invalid Request, Try again later!` }],
             UserInfromation: request.session.UserInfromation,
-            EditRole: request.session.EditRole
+            EditRole: request.session.EditRole,
+            RoleInformation: request.session.RoleInformation
         });
     } else
         response.render('Role/role', {
@@ -114,7 +116,8 @@ roleRouter.post('/Entry', [
             link: "/Role",
             errors: errors.array(),
             UserInfromation: request.session.UserInfromation,
-            EditRole: request.session.EditRole
+            EditRole: request.session.EditRole,
+            RoleInformation: request.session.RoleInformation
         });
 });
 
@@ -132,7 +135,8 @@ roleRouter.post('/remove/:Role', isLoggedIn, (request, response) => {
         link: "/Role",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],
         UserInfromation: request.session.UserInfromation,
-        EditRole: request.session.EditRole
+        EditRole: request.session.EditRole,
+        RoleInformation: request.session.RoleInformation
     });
 });
 module.exports = roleRouter;

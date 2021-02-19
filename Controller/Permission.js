@@ -10,6 +10,7 @@ permissionRouter.get('/', isLoggedIn, (request, response) => {
         count(queryBox.Permission.Select.Count, null, (result) => {
             if (response)
                 paginate(request.baseUrl, request.url, page, queryBox.Permission.Select.Paginate, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
+                    request.session.PermissionInformation = res.response;
                     response.render('Permission/permission', {
                         title: 'Permissions',
                         layout: 'main',
@@ -105,7 +106,8 @@ permissionRouter.post('/Entry', [
             link: "/Permission",
             errors: [{ msg: `Invalid Request, Try again later!` }],
             UserInfromation: request.session.UserInfromation,
-            EditPermission: request.session.EditPermission
+            EditPermission: request.session.EditPermission,
+            PermissionInformation: request.session.PermissionInformation
         });
     } else
         response.render('Permission/permission', {
@@ -114,7 +116,8 @@ permissionRouter.post('/Entry', [
             link: "/Permission",
             errors: errors.array(),
             UserInfromation: request.session.UserInfromation,
-            EditPermission: request.session.EditPermission
+            EditPermission: request.session.EditPermission,
+            PermissionInformation: request.session.PermissionInformation
         });
 });
 
@@ -132,7 +135,8 @@ permissionRouter.post('/remove/:Permission', isLoggedIn, (request, response) => 
         link: "/Permission",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],
         UserInfromation: request.session.UserInfromation,
-        EditPermission: request.session.EditPermission
+        EditPermission: request.session.EditPermission,
+        PermissionInformation: request.session.PermissionInformation
     });
 });
 module.exports = permissionRouter;

@@ -10,6 +10,7 @@ designationRouter.get('/', isLoggedIn, (request, response) => {
         count(queryBox.Designation.Select.Count, null, (result) => {
             if (response)
                 paginate(request.baseUrl, request.url, page, queryBox.Designation.Select.Paginate, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
+                    request.session.DesignationInformation = res.response;
                     response.render('Designation/designation', {
                         title: 'Designation',
                         layout: 'main',
@@ -115,7 +116,8 @@ designationRouter.post('/Entry', [
             link: "/Designation",
             errors: [{ msg: `Invalid Request, Try again later!` }],
             UserInfromation: request.session.UserInfromation,
-            EditDesignation: request.session.EditDesignation
+            EditDesignation: request.session.EditDesignation,
+            DesignationInformation: request.session.DesignationInformation
         });
     } else
         response.render('Designation/designation', {
@@ -124,7 +126,8 @@ designationRouter.post('/Entry', [
             link: "/Designation",
             errors: errors.array(),
             UserInfromation: request.session.UserInfromation,
-            EditDesignation: request.session.EditDesignation
+            EditDesignation: request.session.EditDesignation,
+            DesignationInformation: request.session.DesignationInformation
         });
 });
 
@@ -142,7 +145,8 @@ designationRouter.post('/remove/:Designation', isLoggedIn, (request, response) =
         link: "/Designation",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],
         UserInfromation: request.session.UserInfromation,
-        EditDesignation: request.session.EditDesignation
+        EditDesignation: request.session.EditDesignation,
+        DesignationInformation: request.session.DesignationInformation
     });
 });
 module.exports = designationRouter;

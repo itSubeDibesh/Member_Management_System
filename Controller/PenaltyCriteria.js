@@ -10,6 +10,7 @@ penaltyCriteriaRouter.get('/', isLoggedIn, (request, response) => {
         count(queryBox.PenaltyCriteria.Select.Count, null, (result) => {
             if (response)
                 paginate(request.baseUrl, request.url, page, queryBox.PenaltyCriteria.Select.Paginate, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
+                    request.session.PenaltyCriteriaInformation = res.response;
                     response.render('PenaltyCriteria/penaltyCriteria', {
                         title: 'Penalty Criteria',
                         layout: 'main',
@@ -112,7 +113,8 @@ penaltyCriteriaRouter.post('/Entry', [
             link: "/PenaltyCriteria",
             errors: [{ msg: `Invalid Request, Try again later!` }],
             UserInfromation: request.session.UserInfromation,
-            EditPenaltyCriteria: request.session.EditPenaltyCriteria
+            EditPenaltyCriteria: request.session.EditPenaltyCriteria,
+            PenaltyCriteriaInformation: request.session.PenaltyCriteriaInformation
         });
     } else
         response.render('PenaltyCriteria/penaltyCriteria', {
@@ -121,7 +123,8 @@ penaltyCriteriaRouter.post('/Entry', [
             link: "/PenaltyCriteria",
             errors: errors.array(),
             UserInfromation: request.session.UserInfromation,
-            EditPenaltyCriteria: request.session.EditPenaltyCriteria
+            EditPenaltyCriteria: request.session.EditPenaltyCriteria,
+            PenaltyCriteriaInformation: request.session.PenaltyCriteriaInformation
         });
 });
 
@@ -139,7 +142,8 @@ penaltyCriteriaRouter.post('/remove/:PenaltyCriteria', isLoggedIn, (request, res
         link: "/PenaltyCriteria",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],
         UserInfromation: request.session.UserInfromation,
-        EditPenaltyCriteria: request.session.EditPenaltyCriteria
+        EditPenaltyCriteria: request.session.EditPenaltyCriteria,
+        PenaltyCriteriaInformation: request.session.PenaltyCriteriaInformation
     });
 });
 module.exports = penaltyCriteriaRouter;
