@@ -11,7 +11,7 @@ roleRouter.get('/', isLoggedIn, (request, response) => {
             if (response)
                 paginate(request.baseUrl, request.url, page, queryBox.Role.Select.Paginate, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
                     response.render('Role/role', {
-                        title: 'Roles ',
+                        title: 'Roles',
                         layout: 'main',
                         link: "/Role",
                         UserInfromation: request.session.UserInfromation,
@@ -21,7 +21,7 @@ roleRouter.get('/', isLoggedIn, (request, response) => {
         });
     } else {
         response.render('Role/role', {
-            title: 'Roles ',
+            title: 'Roles',
             layout: 'main',
             link: "/Role",
             UserInfromation: request.session.UserInfromation,
@@ -49,7 +49,7 @@ roleRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                     request.session.EditRole = editResult[0];
                     // Check if Result is not null
                     if (editResult) response.render('Role/addEditRole', {
-                        title: 'Roles ',
+                        title: 'Roles',
                         layout: 'main',
                         pageType: Task,
                         subTitle: "Edit",
@@ -62,7 +62,7 @@ roleRouter.get('/action/:Task', isLoggedIn, (request, response) => {
         } else if (Task == 'add') {
             // Render Add form
             response.render('Role/addEditRole', {
-                title: 'Roles ',
+                title: 'Roles',
                 layout: 'main',
                 pageType: Task,
                 subTitle: "Add",
@@ -100,7 +100,7 @@ roleRouter.post('/Entry', [
                 if (result) response.redirect('/Role');
             });
         } else response.render('Role/role', {
-            title: 'Roles ',
+            title: 'Roles',
             layout: 'main',
             link: "/Role",
             errors: [{ msg: `Invalid Request, Try again later!` }],
@@ -109,7 +109,7 @@ roleRouter.post('/Entry', [
         });
     } else
         response.render('Role/role', {
-            title: 'Roles ',
+            title: 'Roles',
             layout: 'main',
             link: "/Role",
             errors: errors.array(),
@@ -127,7 +127,7 @@ roleRouter.post('/remove/:Role', isLoggedIn, (request, response) => {
             if (result) response.redirect('/Role');
         });
     } else response.render('Role/role', {
-        title: 'Roles ',
+        title: 'Roles',
         layout: 'main',
         link: "/Role",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],

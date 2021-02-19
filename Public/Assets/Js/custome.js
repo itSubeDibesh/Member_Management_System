@@ -1,0 +1,1 @@
+document.getElementById("checkedShow").addEventListener("change", () => { let x = document.getElementById("Password"); "password" === x.type ? x.type = "text" : x.type = "password" });

@@ -24,5 +24,8 @@ module.exports = class WebRoutes {
 
         // Designation Route handeled By DesignationController
         APP.use('/Designation', require('../Controller/Designation'));
+
+        // User Route handeled By UserController
+        APP.use('/User', require('../Controller/User'));
     }
 }

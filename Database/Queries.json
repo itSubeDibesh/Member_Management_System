@@ -1,6 +1,15 @@
 {
     "User": {
-        "Login": "SELECT User.UserId,USER.RoleId,MEMBER.MemberId, MEMBER.DesignationId, USER.UserName,USER.Password,ROLE.Name AS Role,DESIGNATION.Name AS Designation,DESIGNATION.Hierarchy_Value,DESIGNATION.Membership_Fee, MEMBER.Status AS Member_Status,MEMBER.Joined_Date,MEMBER.Membership_Renew_Status,MEMBER.Last_Renewed_Date FROM `user` User LEFT JOIN `role` ROLE ON ROLE.RoleId = USER.RoleId LEFT JOIN `member` MEMBER ON MEMBER.UserId = USER.UserId LEFT JOIN `designation` DESIGNATION ON DESIGNATION.DesignationId = MEMBER.DesignationId WHERE UserName = ? AND Password = ?"
+        "Login": "SELECT User.UserId,USER.RoleId,MEMBER.MemberId, MEMBER.DesignationId, USER.UserName,USER.Password,ROLE.Name AS Role,DESIGNATION.Name AS Designation,DESIGNATION.Hierarchy_Value,DESIGNATION.Membership_Fee, MEMBER.Status AS Member_Status,MEMBER.Joined_Date,MEMBER.Membership_Renew_Status,MEMBER.Last_Renewed_Date FROM `user` User LEFT JOIN `role` ROLE ON ROLE.RoleId = USER.RoleId LEFT JOIN `member` MEMBER ON MEMBER.UserId = USER.UserId LEFT JOIN `designation` DESIGNATION ON DESIGNATION.DesignationId = MEMBER.DesignationId WHERE UserName = ? AND Password = ?",
+        "Select": {
+            "Count": "SELECT count(*) AS Total_Count FROM `user` WHERE UserId !=?",
+            "All": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId` !=? ORDER BY USER.`UserName`",
+            "ById": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId`=? ORDER BY USER.`UserName`",
+            "Paginate": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER  LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId` !=? ORDER BY USER.`UserName` LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `user` (`RoleId`, `UserName`, `Password`) VALUES ",
+        "Update": "UPDATE `user` SET `RoleId`=?, `UserName`=?, `Password`=? WHERE `UserId`=?",
+        "Delete": "DELETE FROM `user` WHERE `UserId`=?"
     },
     "RolePermission": {
         "Select": {
