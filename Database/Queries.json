@@ -93,5 +93,16 @@
         "Insert": "INSERT INTO `member` (`UserId`, `DesignationId`, `Name`, `DOB`, `Address`, `Profession`, `Gender`, `Contact`, `Status`, `Joined_Date`, `Membership_Renew_Status`, `Last_Renewed_Date`) VALUES ",
         "Update": "UPDATE `member` SET `UserId`=?, `DesignationId`=?, `Name`=?,`DOB`=?,`Address`=?,`Profession`=?,`Gender`=?,`Contact`=?,`Status`=?,`Joined_Date`=?,`Membership_Renew_Status`=?,`Last_Renewed_Date`=? WHERE `MemberId`=?",
         "Delete": "DELETE FROM `member` WHERE `MemberId`=?"
+    },
+    "Branch": {
+        "Select": {
+            "Count": "SELECT count(*) AS Total_Count FROM `branch`",
+            "All": "SELECT `BranchId`, `ParentId`, `Name`, `Address`, `Contact`, `Status` FROM `branch` ORDER BY Name",
+            "ById": "SELECT `BranchId`, `ParentId`, `Name`, `Address`, `Contact`, `Status` FROM `branch` WHERE `BranchId`=? ORDER BY Name",
+            "Paginate": "SELECT `BranchId`, `ParentId`, `Name`, `Address`, `Contact`, `Status` FROM `branch` ORDER BY Name LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `branch` (`ParentId`, `Name`, `Address`, `Contact`, `Status`) VALUES ",
+        "Update": "UPDATE `branch` SET `ParentId`=?, `Name`=?, `Address`=?, `Contact`=?, `Status`=? WHERE `BranchId`=?",
+        "Delete": "DELETE FROM `branch` WHERE `BranchId`=?"
     }
 }

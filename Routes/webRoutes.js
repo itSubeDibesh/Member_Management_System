@@ -30,5 +30,8 @@ module.exports = class WebRoutes {
 
         // Member Route handeled By MemberController
         APP.use('/Member', require('../Controller/Member'));
+
+        // Branch Route handeled By BranchController
+        APP.use('/Branch', require('../Controller/Branch'));
     }
 }
