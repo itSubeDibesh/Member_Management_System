@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2021 at 02:19 PM
+-- Generation Time: Feb 20, 2021 at 02:25 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -76,6 +76,7 @@ CREATE TABLE `committe` (
 --
 
 CREATE TABLE `committemember` (
+  `ComitteMemberId` int(11) NOT NULL,
   `CommitteId` int(11) NOT NULL,
   `MemberId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -233,6 +234,7 @@ ALTER TABLE `committe`
 -- Indexes for table `committemember`
 --
 ALTER TABLE `committemember`
+  ADD PRIMARY KEY (`ComitteMemberId`),
   ADD KEY `ComitteID_FK_ComitteMember_ComitteId` (`CommitteId`),
   ADD KEY `Member_Fk_CommitteMember_MemberId` (`MemberId`);
 
@@ -312,6 +314,12 @@ ALTER TABLE `branch`
 --
 ALTER TABLE `committe`
   MODIFY `ComitteId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `committemember`
+--
+ALTER TABLE `committemember`
+  MODIFY `ComitteMemberId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `designation`
