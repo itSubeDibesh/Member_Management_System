@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2021 at 03:08 PM
+-- Generation Time: Feb 20, 2021 at 02:19 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -49,7 +49,7 @@ CREATE TABLE `branch` (
   `Name` varchar(100) NOT NULL,
   `Address` varchar(100) DEFAULT NULL,
   `Contact` varchar(20) DEFAULT NULL,
-  `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Inactive',
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

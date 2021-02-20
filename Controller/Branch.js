@@ -102,7 +102,8 @@ branchRouter.post('/Entry', [
 ], isLoggedIn, (request, response) => {
     // Extracted Elements from request body
     let { Task, ParentId, Name, Address, Contact, Status } = request.body;
-    console.log(request.body)
+    ParentId = ParentId != undefined ? ParentId : null;
+    Status = Status != undefined ? Status : "Inactive";
     const errors = validationResult(request);
     if (errors.isEmpty()) {
         if (Task == 'add') {
