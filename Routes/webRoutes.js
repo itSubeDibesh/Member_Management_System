@@ -1,5 +1,5 @@
 /**
- * Web Routes Regestry
+ * Web Routes Regeistry
  */
 module.exports = class WebRoutes {
     /**
@@ -33,5 +33,8 @@ module.exports = class WebRoutes {
 
         // Branch Route handeled By BranchController
         APP.use('/Branch', require('../Controller/Branch'));
+
+        // AlligationsAndRewards Route handeled By AlligationsAndRewardsController
+        APP.use('/AlligationsAndRewards', require('../Controller/AlligationsAndRewards'));
     }
 }
