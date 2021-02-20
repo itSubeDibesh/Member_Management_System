@@ -12,7 +12,7 @@ alligationsAndRewardsRouter.get('/', isLoggedIn, (request, response) => {
                 paginate(request.baseUrl, request.url, page, queryBox.AlligationsAndRewards.Select.Paginate, [parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
                     request.session.AlligationsAndRewardsInformation = res.response;
                     response.render('AlligationsAndRewards/alligationsAndRewards', {
-                        title: 'Alligations and Rewards',
+                        title: 'Alligations or Rewards',
                         layout: 'main',
                         link: "/AlligationsAndRewards",
                         UserInfromation: request.session.UserInfromation,
@@ -22,7 +22,7 @@ alligationsAndRewardsRouter.get('/', isLoggedIn, (request, response) => {
         });
     } else {
         response.render('AlligationsAndRewards/alligationsAndRewards', {
-            title: 'Alligations and Rewards',
+            title: 'Alligations or Rewards',
             layout: 'main',
             link: "/AlligationsAndRewards",
             UserInfromation: request.session.UserInfromation,
@@ -56,7 +56,7 @@ alligationsAndRewardsRouter.get('/action/:Task', isLoggedIn, (request, response)
                             request.session.EditAlligationsAndRewards = editResult[0];
                             // Check if Result is not null
                             if (editResult) response.render('AlligationsAndRewards/addEditAlligationsAndRewards', {
-                                title: 'Alligations and Rewards',
+                                title: 'Alligations or Rewards',
                                 layout: 'main',
                                 pageType: Task,
                                 subTitle: "Edit",
@@ -70,7 +70,7 @@ alligationsAndRewardsRouter.get('/action/:Task', isLoggedIn, (request, response)
                 } else if (Task == 'add') {
                     // Render Add form
                     response.render('AlligationsAndRewards/addEditAlligationsAndRewards', {
-                        title: 'Alligations and Rewards',
+                        title: 'Alligations or Rewards',
                         layout: 'main',
                         pageType: Task,
                         subTitle: "Add",
@@ -120,7 +120,7 @@ alligationsAndRewardsRouter.post('/Entry', [
                 if (result) response.redirect('/AlligationsAndRewards');
             });
         } else response.render('AlligationsAndRewards/AlligationsAndRewards', {
-            title: 'Alligations and Rewards',
+            title: 'Alligations or Rewards',
             layout: 'main',
             link: "/AlligationsAndRewards",
             errors: [{ msg: `Invalid Request, Try again later!` }],
@@ -130,7 +130,7 @@ alligationsAndRewardsRouter.post('/Entry', [
         });
     } else
         response.render('AlligationsAndRewards/AlligationsAndRewards', {
-            title: 'Alligations and Rewards',
+            title: 'Alligations or Rewards',
             layout: 'main',
             link: "/AlligationsAndRewards",
             errors: errors.array(),
@@ -149,7 +149,7 @@ alligationsAndRewardsRouter.post('/remove/:AlligationsAndRewards', isLoggedIn, (
             if (result) response.redirect('/AlligationsAndRewards');
         });
     } else response.render('AlligationsAndRewards/AlligationsAndRewards', {
-        title: 'Alligations and Rewards',
+        title: 'Alligations or Rewards',
         layout: 'main',
         link: "/AlligationsAndRewards",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],

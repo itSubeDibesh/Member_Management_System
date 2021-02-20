@@ -20,7 +20,7 @@
                         }}selected{{/ifEquals}}>{{users.UserName}} - {{users.Role}}</option>
                     {{/each}}
                 </select>
-                {{#if MemberInformation}}
+                {{#if MemberInformation.UserName}}
                 <span class="badge bg-primary"> {{MemberInformation.UserName}} -
                     {{MemberInformation.Role}}</span>
                 {{/if}}
@@ -35,7 +35,7 @@
                     </option>
                     {{/each}}
                 </select>
-                {{#if MemberInformation}}
+                {{#if MemberInformation.Designation}}
                 <span class="badge bg-primary">
                     {{MemberInformation.Designation}}</span>
                 {{/if}}
@@ -68,7 +68,7 @@
                     <option value="None" {{#ifEquals MemberInformation.Gender "None" }}selected{{/ifEquals}}>None
                     </option>
                 </select>
-                {{#if MemberInformation}}
+                {{#if MemberInformation.Gender}}
                 <span class="badge bg-primary"> {{MemberInformation.Gender}}</span>
                 {{/if}}
             </div>

@@ -2,7 +2,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-6">
-                <h5>Member List</h5>
+                <h5>Member List With Login</h5>
             </div>
             <div class="col-6 text-end">
                 <a class="btn btn-primary btn-sm " href="/Member/action/add"><i class="fas fa-pen"></i> Add</a>
@@ -35,15 +35,15 @@
                         <td>{{this.Designation}}</td>
                         <td>{{this.Contact}}</td>
                         <td>{{this.Status}}</td>
-                        <td class="text-center"><a
-                                href="/Member/action/edit?Member={{this.MemberId}}"
+                        <td class="text-center"><a href="/Member/action/edit?Member={{this.MemberId}}"
                                 style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
                                 Edit</a>
                             </form>
                         </td>
                         <td class="text-center">
                             <form method="POST" action="/Member/remove/{{this.MemberId}}">
-                                <button type="submit" style="background: transparent; color:white;border:none;"><i class="fas fa-trash text-danger"></i>
+                                <button type="submit" style="background: transparent; color:white;border:none;"><i
+                                        class="fas fa-trash text-danger"></i>
                                     Delete</button>
                             </form>
                         </td>
@@ -85,6 +85,86 @@
         {{/ifEquals}}
 
         {{#ifNotEquals MemberInformation.success true}}
+        <div class="text-center">
+            <h3 class="text-danger">Member Not Found! </h3>
+        </div>
+        {{/ifNotEquals}}
+    </div>
+</div>
+<div class="card mt-4">
+    <h5 class="card-header">Member List Without Login</h5>
+    <div class="card-body">
+        {{#ifEquals MemberWithLoginInformation.success true}}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Status</th>
+                        <th class="text-center" colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each MemberWithLoginInformation.result}}
+                    <tr>
+                        <td>{{SN @index}}</td>
+                        <td>{{this.Name}}</td>
+                        <td>{{this.Designation}}</td>
+                        <td>{{this.Contact}}</td>
+                        <td>{{this.Status}}</td>
+                        <td class="text-center"><a href="/Member/action/edit?Member={{this.MemberId}}"
+                                style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
+                                Edit</a>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <form method="POST" action="/Member/remove/{{this.MemberId}}">
+                                <button type="submit" style="background: transparent; color:white;border:none;"><i
+                                        class="fas fa-trash text-danger"></i>
+                                    Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="9">
+                            <ul class="pagination justify-content-center">
+                                {{#if MemberWithLoginInformation.navigation.previous_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{MemberWithLoginInformation.navigation.previous_page}}">Previous</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{MemberWithLoginInformation.navigation.previous_page}}" tabindex="-1"
+                                        aria-disabled="true">Previous</a></li>
+                                {{/if}}
+
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{MemberWithLoginInformation.navigation.current_page}}" tabindex="0"
+                                        aria-disabled="true">Current</a></li>
+
+                                {{#if MemberWithLoginInformation.navigation.next_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{MemberWithLoginInformation.navigation.next_page}}">Next</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{MemberWithLoginInformation.navigation.next_page}}" tabindex="1"
+                                        aria-disabled="true">Next</a></li>
+                                {{/if}}
+
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {{/ifEquals}}
+
+        {{#ifNotEquals MemberWithLoginInformation.success true}}
         <div class="text-center">
             <h3 class="text-danger">Member Not Found! </h3>
         </div>

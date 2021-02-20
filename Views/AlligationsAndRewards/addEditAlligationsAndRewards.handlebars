@@ -1,0 +1,65 @@
+<div class="card">
+    <h5 class="card-header">{{ToFirstUpper pageType}} Alligations Or Rewards</h5>
+    <div class="card-body overflow-scroll">
+        <form method="POST" action="/AlligationsAndRewards/Entry">
+            <input type="hidden" name="Task" value="{{pageType}}">
+            <div class="mb-3">
+                {{#if EditAlligationsAndRewards}}
+                <input type="hidden" name="AlligationsAndRewards"
+                    value="{{EditAlligationsAndRewards.AlligationsAndRewardsID}}">
+                {{/if}}
+                {{#ifEquals pageType 'add'}}
+                <label for="MemberId" class="form-label">Select User assigned with member</label>
+                <select class="form-select" name="MemberId" id="MemberId" required>
+                    <option selected disabled>Select User assigned to member</option>
+                    {{#each MemberList as |members|}}
+                    <option value="{{members.MemberId}}" {{#ifEquals ../EditAlligationsAndRewards.MemberId
+                        members.MemberId }}selected{{/ifEquals}}>{{members.UserName}} - {{members.Role}}</option>
+                    {{/each}}
+                </select>
+                {{/ifEquals}}
+                {{#if EditAlligationsAndRewards.MemberId}}
+                {{#each MemberList as |alias|}}
+                {{#ifEquals ../EditAlligationsAndRewards.MemberId
+                alias.MemberId }}
+                <label>Member Name</label>
+                <input type="hidden" name="MemberId" value="{{alias.MemberId}}">
+                <span class="badge bg-primary"> {{alias.UserName}} - {{alias.Role}}
+                    {{EditAlligationsAndRewards.Role}}</span>
+                {{/ifEquals}}
+                {{/each}}
+                {{/if}}
+            </div>
+            <div class="mb-3">
+                <label for="Title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="Title" name="Title"
+                    value="{{#if EditAlligationsAndRewards}}{{EditAlligationsAndRewards.Title}}{{/if}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="Type" class="form-label">Type</label>
+                <select class="form-select" name="Type" id="Type" aria-label="Default select" required>
+                    <option selected disabled>Select Type</option>
+                    <option value="Alligation" {{#ifEquals EditAlligationsAndRewards.Type "Alligation"
+                        }}selected{{/ifEquals}}>Alligation
+                    </option>
+                    <option value="Reward" {{#ifEquals EditAlligationsAndRewards.Type "Reward" }}selected{{/ifEquals}}>
+                        Reward
+                    </option>
+                </select>
+                {{#if EditAlligationsAndRewards.Type}}
+                <span class="badge bg-primary"> {{EditAlligationsAndRewards.Type}}</span>
+                {{/if}}
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" id="Description"
+                    name="Description">{{#if EditAlligationsAndRewards}}{{EditAlligationsAndRewards.Description}}{{/if}}</textarea>
+                <label for="Description">Description</label>
+            </div>
+            <div class="mt-3 text-center">
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals
+                    pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
+                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

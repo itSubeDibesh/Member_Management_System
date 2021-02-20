@@ -8,18 +8,30 @@ memberRouter.get('/', isLoggedIn, (request, response) => {
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
             offset = (page - 1) * parseInt(SELECT_LIMIT);
+        // With Login
         count(queryBox.Member.Select.Count, parseInt(LoggedInUser.UserId), (result) => {
-            if (response)
-                paginate(request.baseUrl, request.url, page, queryBox.Member.Select.Paginate, [parseInt(LoggedInUser.UserId), parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
-                    request.session.MemberInformation = res.response;
-                    response.render('Member/member', {
-                        title: 'Member',
-                        layout: 'main',
-                        link: "/Member",
-                        UserInfromation: LoggedInUser,
-                        MemberInformation: res.response
+            count(queryBox.Member.Select.CountWithoutUser, null, (withoutResult) => {
+                //    Without Login
+                if (withoutResult)
+                // With Login
+                    if (response)
+                    paginate(request.baseUrl, request.url, page, queryBox.Member.Select.Paginate, [parseInt(LoggedInUser.UserId), parseInt(SELECT_LIMIT), parseInt(offset)], result.result.Total_Count, (res) => {
+                        // Without Login
+                        paginate(request.baseUrl, request.url, page, queryBox.Member.Select.PaginateWithoutUser, [parseInt(SELECT_LIMIT), parseInt(offset)], withoutResult.result.Total_Count, (responseLogin) => {
+                            request.session.MemberInformation = res.response;
+                            request.session.MemberWithLoginInformation = responseLogin.response;
+                            console.log(responseLogin.response)
+                            response.render('Member/member', {
+                                title: 'Member',
+                                layout: 'main',
+                                link: "/Member",
+                                UserInfromation: LoggedInUser,
+                                MemberInformation: res.response,
+                                MemberWithLoginInformation: responseLogin.response,
+                            });
+                        });
                     });
-                });
+            });
         });
     } else {
         response.render('Member/member', {
@@ -28,6 +40,9 @@ memberRouter.get('/', isLoggedIn, (request, response) => {
             link: "/Member",
             UserInfromation: request.session.UserInfromation,
             MemberInformation: {
+                success: false
+            },
+            MemberWithLoginInformation: {
                 success: false
             }
         });
@@ -69,7 +84,8 @@ memberRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                                                 link: "/Member",
                                                 UserInfromation,
                                                 Lists: { User: allUserResult, Designation: allDesignationResult },
-                                                MemberInformation
+                                                MemberInformation,
+                                                MemberWithLoginInformation: request.session.MemberWithLoginInformation
                                             });
                                         } else response.redirect('/Member');
                                     } else response.redirect('/Member');
@@ -92,7 +108,8 @@ memberRouter.get('/action/:Task', isLoggedIn, (request, response) => {
                             link: "/Member",
                             errors: [{ msg: `Invalid Request, Try again later!` }],
                             UserInfromation: UserInfromation,
-                            MemberInformation: request.session.MemberInformation
+                            MemberInformation: request.session.MemberInformation,
+                            MemberWithLoginInformation: request.session.MemberWithLoginInformation
                         });
                     }
                 });
@@ -106,12 +123,9 @@ memberRouter.post('/Entry', [
     check('Task')
     .notEmpty()
     .withMessage('Task is Required to set Member!'),
-    check('UserId')
-    .notEmpty()
-    .withMessage('User is Required to set Member!'),
     check('DesignationId')
     .notEmpty()
-    .withMessage('Designation must have 5-20 characters.'),
+    .withMessage('Designation is Required to set Member!'),
     check('Name')
     .notEmpty()
     .withMessage('Name is Required to set Member!'),
@@ -129,26 +143,26 @@ memberRouter.post('/Entry', [
     .withMessage('Gender is Required to set Member!'),
     check('Contact')
     .notEmpty()
-    .withMessage('Contact is Required to set Member!'),
-    check('Status')
-    .notEmpty()
-    .withMessage('Status is Required to set Member!')
+    .withMessage('Contact is Required to set Member!')
 ], isLoggedIn, (request, response) => {
     // Extracted Elements from request body
     let { Task, UserId, DesignationId, Name, DOB, Address, Profession, Gender, Contact, Status, Joined_Date, Membership_Renew_Status, Last_Renewed_Date } = request.body;
     const errors = validationResult(request);
+    UserId = UserId != undefined || UserId != null ? parseInt(UserId) : null;
+    DesignationId = DesignationId != undefined || DesignationId != null ? parseInt(DesignationId) : null;
+    Status = Status != null ? Status : "Inactive";
     if (errors.isEmpty()) {
         if (Task == 'add') {
             // Executing Sql Query
             // `UserId`, `DesignationId`, `Name`, `DOB`, `Address`, `Profession`, `Gender`, `Contact`, `Status`, `Joined_Date`, `Membership_Renew_Status`, `Last_Renewed_Date`
-            Exe.queryExecuator(queryBox.Member.Insert + `(${parseInt(UserId)},${parseInt(DesignationId)},'${Name}',${DOB},'${Address}','${Profession}','${Gender}',${Contact},'${Status}','${Joined_Date||null}','${Membership_Renew_Status||null}','${Last_Renewed_Date||null}')`, null, (error, result) => {
+            Exe.queryExecuator(queryBox.Member.Insert + `(${UserId},${DesignationId},'${Name}',${DOB},'${Address}','${Profession}','${Gender}',${Contact},'${Status}','${Joined_Date || null}','${Membership_Renew_Status || null}','${Last_Renewed_Date || null}')`, null, (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/Member');
             });
         } else if (Task == 'edit') {
             const { Member } = request.body;
             // Perform edit operation
-            Exe.queryExecuator(queryBox.Member.Update, [parseInt(UserId), parseInt(DesignationId), `${Name}`, DOB, `${Address}`, `${Profession}`, `${Gender}`, `${Contact}`, `${Status}`, Joined_Date || null, Membership_Renew_Status || null, Last_Renewed_Date || null, parseInt(Member)], (error, result) => {
+            Exe.queryExecuator(queryBox.Member.Update, [UserId, DesignationId, `${Name}`, DOB, `${Address}`, `${Profession}`, `${Gender}`, `${Contact}`, `${Status}`, Joined_Date || null, Membership_Renew_Status || null, Last_Renewed_Date || null, parseInt(Member)], (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/Member');
             });
@@ -158,7 +172,8 @@ memberRouter.post('/Entry', [
             link: "/Member",
             errors: [{ msg: `Invalid Request, Try again later!` }],
             UserInfromation: request.session.UserInfromation,
-            MemberInformation: request.session.MemberInformation
+            MemberInformation: request.session.MemberInformation,
+            MemberWithLoginInformation: request.session.MemberWithLoginInformation
         });
     } else
         response.render('Member/member', {
@@ -167,7 +182,8 @@ memberRouter.post('/Entry', [
             link: "/Member",
             errors: errors.array(),
             UserInfromation: request.session.UserInfromation,
-            MemberInformation: request.session.MemberInformation
+            MemberInformation: request.session.MemberInformation,
+            MemberWithLoginInformation: request.session.MemberWithLoginInformation
         });
 });
 
@@ -185,7 +201,8 @@ memberRouter.post('/remove/:Member', isLoggedIn, (request, response) => {
         link: "/Member",
         errors: [{ msg: `Invalid Delete Request, Try again later!` }],
         UserInfromation: request.session.UserInfromation,
-        MemberInformation: request.session.MemberInformation
+        MemberInformation: request.session.MemberInformation,
+        MemberWithLoginInformation: request.session.MemberWithLoginInformation
     });
 });
 module.exports = memberRouter;
