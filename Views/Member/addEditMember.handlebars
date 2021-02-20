@@ -1,0 +1,127 @@
+<div class="card">
+    <h5 class="card-header">{{ToFirstUpper pageType}} Member</h5>
+    <div class="card-body overflow-scroll">
+        <form method="POST" action="/Member/Entry">
+            <input type="hidden" name="Task" value="{{pageType}}">
+            <div class="mb-3">
+                {{#if MemberInformation}}
+                <input type="hidden" name="Member" value="{{MemberInformation.MemberId}}">
+                {{/if}}
+                <label for="Name" class="form-label">Member Name</label>
+                <input type="text" class="form-control" id="Name" name="Name"
+                    value="{{#if MemberInformation}}{{MemberInformation.Name}}{{/if}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="UserId" class="form-label">Select User assigned with member</label>
+                <select class="form-select" name="UserId" id="UserId" required>
+                    <option selected disabled>Select User assigned to member</option>
+                    {{#each Lists.User as |users|}}
+                    <option value="{{users.UserId}}" {{#ifEquals ../MemberInformation.UserId users.UserId
+                        }}selected{{/ifEquals}}>{{users.UserName}} - {{users.Role}}</option>
+                    {{/each}}
+                </select>
+                {{#if MemberInformation}}
+                <span class="badge bg-primary"> {{MemberInformation.UserName}} -
+                    {{MemberInformation.Role}}</span>
+                {{/if}}
+            </div>
+            <div class="mb-3">
+                <label for="DesignationId" class="form-label">Select Designation assigned with member</label>
+                <select class="form-select" name="DesignationId" id="DesignationId" required>
+                    <option selected disabled>Select Designation assigned to member</option>
+                    {{#each Lists.Designation as |designation|}}
+                    <option value="{{designation.DesignationId}}" {{#ifEquals ../MemberInformation.DesignationId
+                        designation.DesignationId }}selected{{/ifEquals}}>{{designation.Name}} - {{designation.Remarks}}
+                    </option>
+                    {{/each}}
+                </select>
+                {{#if MemberInformation}}
+                <span class="badge bg-primary">
+                    {{MemberInformation.Designation}}</span>
+                {{/if}}
+            </div>
+            <div class="mb-3">
+                <label for="DOB" class="form-label">Date of birth</label>
+                <input type="date" class="form-control" id="DOB" name="DOB"
+                    value="{{#if MemberInformation}}{{ParseDate MemberInformation.DOB}}{{/if}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="Address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="Address" name="Address"
+                    value="{{#if MemberInformation}}{{MemberInformation.Address}}{{/if}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="Profession" class="form-label">Profession</label>
+                <input type="text" class="form-control" id="Profession" name="Profession"
+                    value="{{#if MemberInformation}}{{MemberInformation.Profession}}{{/if}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="Gender" class="form-label">Gender</label>
+                <select class="form-select" name="Gender" id="Gender" aria-label="Default select" required>
+                    <option selected disabled>Select Gender</option>
+                    <option value="Male" {{#ifEquals MemberInformation.Gender "Male" }}selected{{/ifEquals}}>Male
+                    </option>
+                    <option value="Female" {{#ifEquals MemberInformation.Gender "Female" }}selected{{/ifEquals}}>Female
+                    </option>
+                    <option value="Others" {{#ifEquals MemberInformation.Gender "Others" }}selected{{/ifEquals}}>Others
+                    </option>
+                    <option value="None" {{#ifEquals MemberInformation.Gender "None" }}selected{{/ifEquals}}>None
+                    </option>
+                </select>
+                {{#if MemberInformation}}
+                <span class="badge bg-primary"> {{MemberInformation.Gender}}</span>
+                {{/if}}
+            </div>
+            <div class="mb-3">
+                <label for="Contact" class="form-label">Contact</label>
+                <input type="tel" class="form-control" id="Contact" name="Contact"
+                    value="{{#if MemberInformation}}{{MemberInformation.Contact}}{{/if}}" pattern="[0-9]{10}" maxlength="10"
+                    placeholder="987xxxxxxxx" required>
+            </div>
+            <div class="mb-3">
+                <label for="Status" class="form-label">Status</label>
+                <select class="form-select" name="Status" id="Status" aria-label="Default select" required>
+                    <option selected disabled>Select Status</option>
+                    <option value="Active" {{#ifEquals MemberInformation.Status "Active" }}selected{{/ifEquals}}>Active
+                    </option>
+                    <option value="Inactive" {{#ifEquals MemberInformation.Status "Inactive" }}selected{{/ifEquals}}>
+                        Inactive
+                    </option>
+                </select>
+                {{#if MemberInformation}}
+                <span class="badge bg-primary"> {{MemberInformation.Status}}</span>
+                {{/if}}
+            </div>
+            <hr>
+            <div class="mb-3">
+                <h5 class="form-label">Membership Renewal Information</h5>
+            </div>
+            <div class="mb-3">
+                <label for="Joined_Date" class="form-label">Joined Date</label>
+                <input type="date" class="form-control" id="Joined_Date" name="Joined_Date"
+                    value="{{#if MemberInformation}}{{ParseDate MemberInformation.Joined_Date}} {{else}} {{/if}}">
+            </div>
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" value="0" id="Membership_Renew_Status"
+                    name="Membership_Renew_Status" {{#ifEquals MemberInformation.Membership_Renew_Status 1
+                    }}Checked{{/ifEquals}} >
+                <label class="form-check-label" for="Membership_Renew_Status">
+                    Membership Renew Status
+                </label>
+                  {{#if MemberInformation.Membership_Renew_Status}}
+                <span class="badge bg-primary"> {{#if MemberInformation.Membership_Renew_Status}}Yes {{else}}No{{/if}}</span>
+                {{/if}}
+            </div>
+            <div class="mb-3">
+                <label for="Last_Renewed_Date" class="form-label">Last Renewed Date</label>
+                <input type="date" class="form-control" id="Last_Renewed_Date" name="Last_Renewed_Date"
+                    value="{{#if MemberInformation}}{{ParseDate MemberInformation.Last_Renewed_Date}} {{else}} {{/if}}">
+            </div>
+            <div class="mt-3 text-center">
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals
+                    pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
+                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

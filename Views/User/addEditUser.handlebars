@@ -17,7 +17,8 @@
                 <select class="form-select" name="RoleId" id="RoleId" aria-label="Default select example">
                     <option selected disabled>Select Role</option>
                     {{#each Roles as |roles|}}
-                    <option value="{{roles.RoleId}}">{{roles.Name}} - {{roles.Remarks}}</option>
+                    <option value="{{roles.RoleId}}" {{#ifEquals ../EditUser.RoleId
+                        roles.RoleId}}selected{{/ifEquals}}>{{roles.Name}} - {{roles.Remarks}}</option>
                     {{/each}}
                 </select>
                 {{#if EditUser}}

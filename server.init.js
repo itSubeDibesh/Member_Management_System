@@ -41,6 +41,12 @@ const handleBars = expressHandleBars.create({
         },
         ToFirstUpper: function(value, options) {
             return value.charAt(0).toUpperCase() + value.slice(1);
+        },
+        ParseDate: function(value, options) {
+            let date = new Date(value),
+                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                day = ("0" + date.getDate()).slice(-2);
+            return [date.getFullYear(), mnth, day].join("-");
         }
     }
 });

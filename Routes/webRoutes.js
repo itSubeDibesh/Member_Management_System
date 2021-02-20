@@ -27,5 +27,8 @@ module.exports = class WebRoutes {
 
         // User Route handeled By UserController
         APP.use('/User', require('../Controller/User'));
+
+        // Member Route handeled By MemberController
+        APP.use('/Member', require('../Controller/Member'));
     }
 }

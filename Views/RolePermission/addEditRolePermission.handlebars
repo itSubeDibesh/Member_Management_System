@@ -8,10 +8,10 @@
                 <input type="hidden" name="RolePermission" value="{{EditRolePermission.RolePermissionId}}">
                 {{/if}}
                 <label for="RoleId" class="form-label">Select Role to set a permission</label>
-                <select class="form-select" name="RoleId" id="RoleId" aria-label="Default select example">
+                <select class="form-select" name="RoleId" id="RoleId" aria-label="Default select">
                     <option selected disabled>Select Role</option>
                     {{#each RolePermissionList.Role as |roles|}}
-                    <option value="{{roles.RoleId}}" {{#ifEquals EditRolePermission.Role
+                    <option value="{{roles.RoleId}}" {{#ifEquals ../EditRolePermission.Role
                         roles.Name}}selected{{/ifEquals}}>{{roles.Name}} - {{roles.Remarks}}</option>
                     {{/each}}
                 </select>
@@ -23,10 +23,12 @@
             <div class="mb-3">
                 <label for="PermissionId" class="form-label">Select Role to set a permission</label>
                 <select class="form-select" name="PermissionId" id="PermissionId" {{#ifEquals pageType 'add' }} multiple
-                    {{/ifEquals}} aria-label="{{#ifEquals pageType 'add' }} multiple {{/ifEquals}} select example">
+                    {{/ifEquals}} aria-label="{{#ifEquals pageType 'add' }} multiple {{/ifEquals}} select">
                     <option selected disabled>Select Permissions for the role</option>
                     {{#each RolePermissionList.Permission as |permissions|}}
-                    <option value="{{permissions.PermissionId}}">{{permissions.Name}} - {{permissions.Remarks}}</option>
+                    <option value="{{permissions.PermissionId}}" {{#ifEquals ../EditRolePermission.PermissionId
+                        permissions.PermissionId}}selected{{/ifEquals}}>{{permissions.Name}} - {{permissions.Remarks}}
+                    </option>
                     {{/each}}
                 </select>
                 {{#if EditRolePermission}}
@@ -35,17 +37,18 @@
                 {{/if}}
             </div>
             <div class="mb-3 form-check">
-                <input class="form-check-input" type="checkbox" value="Active" id="Status" name="Status" {{#ifEquals ditRolePermission.RolePermission_Status 'Active' }}Checked{{/ifEquals}}>
+                <input class="form-check-input" type="checkbox" value="Active" id="Status" name="Status" {{#ifEquals
+                    ditRolePermission.RolePermission_Status 'Active' }}Checked{{/ifEquals}}>
                 <label class="form-check-label" for="Status">
                     Role Permission Status
                 </label>
                 {{#if EditRolePermission}}
-
                 <span class="badge bg-primary"> {{EditRolePermission.RolePermission_Status}}</span>
                 {{/if}}
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals
+                    pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
                 <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
             </div>
         </form>
