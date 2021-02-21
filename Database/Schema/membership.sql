@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2021 at 05:09 PM
+-- Generation Time: Feb 21, 2021 at 07:53 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -66,7 +66,7 @@ CREATE TABLE `committe` (
   `Starting_Year` date NOT NULL,
   `Ending_Year` date NOT NULL,
   `Name` varchar(100) NOT NULL,
-  `ComitteHead` int(11) NOT NULL COMMENT 'Relation With Member ID on Member Table'
+  `ComitteHead` int(11) DEFAULT NULL COMMENT 'Relation With Member ID on Member Table'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

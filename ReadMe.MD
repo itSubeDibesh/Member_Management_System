@@ -1,18 +1,17 @@
-## __Member Management System__ [![time tracker](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System.svg)](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System)
+## __Member Management System__ [![time tracker](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System.svg)](https://wakatime.com/@itSubeDibesh/projects/cokmemttkk)
 
-## __Setup__ 
-Setting up project is piece of cake. Follow the steps below.
-
-1. Open Terminal
-1. Clone the project using `git clone https://github.com/itSubeDibesh/Member_Management_System` command.
-1. Run `npm install` command to fetch the dependencies.
-1. Create MySql Database with name `membership`
-1. Now Download and Import [Membership Database](./Database/Schema/membership.sql) to __PhpMyAdmin__
-1. Copy, Paste and Rename `.env.example` to `.env`
-1. Now Execuate `npm run watch` to launch the website.
-
-__Note :__ Your MySql Server is only required so you can turn off __apache__ if you are using __xampp server__.
+ ## __Requirements__
+ The actual requirement of client are listed below.
+ - [X] Store Branch and sub Branch Details
+ - [X] Store Working Period Details
+ - [X] Store Committe and General Members Details
+ - [X] Store Designation, Roles And Access Details
+ - [X] Store Member Awards and Alligations Details
+ - [X] Store Membership and Penalty Details
+ - [X] Store Payment Details
+ - [X] Implement Login, Logout and Reset Password
 ___
+
 ## __Tools and Languages Utilized__
 
 | Name       	| Type                            	| Purpose                                      	| Icones                                      	|
@@ -31,19 +30,39 @@ ___
 
 ___
 
- ## __Requirements__
- The actual requirement of client are listed below.
- - [X] Store Branch and sub Branch Details
- - [X] Store Working Period Details
- - [X] Store Committe and General Members Details
- - [X] Store Designation, Roles And Access Details
- - [X] Store Member Awards and Alligations Details
- - [X] Store Membership and Penalty Details
- - [X] Store Payment Details
- - [X] Implement Login, Logout and Reset Password
+## __Setup__ 
+Setting up project is piece of cake. Follow the steps below.
+
+1. Open Terminal
+1. Clone the project using `git clone https://github.com/itSubeDibesh/Member_Management_System` command.
+1. Run `npm install` command to fetch the dependencies.
+1. Copy, Paste and Rename `.env.example` to `.env`
 ___
+
+## __Setting up database__
+Your project wont work yet now all you need to do is create and setup database.
+1. Download The [Schema](./Database/Schema/membership.sql) alwo available inside [`/Database/Schema/`](./Database/Schema/membership.sql) directory.
+1. Open [PhpMyAdmin](https://www.phpmyadmin.net/) from [Xampp Server](https://www.apachefriends.org/download.html)
+1. Create MySql Database with name `membership`
+1. Import [Membership Database](./Database/Schema/membership.sql) to __PhpMyAdmin__
+___
+
+## __Creating the First User__
+1. Open [__PhpMyAdmin__](http://localhost/phpmyadmin) 
+1. Select `role` table from `membership` database
+1. Select Insert from menue section and insert the role information 
+1. Now select `user` table from `membership` database
+1. Select Insert from menue section and insert the user information 
+
+Thats it your first user has been created now you can open the website using following step.
+___
+## __Serving the Project__
+You need to have node installed and all the dependencies fetched inorder to run the project. Simply
+ __now execuate `npm run watch` on terminal with project directory pointed to launch the website.__
+ ___
+
 ## __Database Schema__
-A Basic database Schema Concept is Explained Below.
+A Basic database Schema Concept is shown below.
 <pre>
 [Branch]-------> BranchId [PK]
          |-----> ParentId [FK] -> Branch Id Itself
@@ -130,12 +149,11 @@ A Basic database Schema Concept is Explained Below.
         |-----> ComitteHead [Int] -> MemberId
 
 [CommitteMember]
+        |--------> CommitteMemberId [PK]
         |--------> CommitteId [FK]
         |--------> MemberId [FK]
 </pre>
 
 Following schema diagram can be extracted after implementing the above schema
 
-<img src="./Database/Schema/Schema Diagram.png">
-
-Sql script is available inside [`/Database/Schema/`](./Database/Schema/membership.sql) directory. 
+<img src="./Images/Schema Diagram.png">
