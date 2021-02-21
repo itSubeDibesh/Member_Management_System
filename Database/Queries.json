@@ -1,6 +1,6 @@
 {
     "User": {
-        "Login": "SELECT User.UserId,USER.RoleId,MEMBER.MemberId, MEMBER.DesignationId, USER.UserName,USER.Password,ROLE.Name AS Role,DESIGNATION.Name AS Designation,DESIGNATION.Hierarchy_Value,DESIGNATION.Membership_Fee, MEMBER.Status AS Member_Status,MEMBER.Joined_Date,MEMBER.Membership_Renew_Status,MEMBER.Last_Renewed_Date FROM `user` User LEFT JOIN `role` ROLE ON ROLE.RoleId = USER.RoleId LEFT JOIN `member` MEMBER ON MEMBER.UserId = USER.UserId LEFT JOIN `designation` DESIGNATION ON DESIGNATION.DesignationId = MEMBER.DesignationId WHERE UserName = ? AND Password = ?",
+        "Login": "SELECT User.`UserId`,USER.`RoleId`,MEMBER.`MemberId`, MEMBER.`DesignationId`, USER.`UserName`,USER.`Password`,ROLE.`Name` AS Role,DESIGNATION.`Name` AS Designation,DESIGNATION.`Hierarchy_Value`,DESIGNATION.`Membership_Fee`, MEMBER.`Status` AS Member_Status,MEMBER.`Joined_Date`,MEMBER.`Membership_Renew_Status`,MEMBER.`Last_Renewed_Date` FROM `user` User LEFT JOIN `role` ROLE ON ROLE.`RoleId` = USER.`RoleId` LEFT JOIN `member` MEMBER ON MEMBER.`UserId` = USER.`UserId` LEFT JOIN `designation` DESIGNATION ON DESIGNATION.`DesignationId` = MEMBER.`DesignationId` WHERE `UserName` = ? AND Password = ?",
         "Select": {
             "Count": "SELECT count(*) AS Total_Count FROM `user` WHERE UserId !=?",
             "All": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId` !=? ORDER BY USER.`UserName`",
@@ -129,5 +129,16 @@
         "Insert": "INSERT INTO `alligationsandrewards` (`MemberId`, `Type`, `Title`, `Description`) VALUES ",
         "Update": "UPDATE `alligationsandrewards` SET `MemberId`=?, `Type`=?, `Title`=?, `Description`=? WHERE `AlligationsAndRewardsID`=?",
         "Delete": "DELETE FROM `alligationsandrewards` WHERE `AlligationsAndRewardsID`=?"
+    },
+    "Committe": {
+        "Select": {
+            "Count": "SELECT count(*) AS Total_Count FROM `committe`",
+            "All": "SELECT COMMITTE.`ComitteId`, COMMITTE.`BranchId`,COMMITTE.`ComitteHead`, COMMITTE.`Starting_Year`, COMMITTE.`Ending_Year`, COMMITTE.`Name` AS Comitte, BRANCH.`Name` AS Branch, MEMBER.`Name` AS Committe_Head FROM `committe` COMMITTE LEFT JOIN `branch` BRANCH ON BRANCH.`BranchId` =  COMMITTE.`BranchId` LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = COMMITTE.`ComitteHead` ORDER BY Branch",
+            "ById": "SELECT COMMITTE.`ComitteId`, COMMITTE.`BranchId`,COMMITTE.`ComitteHead`, COMMITTE.`Starting_Year`, COMMITTE.`Ending_Year`, COMMITTE.`Name` AS Comitte, BRANCH.`Name` AS Branch, MEMBER.`Name` AS Committe_Head FROM `committe` COMMITTE LEFT JOIN `branch` BRANCH ON BRANCH.`BranchId` =  COMMITTE.`BranchId` LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = COMMITTE.`ComitteHead` WHERE `ComitteId`=? ORDER BY Branch",
+            "Paginate": "SELECT COMMITTE.`ComitteId`, COMMITTE.`BranchId`,COMMITTE.`ComitteHead`, COMMITTE.`Starting_Year`, COMMITTE.`Ending_Year`, COMMITTE.`Name` AS Comitte, BRANCH.`Name` AS Branch, MEMBER.`Name` AS Committe_Head FROM `committe` COMMITTE LEFT JOIN `branch` BRANCH ON BRANCH.`BranchId` =  COMMITTE.`BranchId` LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = COMMITTE.`ComitteHead` ORDER BY Branch LIMIT ? OFFSET ?"
+        },
+        "Insert": "INSERT INTO `committe` (`BranchId`, `Starting_Year`, `Ending_Year`, `Name`,`ComitteHead`) VALUES ",
+        "Update": "UPDATE `committe` SET `BranchId`=?, `Starting_Year`=?,`Ending_Year`=?,`Name`=?,`ComitteHead`=? WHERE `ComitteId`=?",
+        "Delete": "DELETE FROM `committe` WHERE `ComitteId`=?"
     }
 }

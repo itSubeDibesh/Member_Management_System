@@ -1,0 +1,69 @@
+<div class="card">
+    <h5 class="card-header">{{ToFirstUpper pageType}} Committe</h5>
+    <div class="card-body overflow-scroll">
+        <form method="POST" action="/Committe/Entry">
+            <input type="hidden" name="Task" value="{{pageType}}">
+            <div class="mb-3">
+                {{#if EditCommitte}}
+                <input type="hidden" name="Committe" value="{{EditCommitte.ComitteId}}">
+                {{/if}}
+                <label for="Name" class="form-label">Committe Name</label>
+                <input type="text" class="form-control" id="Name" name="Name"
+                    value="{{#if EditCommitte}}{{EditCommitte.Comitte}}{{/if}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="ComitteHead" class="form-label">Select Committe Head</label>
+                <select class="form-select" name="ComitteHead" id="ComitteHead" required>
+                    <option selected disabled>Select Committe Head</option>
+                    {{#each MemberList as |members|}}
+                    <option value="{{members.MemberId}}" {{#ifEquals ../EditCommitte.ComitteHead members.MemberId
+                        }}selected{{/ifEquals}}>{{members.Name}} - {{members.Designation}}</option>
+                    {{/each}}
+                </select>
+                {{#if EditCommitte.ComitteHead}}
+                {{#each MemberList as |alias|}}
+                {{#ifEquals alias.MemberId ../EditCommitte.ComitteHead}}
+                <span class="badge bg-primary">
+                    {{alias.Name}} -
+                    {{alias.Designation}}</span>
+                {{/ifEquals}}
+                {{/each}}
+                {{/if}}
+            </div>
+            <div class="mb-3">
+                <label for="BranchId" class="form-label">Select Branch</label>
+                <select class="form-select" name="BranchId" id="BranchId" required>
+                    <option selected disabled>Select Branch</option>
+                    {{#each BranchList as |branch|}}
+                    <option value="{{branch.BranchId}}" {{#ifEquals ../EditCommitte.BranchId branch.BranchId
+                        }}selected{{/ifEquals}}>{{branch.Name}} - {{branch.Address}}</option>
+                    {{/each}}
+                </select>
+                {{#if EditCommitte.BranchId}}
+                {{#each BranchList as |alias|}}
+                {{#ifEquals alias.BranchId ../EditCommitte.BranchId}}
+                <span class="badge bg-primary">
+                    {{alias.Name}} -
+                    {{alias.Address}}</span>
+                {{/ifEquals}}
+                {{/each}}
+                {{/if}}
+            </div>
+                <div class="mb-3">
+                <label for="Starting_Year" class="form-label">Starting Year</label>
+                <input type="date" class="form-control" id="Starting_Year" name="Starting_Year"
+                    value="{{#if EditCommitte}}{{ParseDate EditCommitte.Starting_Year}}{{/if}}" required>
+            </div>
+                <div class="mb-3">
+                <label for="Ending_Year" class="form-label">Ending Year</label>
+                <input type="date" class="form-control" id="Ending_Year" name="Ending_Year"
+                    value="{{#if EditCommitte}}{{ParseDate EditCommitte.Ending_Year}}{{/if}}" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals
+                    pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit' }}Update{{/ifEquals}}</button>
+                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i> Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

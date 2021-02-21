@@ -39,5 +39,8 @@ module.exports = class WebRoutes {
 
         // Payments Route handeled By PaymentsController
         APP.use('/Payments', require('../Controller/Payment'));
+
+        // Committe Route handeled By CommitteController
+        APP.use('/Committe', require('../Controller/Committe'));
     }
 }
