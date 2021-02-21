@@ -51,9 +51,9 @@
     "Payment": {
         "Select": {
             "Count": "SELECT count(*) AS Total_Count FROM `payments`",
-            "All": "SELECT PAYMENT.`PaymentId`, PAYMENT.`MemberId`, PAYMENT.`Payment_Title`, PAYMENT.`Amount`,MEMBER.`Name` FROM `payments` PAYMENT LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = PAYMENT.`PaymentId` ORDER BY Payment_Title",
-            "ById": "SELECT PAYMENT.`PaymentId`, PAYMENT.`MemberId`, PAYMENT.`Payment_Title`, PAYMENT.`Amount`,MEMBER.`Name` FROM `payments` PAYMENT LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = PAYMENT.`PaymentId` WHERE `PaymentId`=? ORDER BY Payment_Title",
-            "Paginate": "SELECT PAYMENT.`PaymentId`, PAYMENT.`MemberId`, PAYMENT.`Payment_Title`, PAYMENT.`Amount`,MEMBER.`Name` FROM `payments` PAYMENT LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = PAYMENT.`PaymentId` ORDER BY Payment_Title LIMIT ? OFFSET ?"
+            "All": "SELECT PAYMENT.`PaymentId`, PAYMENT.`MemberId`, PAYMENT.`Payment_Title`, PAYMENT.`Amount`,MEMBER.`Name` FROM `payments` PAYMENT LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = PAYMENT.`MemberId` ORDER BY Payment_Title",
+            "ById": "SELECT PAYMENT.`PaymentId`, PAYMENT.`MemberId`, PAYMENT.`Payment_Title`, PAYMENT.`Amount`,MEMBER.`Name` FROM `payments` PAYMENT LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = PAYMENT.`MemberId` WHERE `PaymentId`=? ORDER BY Payment_Title",
+            "Paginate": "SELECT PAYMENT.`PaymentId`, PAYMENT.`MemberId`, PAYMENT.`Payment_Title`, PAYMENT.`Amount`,MEMBER.`Name` FROM `payments` PAYMENT LEFT JOIN `member` MEMBER on MEMBER.`MemberId` = PAYMENT.`MemberId` ORDER BY Payment_Title LIMIT ? OFFSET ?"
         },
         "Insert": "INSERT INTO `payments` (`MemberId`, `Payment_Title`, `Amount`) VALUES ",
         "Update": "UPDATE `payments` SET `MemberId`=?, `Payment_Title`=?,`Amount`=? WHERE `PaymentId`=?",

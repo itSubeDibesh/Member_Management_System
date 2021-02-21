@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2021 at 02:25 PM
+-- Generation Time: Feb 21, 2021 at 05:09 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -105,7 +105,7 @@ CREATE TABLE `designation` (
 
 CREATE TABLE `member` (
   `MemberId` int(11) NOT NULL,
-  `UserId` int(11) NOT NULL,
+  `UserId` int(11) DEFAULT NULL,
   `DesignationId` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `DOB` date NOT NULL,

@@ -111,7 +111,6 @@ paymentsRouter.post('/Entry', [
     // Extracted Elements from request body
     let { Task, MemberId, Payment_Title, Amount } = request.body;
     const errors = validationResult(request);
-    console.log(request.body)
     if (errors.isEmpty()) {
         if (Task == 'add') {
             // Executing Sql Query

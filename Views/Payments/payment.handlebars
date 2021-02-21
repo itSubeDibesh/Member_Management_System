@@ -27,8 +27,8 @@
                     <tr>
                         <td>{{SN @index}}</td>
                         <td>{{this.Name}}</td>
-                        <td>{{this.Payment_Title}}</td>
-                        <td>{{this.Amount}}</td>
+                        <td>{{RemovetUnderscore this.Payment_Title}}</td>
+                        <td>Rs {{this.Amount}}/-</td>
                         <td class="text-center"><a
                                 href="/Payments/action/edit?Payments={{this.PaymentId}}"
                                 style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
