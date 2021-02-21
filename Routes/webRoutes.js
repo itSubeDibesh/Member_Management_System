@@ -36,5 +36,8 @@ module.exports = class WebRoutes {
 
         // AlligationsAndRewards Route handeled By AlligationsAndRewardsController
         APP.use('/AlligationsAndRewards', require('../Controller/AlligationsAndRewards'));
+
+        // Payments Route handeled By PaymentsController
+        APP.use('/Payments', require('../Controller/Payment'));
     }
 }

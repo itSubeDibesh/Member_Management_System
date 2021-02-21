@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <h5 class="card-header">{{ToFirstUpper pageType}} Payments</h5>
+            <div class="card-body overflow-scroll">
+                <form method="POST" action="/Payments/Entry">
+                    <input type="hidden" name="Task" value="{{pageType}}">
+                    <div class="mb-3">
+                        {{#if EditPayments}}
+                        <input type="hidden" name="Payments" value="{{EditPayments.PaymentId}}">
+                        {{/if}}
+                        <label for="Payment_Title" class="form-label">Payment Title</label>
+                        <select class="form-select" name="Payment_Title" id="Payment_Title" aria-label="Default select"
+                            required>
+                            <option selected disabled>Select Payment Title</option>
+                            <option value="New_Membership" {{#ifEquals EditPayments.Payment_Title "New_Membership"
+                                }}selected{{/ifEquals}}>New Membership
+                            </option>
+                            <option value="Membership_Renew" {{#ifEquals EditPayments.Payment_Title "Membership_Renew"
+                                }}selected{{/ifEquals}}>Membership Renew
+                            </option>
+                            <option value="Penalty" {{#ifEquals EditPayments.Payment_Title "Penalty"
+                                }}selected{{/ifEquals}}>Penalty
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="MemberId" class="form-label">Select member</label>
+                        <select class="form-select" name="MemberId" id="MemberId" required>
+                            <option selected disabled>Select member</option>
+                            {{#each MemberList as |members|}}
+                            <option value="{{members.MemberId}}" {{#ifEquals ../EditPayments.MemberId members.MemberId
+                                }}selected{{/ifEquals}}>{{members.Name}} -
+                                {{members.Designation}}
+                            </option>
+                            {{/each}}
+                        </select>
+                        {{#if EditPayments.MemberId}}
+                        {{#each MemberList as |alias|}}
+                        {{#ifEquals alias.MemberId ../EditPayments.MemberId}}
+                        <span class="badge bg-primary">
+                            {{alias.Name}} -
+                            {{alias.Designation}}</span>
+                        {{/ifEquals}}
+                        {{/each}}
+                        {{/if}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Amount" class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="Amount" name="Amount"
+                            value="{{#if EditPayments}}{{EditPayments.Amount}}{{/if}}" required>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i> {{#ifEquals
+                            pageType 'add' }}Submit{{/ifEquals}}{{#ifEquals pageType 'edit'
+                            }}Update{{/ifEquals}}</button>
+                        <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i>
+                            Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <h5 class="card-header">Penalty Criteria</h5>
+            <div class="card-body">
+                {{#if PenaltyCriteria}}
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Exceeded Days</th>
+                                <th scope="col">Amount</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each PenaltyCriteria}}
+                            <tr>
+                                <td>{{SN @index}}</td>
+                                <td>{{this.Number_of_Exceeded_Days}} {{#ifNotEquals this.Number_of_Exceeded_Days 1}}
+                                    days {{/ifNotEquals}} {{#ifEquals this.Number_of_Exceeded_Days 1}} day {{/ifEquals}}
+                                </td>
+                                <td>Rs {{this.Amount}}/-</td>
+                                {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                {{else}}
+                <div class="text-center">
+                    <h3 class="text-danger">Penalty Criterias Not Found! </h3>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
