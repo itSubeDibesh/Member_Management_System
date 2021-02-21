@@ -1,0 +1,87 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <h5>Committe Members List</h5>
+            </div>
+            <div class="col-6 text-end">
+                <a class="btn btn-primary btn-sm " href="/CommitteMember/action/add"><i class="fas fa-pen"></i> Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {{#ifEquals CommitteMemberInformation.success true}}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Committe Name</th>
+                        <th scope="col">Member Name</th>
+                        <th scope="col">Profession</th>
+                        <th class="text-center" colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each CommitteMemberInformation.result}}
+                    <tr>
+                        <td>{{SN @index}}</td>
+                        <td>{{this.Committe_Name}}</td>
+                        <td>{{this.Member_Name}}</td>
+                        <td>{{this.Profession}}</td>
+                        <td class="text-center"><a
+                                href="/CommitteMember/action/edit?CommitteMember={{this.ComitteMemberId}}"
+                                style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
+                                Edit</a>
+                            </form>
+                        </td>
+                        <td class="text-center">
+                            <form method="POST" action="/CommitteMember/remove/{{this.ComitteMemberId}}">
+                                <button type="submit" style="background: transparent; color:white;border:none;"><i class="fas fa-trash text-danger"></i>
+                                    Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <ul class="pagination justify-content-center">
+                                {{#if CommitteMemberInformation.navigation.previous_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{CommitteMemberInformation.navigation.previous_page}}">Previous</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{CommitteMemberInformation.navigation.previous_page}}" tabindex="-1"
+                                        aria-disabled="true">Previous</a></li>
+                                {{/if}}
+
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{CommitteMemberInformation.navigation.current_page}}" tabindex="0"
+                                        aria-disabled="true">Current</a></li>
+
+                                {{#if CommitteMemberInformation.navigation.next_page}}
+                                <li class="page-item"><a class="page-link"
+                                        href="{{CommitteMemberInformation.navigation.next_page}}">Next</a></li>
+                                {{else}}
+                                <li class="page-item disabled"><a class="page-link"
+                                        href="{{CommitteMemberInformation.navigation.next_page}}" tabindex="1"
+                                        aria-disabled="true">Next</a></li>
+                                {{/if}}
+
+                            </ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        {{/ifEquals}}
+
+        {{#ifNotEquals CommitteMemberInformation.success true}}
+        <div class="text-center">
+            <h3 class="text-danger">Committe Member Infromation Not Found! </h3>
+        </div>
+        {{/ifNotEquals}}
+    </div>
+</div>

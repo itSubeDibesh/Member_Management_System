@@ -42,5 +42,8 @@ module.exports = class WebRoutes {
 
         // Committe Route handeled By CommitteController
         APP.use('/Committe', require('../Controller/Committe'));
+
+        // CommitteMember Route handeled By CommitteMemberController
+        APP.use('/CommitteMember', require('../Controller/CommitteMember'));
     }
 }

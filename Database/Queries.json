@@ -140,5 +140,27 @@
         "Insert": "INSERT INTO `committe` (`BranchId`, `Starting_Year`, `Ending_Year`, `Name`,`ComitteHead`) VALUES ",
         "Update": "UPDATE `committe` SET `BranchId`=?, `Starting_Year`=?,`Ending_Year`=?,`Name`=?,`ComitteHead`=? WHERE `ComitteId`=?",
         "Delete": "DELETE FROM `committe` WHERE `ComitteId`=?"
+    },
+    "CommitteMember": {
+        "Select": {
+            "Count": {
+                "ALL": "SELECT  count(*) AS Total_Count FROM `committemember` CM LEFT JOIN `committe` C ON C.`ComitteId` = CM.`CommitteId` LEFT JOIN `member` M ON M.`MemberId` = CM.`MemberId`",
+                "ExceptMemberID": "SELECT  count(*) AS Total_Count FROM `committemember` CM LEFT JOIN `committe` C ON C.`ComitteId` = CM.`CommitteId` LEFT JOIN `member` M ON M.`MemberId` = CM.`MemberId` WHERE M.`MemberId` !=?"
+            },
+            "Paginate": {
+                "All": "SELECT CM.`ComitteMemberId`,M.MemberId,  M.Name As Member_Name, M.Profession, C.ComitteId,C.Name as Committe_Name, C.ComitteHead FROM `committemember` CM LEFT JOIN `committe` C ON C.`ComitteId` = CM.`CommitteId` LEFT JOIN `member` M ON M.`MemberId` = CM.`MemberId` ORDER BY C.Name LIMIT ? OFFSET ?",
+                "AllExceptMemberID": "SELECT CM.`ComitteMemberId`,M.MemberId,  M.Name As Member_Name, M.Profession, C.ComitteId,C.Name as Committe_Name, C.ComitteHead FROM `committemember` CM LEFT JOIN `committe` C ON C.`ComitteId` = CM.`CommitteId` LEFT JOIN `member` M ON M.`MemberId` = CM.`MemberId` WHERE M.`MemberId`!=?  ORDER BY C.Name LIMIT ? OFFSET ?"
+            },
+            "All": {
+                "ById": "SELECT CM.`ComitteMemberId`,M.MemberId,  M.Name As Member_Name, M.Profession, C.ComitteId,C.Name as Committe_Name, C.ComitteHead FROM `committemember` CM LEFT JOIN `committe` C ON C.`ComitteId` = CM.`CommitteId` LEFT JOIN `member` M ON M.`MemberId` = CM.`MemberId` WHERE CM.`ComitteMemberId`=?"
+            }
+        },
+        "Insert": "INSERT INTO `committemember` (`CommitteId`, `MemberId`) VALUES ",
+        "Update": "UPDATE `committemember` SET `CommitteId`=?, `MemberId`=? WHERE `ComitteMemberId`=?",
+        "Delete": {
+            "ById": "DELETE FROM `committemember` WHERE `ComitteMemberId`=?",
+            "ByMember": "DELETE FROM `committemember` WHERE `MemberId`=?",
+            "ByCommitte": "DELETE FROM `committemember` WHERE `CommitteId`=?"
+        }
     }
 }
