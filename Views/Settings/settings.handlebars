@@ -1,0 +1,153 @@
+<div class="row">
+    {{#if MemberInformation}}
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <h5 class="card-header">User Profile</h5>
+            <div class="card-body">
+                <form method="POST" action="/Settings/MemberInfo">
+                    <input type="hidden" name="Member" value="{{MemberInformation.MemberId}}">
+                    <input type="hidden" name="UserId" value="{{MemberInformation.UserId}}">
+                    <input type="hidden" name="DesignationId" value="{{MemberInformation.DesignationId}}">
+                    <input type="hidden" name="Status" value="{{MemberInformation.Member_Status}}">
+                    <input type="hidden" name="Joined_Date" value="{{MemberInformation.Joined_Date}}">
+                    <input type="hidden" name="Membership_Renew_Status"
+                        value="{{MemberInformation.Membership_Renew_Status}}">
+                    <input type="hidden" name="Last_Renewed_Date" value="{{MemberInformation.Last_Renewed_Date}}">
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Member Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name"
+                            value="{{#if MemberInformation}}{{MemberInformation.Name}}{{/if}}" required>
+                    </div>
+                    <div class="mb-3">
+                        {{#if MemberInformation.Role}}
+                        <label class="form-label">Assigned Role</label>
+                        <span class="badge bg-primary"> {{UserInfromation.Role}}</span>
+                        &nbsp;
+                        {{/if}}
+                        {{#if UserInfromation.Designation}}
+                        <label class="form-label">Assigned Designation</label>
+                        <span class="badge bg-success"> {{UserInfromation.Designation}}</span>
+                        {{/if}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="DOB" class="form-label">Date of birth</label>
+                        <input type="date" class="form-control" id="DOB" name="DOB"
+                            value="{{#if MemberInformation}}{{ParseDate MemberInformation.DOB}}{{/if}}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="Address" name="Address"
+                            value="{{#if MemberInformation}}{{MemberInformation.Address}}{{/if}}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Profession" class="form-label">Profession</label>
+                        <input type="text" class="form-control" id="Profession" name="Profession"
+                            value="{{#if MemberInformation}}{{MemberInformation.Profession}}{{/if}}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Gender" class="form-label">Gender</label>
+                        <select class="form-select" name="Gender" id="Gender" aria-label="Default select" required>
+                            <option selected disabled>Select Gender</option>
+                            <option value="Male" {{#ifEquals MemberInformation.Gender "Male" }}selected{{/ifEquals}}>
+                                Male
+                            </option>
+                            <option value="Female" {{#ifEquals MemberInformation.Gender "Female"
+                                }}selected{{/ifEquals}}>Female
+                            </option>
+                            <option value="Others" {{#ifEquals MemberInformation.Gender "Others"
+                                }}selected{{/ifEquals}}>Others
+                            </option>
+                            <option value="None" {{#ifEquals MemberInformation.Gender "None" }}selected{{/ifEquals}}>
+                                None
+                            </option>
+                        </select>
+                        {{#if MemberInformation.Gender}}
+                        <span class="badge bg-primary"> {{MemberInformation.Gender}}</span>
+                        {{/if}}
+                    </div>
+                    <div class="mb-3">
+                        <label for="Contact" class="form-label">Contact</label>
+                        <input type="tel" class="form-control" id="Contact" name="Contact"
+                            value="{{#if MemberInformation}}{{MemberInformation.Contact}}{{/if}}" pattern="[0-9]{10}"
+                            maxlength="10" placeholder="987xxxxxxxx" required>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i>
+                            Update</button>
+                        <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i>
+                            Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <h5 class="card-header">Username</h5>
+                    <div class="card-body">
+                        <form method="POST" action="/Settings/UserName">
+                            <div class="mb-3">
+                                <input type="hidden" name="User" value="{{UserInfromation.UserId}}">
+                                <input type="hidden" name="RoleId" value="{{UserInfromation.RoleId}}">
+                                <label for="UserName" class="form-label">User Name</label>
+                                <input type="text" class="form-control" id="UserName" name="UserName"
+                                    value="{{#if UserInfromation}}{{UserInfromation.UserName}}{{/if}}" minlength="5"
+                                    maxlength="20">
+                            </div>
+                            <div class="mb-3">
+                                <label for="CurrentPassword" class="form-label">Password</label>
+                                <input type="Password" class="form-control" id="CurrentPassword" name="CurrentPassword"
+                                    minlength="8" maxlength="20">
+                            </div>
+                            <div class="mt-3 text-center">
+                                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i>
+                                    Update</button>
+                                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i>
+                                    Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header">Password</h5>
+                    <div class="card-body">
+                        <form method="POST" action="/Settings/Password">
+                            <div class="mb-3">
+                                <input type="hidden" name="User" value="{{UserInfromation.UserId}}">
+                                <input type="hidden" name="RoleId" value="{{UserInfromation.RoleId}}">
+                                <input type="hidden" name="UserName" value="{{UserInfromation.UserName}}">
+                                <label for="Old_Password" class="form-label">Old Password</label>
+                                <input type="password" class="form-control" id="Old_Password" name="Old_Password"
+                                    minlength="8" maxlength="20">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Password" class="form-label">New Password</label>
+                                <input type="Password" class="form-control" id="Password" name="Password" minlength="8"
+                                    maxlength="20">
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="checkedShow">
+                                    <label class="form-check-label" for="checkedShow">Show Password</label>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <button type="submit" class="btn btn-primary text-center"><i class="fas fa-pen"></i>
+                                    Update</button>
+                                <button type="reset" class="btn btn-danger text-center"><i class="fas fa-trash"></i>
+                                    Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Assets/Js/custome.js"></script>

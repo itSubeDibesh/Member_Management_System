@@ -84,6 +84,13 @@
     <main class="form-signin">
         <form method="POST" action="/Login">
             <div>
+                {{#if success.msg}}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><i class="fas fa-bullhorn"></i></strong> {{success.msg}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {{/if}}
+                
                 {{#if errors}}
                 {{#each errors as |item|}}
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -121,4 +128,5 @@
 <script src="/Assets/Vendor/jquery/jquery-3.5.1.min.js"></script>
 <script src="/Assets/Js/bootstrap.min.js"></script>
 <script src="/Assets/Vendor/fontawesom/js/all.min.js"></script>
+
 </html>

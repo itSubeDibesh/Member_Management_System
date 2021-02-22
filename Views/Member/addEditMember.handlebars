@@ -102,7 +102,7 @@
                     value="{{#if MemberInformation}}{{ParseDate MemberInformation.Joined_Date}} {{else}} {{/if}}">
             </div>
             <div class="mb-3 form-check">
-                <input class="form-check-input" type="checkbox" value="0" id="Membership_Renew_Status"
+                <input class="form-check-input" type="checkbox" value="1" id="Membership_Renew_Status"
                     name="Membership_Renew_Status" {{#ifEquals MemberInformation.Membership_Renew_Status 1
                     }}Checked{{/ifEquals}} >
                 <label class="form-check-label" for="Membership_Renew_Status">

@@ -45,5 +45,8 @@ module.exports = class WebRoutes {
 
         // CommitteMember Route handeled By CommitteMemberController
         APP.use('/CommitteMember', require('../Controller/CommitteMember'));
+
+        // Settings Route handeled By SettingsController
+        APP.use('/Settings', require('../Controller/Settings'));
     }
 }

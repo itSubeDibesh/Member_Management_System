@@ -155,7 +155,7 @@ memberRouter.post('/Entry', [
         if (Task == 'add') {
             // Executing Sql Query
             // `UserId`, `DesignationId`, `Name`, `DOB`, `Address`, `Profession`, `Gender`, `Contact`, `Status`, `Joined_Date`, `Membership_Renew_Status`, `Last_Renewed_Date`
-            Exe.queryExecuator(queryBox.Member.Insert + `(${UserId},${DesignationId},'${Name}',${DOB},'${Address}','${Profession}','${Gender}',${Contact},'${Status}','${Joined_Date || null}','${Membership_Renew_Status || null}','${Last_Renewed_Date || null}')`, null, (error, result) => {
+            Exe.queryExecuator(queryBox.Member.Insert + `(${UserId},${DesignationId},'${Name}','${DOB}','${Address}','${Profession}','${Gender}',${Contact},'${Status}','${Joined_Date || null}',${Membership_Renew_Status || null},'${Last_Renewed_Date || null}')`, null, (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/Member');
             });
