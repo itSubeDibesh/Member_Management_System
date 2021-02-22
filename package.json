@@ -4,8 +4,8 @@
     "description": "A complete Member management system for 4th semester assignment",
     "main": "server.init",
     "scripts": {
-        "watch": "open-cli http://localhost:8000 -- chrome && nodemon server.init",
-        "start": "node server.init"
+        "watch": "open-cli http://localhost:9876 -- chrome && nodemon server.init",
+        "start": "open-cli http://localhost:9876 node server.init"
     },
     "repository": {
         "type": "git",

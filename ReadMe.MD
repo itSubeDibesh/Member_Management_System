@@ -157,3 +157,62 @@ A Basic database Schema Concept is shown below.
 Following schema diagram can be extracted after implementing the above schema
 
 <img src="./Images/Schema Diagram.png">
+
+____
+
+## __Setting Json Logs__
+If you need to set your logs in `.json` extension then simply update your environment variable `SET_JSON` to `true` in [`.env` file](#Setup) and run your application using `npm start`.
+
+__Note : Don't set `SET_JSON` to `true` if you are using `npm run watch` becasus it utilizes `nodemon` module which monitors all the `json` and `js files` which will restart the server itself time and again and crash the project.__
+___
+
+## __Folder Structure__
+Folder Structure  along with uses are visualized below.
+<pre>
+ ________________
+| Root Directory |
+|________________|
+ |
+ |----> Config [Configurations utilized for HTTP work flow]
+ |
+ |----> Controller [Business logic to operate with HTTP request]
+ |
+ |----> Database [Core Database connection, querybox and logic]
+ |      |----> Schema [Database Schema SQL File]
+ |
+ |----> Images [Documentation Image Directory]
+ |
+ |----> LOGS [Server Generated Logs]
+ |      |----> ERROR [Server Generated ERROR Logs]
+ |      |----> QUERY [Server Generated QUERY Logs]
+ |      |----> REQUEST [Server Generated REQUEST Logs]
+ |
+ |----> Middleware [Validation Middleware]
+ |
+ |----> node_modules [Node module dependencies]
+ |
+ |----> Public [Public directory served to client]
+ |      |---->Assets [Assets served to client]
+ |      |       |----> Css [Css served to client]
+ |      |       |----> Images [Images served to client]
+ |      |       |----> Js [Js served to client]
+ |      |       |----> Vendor [External Vendor Dependencies served to client]
+ |      |----> Icons [Icons served to client]
+ |
+ |----> Routes [Routes Registered for HTTP Request]
+ |
+ |----> Views [Views and Templates that would be rendered on client]
+ |      |----> Layouts [Layout Used for Views]
+ |      |----> Partials [Partial view used to handle layout]
+ |      |----> All the Other Directory for the specific views
+ ________________
+| Root Directory |
+|________________|
+</pre>
+The image below shows the implementation of these folder structure.
+
+<img src="./Images/Folder Structure.png">
+
+____
+
+## __Work flow__
