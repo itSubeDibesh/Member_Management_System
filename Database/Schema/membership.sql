@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2021 at 07:53 PM
+-- Generation Time: Feb 23, 2021 at 08:10 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -97,6 +97,13 @@ CREATE TABLE `designation` (
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `designation`
+--
+
+INSERT INTO `designation` (`DesignationId`, `Name`, `Membership_Fee`, `Hierarchy_Value`, `Remarks`, `CreatedAt`, `UpdatedAt`) VALUES
+(1, 'Developer', 0, 0, 'Can Access Everything', '2021-02-22 16:15:17', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -120,6 +127,13 @@ CREATE TABLE `member` (
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `member`
+--
+
+INSERT INTO `member` (`MemberId`, `UserId`, `DesignationId`, `Name`, `DOB`, `Address`, `Profession`, `Gender`, `Contact`, `Status`, `Joined_Date`, `Membership_Renew_Status`, `Last_Renewed_Date`, `CreatedAt`, `UpdatedAt`) VALUES
+(1, 1, 1, 'Dibesh Raj Subedi', '1999-07-14', 'Gaushala, Pinglasthan', 'Full-Stack Developer', 'Male', '9861315234', 'Active', NULL, NULL, NULL, '2021-02-22 16:16:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -162,6 +176,26 @@ CREATE TABLE `permission` (
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `permission`
+--
+
+INSERT INTO `permission` (`PermissionId`, `Name`, `Remarks`, `CreatedAt`, `UpdatedAt`) VALUES
+(1, 'Settings', 'Access Settings Endpoints', '2021-02-23 15:53:24', NULL),
+(2, 'Committe Member', 'Access Committe Member Endpoints', '2021-02-23 15:53:33', NULL),
+(3, 'Committe', 'Access Committe Endpoints', '2021-02-23 15:53:38', NULL),
+(4, 'Payments', 'Access Payments Endpoints', '2021-02-23 15:53:45', NULL),
+(5, 'Alligations And Rewards', 'Access Alligation and Rewards Endpoints', '2021-02-23 15:53:53', NULL),
+(6, 'Branch', 'Access Branch Endpoints', '2021-02-23 15:53:59', NULL),
+(7, 'Member', 'Access Member Endpoints', '2021-02-23 15:54:06', NULL),
+(8, 'User', 'Access User Endpoints', '2021-02-23 15:54:10', NULL),
+(9, 'Designation', 'Access Designation  Endpoints', '2021-02-23 15:54:16', NULL),
+(10, 'Penalty Criteria', 'Access Penalty Criteria Endpoints', '2021-02-23 15:54:23', NULL),
+(11, 'Permission', 'Access Permission Endpoints', '2021-02-23 15:54:29', NULL),
+(12, 'Role', 'Access Role Endpoints', '2021-02-23 15:54:35', NULL),
+(13, 'Role Permission', 'Access Role Permission Endpoints', '2021-02-23 15:54:41', NULL),
+(14, 'Authentication', 'Access authentication Endpoints', '2021-02-23 15:54:47', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -176,6 +210,13 @@ CREATE TABLE `role` (
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`RoleId`, `Name`, `Remarks`, `CreatedAt`, `UpdatedAt`) VALUES
+(1, 'Developer', 'Developer Role', '2021-02-21 19:12:30', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -188,6 +229,25 @@ CREATE TABLE `rolepermission` (
   `PermissionId` int(11) DEFAULT NULL,
   `Status` enum('Active','Inactive') NOT NULL DEFAULT 'Inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rolepermission`
+--
+
+INSERT INTO `rolepermission` (`RolePermissionId`, `RoleId`, `PermissionId`, `Status`) VALUES
+(1, 1, 1, 'Active'),
+(2, 1, 2, 'Active'),
+(3, 1, 3, 'Active'),
+(4, 1, 4, 'Active'),
+(5, 1, 5, 'Active'),
+(6, 1, 6, 'Active'),
+(7, 1, 7, 'Active'),
+(8, 1, 8, 'Active'),
+(9, 1, 9, 'Active'),
+(10, 1, 10, 'Active'),
+(11, 1, 11, 'Active'),
+(12, 1, 13, 'Active'),
+(13, 1, 14, 'Active');
 
 -- --------------------------------------------------------
 
@@ -203,6 +263,13 @@ CREATE TABLE `user` (
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`UserId`, `RoleId`, `UserName`, `Password`, `CreatedAt`, `UpdatedAt`) VALUES
+(1, 1, 'Dibesh', 'Dibesh@2019', '2021-02-21 19:12:46', NULL);
 
 --
 -- Indexes for dumped tables
@@ -307,7 +374,7 @@ ALTER TABLE `alligationsandrewards`
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
-  MODIFY `BranchId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Store New Branch ID';
+  MODIFY `BranchId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Store New Branch ID', AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `committe`
@@ -325,13 +392,13 @@ ALTER TABLE `committemember`
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
-  MODIFY `DesignationId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Set Designation ';
+  MODIFY `DesignationId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Set Designation ', AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `MemberId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MemberId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -349,25 +416,25 @@ ALTER TABLE `penaltycriteria`
 -- AUTO_INCREMENT for table `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `PermissionId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PermissionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `RoleId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `RoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rolepermission`
 --
 ALTER TABLE `rolepermission`
-  MODIFY `RolePermissionId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `RolePermissionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

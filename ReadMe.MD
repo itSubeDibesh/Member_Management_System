@@ -1,4 +1,13 @@
 ## __Member Management System__ [![time tracker](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System.svg)](https://wakatime.com/@itSubeDibesh/projects/cokmemttkk)
+___
+There is the organization that does have branches and sub branches like lion's club. There is a head branch under
+which other are operated. Every branch has executive committee and general members. So, it is necessary to build
+the database to keep the record of these members.
+The executive committee will be changed every year. So, both current and past committee executive member
+should be maintained. Members are rewarded and punished according to their execution. These logs are also to be
+recorded.
+Every Members need to pay membership according to their designation. So, the record of that should also be done.
+Late membership fine also should be applied.
 
  ## __Requirements__
  The actual requirement of client are listed below.
@@ -37,7 +46,6 @@ Setting up project is piece of cake. Follow the steps below.
 1. Clone the project using `git clone https://github.com/itSubeDibesh/Member_Management_System` command.
 1. Run `npm install` command to fetch the dependencies.
 1. Copy, Paste and Rename `.env.example` to `.env`
-___
 
 ## __Setting up database__
 Your project wont work yet now all you need to do is create and setup database.
@@ -45,17 +53,12 @@ Your project wont work yet now all you need to do is create and setup database.
 1. Open [PhpMyAdmin](https://www.phpmyadmin.net/) from [Xampp Server](https://www.apachefriends.org/download.html)
 1. Create MySql Database with name `membership`
 1. Import [Membership Database](./Database/Schema/membership.sql) to __PhpMyAdmin__
-___
 
 ## __Creating the First User__
-1. Open [__PhpMyAdmin__](http://localhost/phpmyadmin) 
-1. Select `role` table from `membership` database
-1. Select Insert from menue section and insert the role information 
-1. Now select `user` table from `membership` database
-1. Select Insert from menue section and insert the user information 
+1. [Serve The Project](#Serving-the-Project)
+1. Login using Username as `Dibesh` and password as `Dibesh@2019`
+1. Open the User and add new user.
 
-Thats it your first user has been created now you can open the website using following step.
-___
 ## __Serving the Project__
 You need to have node installed and all the dependencies fetched inorder to run the project. Simply
  __now execuate `npm run watch` on terminal with project directory pointed to launch the website.__
@@ -216,3 +219,45 @@ The image below shows the implementation of these folder structure.
 ____
 
 ## __Work flow__
+Lets follow the clients approach to get the resources.
+
+1. At First the routs gets request from the client which is stored on  [`webRoutes.js`](./Routes/webRoutes.js) file. Here Instance of Express Application is Required as dependency to handle multiple routes. This routs gets initialized on [`server.init.js`]('./server.init.js') file. All the routes registered on `webRoutes.js` acts as a milldeware for the individual requests registered. 
+
+1. Then the request is passed to specific controller registered to the route under [`Controller` Directory](./Controller/). A specific file is defined under this directory for every routes and All the task related to that route is performed under that specific file.
+
+1. Controller has a [`Config Dependency`](./Config/) stored on Config directory. Here Dependency like SQL euery execuator, Reguest Logger and Middelware handler are requested so that all these dependencies could be extracted on individual controller file as per required. 
+
+1. All the Database queries are stored on [`Queries.json`](./Database/Queries.json) file under Database directory. These Queries are required once on [`Http.js`](./Config/Http.js) file as dependency file so that we could use all the queries independently on any controller file. These queries are stored under `queryBox` variable on `Http.js` and used on every controller file to extract query as per required.
+
+1. All the Queries are Execuated using `QueryExe.js` file under Database directory as well. The Query fetched from `queryBox` is passed on `Exe`  function of `QueryExe.js`. `Exe` function is also set as dependency on `Http.js` so, we can perform any query on any controller as per requirement.
+
+1. Every Execuated Query Returns 2 response. i.e `Result or error` Result are manupulated as per requirement where as errors are logged on `Error.log` file using [`nodefslogger` module](https://www.npmjs.com/package/nodefslogger) which is also set as dependency on `Http.js`.
+
+These were the basic workflow how project works. All the Logs are maintained under [`LOGS`] logs directory which is generated when server needs to maintain log.
+____
+
+## __Some Extra Features__
+There are some extra fatures which will only be visible on certain circumstances.
+1. Permission Update, Delete and Add function is only available if you set ` HIDE_PERMISSION_ACTIONS = true` flag to false on `.env` file. If this flag is true you will not be able to see permission Update, Delete and Add function.
+
+__Permission Flag Enabled__
+
+<img src="./Images/Permission Enabled Flag.png">
+
+__Result__
+<img src="./Images/Permission Enabled.png">
+
+__Permission Flag Disabled__
+
+<img src="./Images/Permission Dissabled Flag.png">
+
+__Result__
+<img src="./Images/Permission Disabled.png">
+
+1. Similarly if you Desire to log the data set in json fromat than simply `SET_JSON = false` to true and run using `npm start`.
+1. If you want to log the data from log file to console as well then set `LOG_TO_CONSOLE = false` to true.
+1. If you want to clear logs everytime server restarts or starts then set `CLEAR_LOGS = false` to true.
+1. If you want change root log directory then set `LOG_DIR = LOGS` flag to any directory name you desire.
+1. If you want to change pagination limit then simply change `SELECT_LIMIT = 10` flag value to amount of data you want to fetch while using pagination.
+
+   
