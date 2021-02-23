@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     settingsRouter = express.Router();
 
 // Return List of All Settings as Json Dataset
-settingsRouter.get('/', isLoggedIn, (request, response) => {
+settingsRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     const UserInfromation = request.session.UserInfromation;
     Exe.queryExecuator(queryBox.Member.Select.ByUserId, parseInt(UserInfromation.UserId), (error, result) => {
         if (error) Error.log(error);
@@ -43,7 +43,7 @@ settingsRouter.post('/MemberInfo', [
     check('Contact')
     .notEmpty()
     .withMessage('Contact is Required to update your profile!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     const UserInfromation = request.session.UserInfromation;
     // Extracted Elements from request body
     let { UserId, DesignationId, Name, DOB, Address, Profession, Gender, Contact, Status, Joined_Date, Membership_Renew_Status, Last_Renewed_Date } = request.body;
@@ -91,7 +91,7 @@ settingsRouter.post('/UserName', [
     check('CurrentPassword')
     .notEmpty()
     .withMessage('Current Password is Required to update your user credentials!'),
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     const errors = validationResult(request);
     const UserInfromation = request.session.UserInfromation;
     const { CurrentPassword, UserName, User, RoleId } = request.body;
@@ -141,7 +141,7 @@ settingsRouter.post('/Password', [
     check('Password')
     .notEmpty()
     .withMessage('New Password is Required to update your user credentials!'),
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     const errors = validationResult(request);
     const UserInfromation = request.session.UserInfromation;
     const { Old_Password, Password, UserName, User, RoleId } = request.body;

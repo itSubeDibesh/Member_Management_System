@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     userRouter = express.Router();
 
 // Return List of All User as Json Dataset
-userRouter.get('/', isLoggedIn, (request, response) => {
+userRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     const LoggedInUser = request.session.UserInfromation;
     if (page != null) {
@@ -35,7 +35,7 @@ userRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // User Add Edit GET request
-userRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+userRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { User } = request.query;
@@ -110,7 +110,7 @@ userRouter.post('/Entry', [
     .withMessage('Password must have 8-20 characters.')
     .notEmpty()
     .withMessage('Password is Required to set User!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, RoleId, Password, UserName } = request.body;
     const errors = validationResult(request);
@@ -147,7 +147,7 @@ userRouter.post('/Entry', [
         });
 });
 
-userRouter.post('/remove/:User', isLoggedIn, (request, response) => {
+userRouter.post('/remove/:User', isLoggedIn, AllowAccess, (request, response) => {
     const { User } = request.params;
     if (User != null) {
         Exe.queryExecuator(queryBox.User.Delete, parseInt(User), (error, result) => {

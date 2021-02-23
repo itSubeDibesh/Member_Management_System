@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     committeRouter = express.Router();
 
 // Return List of All Committe as Json Dataset
-committeRouter.get('/', isLoggedIn, (request, response) => {
+committeRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ committeRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Committe Add Edit GET request
-committeRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+committeRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Committe } = request.query;
@@ -108,7 +108,7 @@ committeRouter.post('/Entry', [
     check('Ending_Year')
     .notEmpty()
     .withMessage('Ending Year is Required to set Committe!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, Name, BranchId, Starting_Year, Ending_Year, ComitteHead } = request.body;
     ComitteHead = ComitteHead != null || ComitteHead != undefined ? ComitteHead : null;
@@ -151,7 +151,7 @@ committeRouter.post('/Entry', [
         });
 });
 
-committeRouter.post('/remove/:Committe', isLoggedIn, (request, response) => {
+committeRouter.post('/remove/:Committe', isLoggedIn, AllowAccess, (request, response) => {
     const { Committe } = request.params;
     if (Committe != null) {
         Exe.queryExecuator(queryBox.Committe.Delete, parseInt(Committe), (error, result) => {

@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     roleRouter = express.Router();
 
 // Return List of All Roles as Json Dataset
-roleRouter.get('/', isLoggedIn, (request, response) => {
+roleRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ roleRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Role Add Edit GET request
-roleRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+roleRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Role } = request.query;
@@ -82,7 +82,7 @@ roleRouter.post('/Entry', [
     check('Name')
     .notEmpty()
     .withMessage('Name is Required to set Role!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, Name, Remarks } = request.body;
     const errors = validationResult(request);
@@ -121,7 +121,7 @@ roleRouter.post('/Entry', [
         });
 });
 
-roleRouter.post('/remove/:Role', isLoggedIn, (request, response) => {
+roleRouter.post('/remove/:Role', isLoggedIn, AllowAccess, (request, response) => {
     const { Role } = request.params;
     if (Role != null) {
         Exe.queryExecuator(queryBox.Role.Delete, parseInt(Role), (error, result) => {

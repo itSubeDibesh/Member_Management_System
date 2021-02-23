@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     alligationsAndRewardsRouter = express.Router();
 
 // Return List of All AlligationsAndRewards as Json Dataset
-alligationsAndRewardsRouter.get('/', isLoggedIn, (request, response) => {
+alligationsAndRewardsRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ alligationsAndRewardsRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // AlligationsAndRewards Add Edit GET request
-alligationsAndRewardsRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+alligationsAndRewardsRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { AlligationsAndRewards } = request.query;
@@ -101,7 +101,7 @@ alligationsAndRewardsRouter.post('/Entry', [
     check('Description')
     .notEmpty()
     .withMessage('Description is Required to set AlligationsAndRewards!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, MemberId, Type, Title, Description } = request.body;
     const errors = validationResult(request);
@@ -140,7 +140,7 @@ alligationsAndRewardsRouter.post('/Entry', [
         });
 });
 
-alligationsAndRewardsRouter.post('/remove/:AlligationsAndRewards', isLoggedIn, (request, response) => {
+alligationsAndRewardsRouter.post('/remove/:AlligationsAndRewards', isLoggedIn, AllowAccess, (request, response) => {
     const { AlligationsAndRewards } = request.params;
     if (AlligationsAndRewards != null) {
         Exe.queryExecuator(queryBox.AlligationsAndRewards.Delete, parseInt(AlligationsAndRewards), (error, result) => {

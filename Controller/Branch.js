@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     branchRouter = express.Router();
 
 // Return List of All Branch as Json Dataset
-branchRouter.get('/', isLoggedIn, (request, response) => {
+branchRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ branchRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Branch Add Edit GET request
-branchRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+branchRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Branch } = request.query;
@@ -99,7 +99,7 @@ branchRouter.post('/Entry', [
     check('Contact')
     .notEmpty()
     .withMessage('Contact is Required to set Branch!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, ParentId, Name, Address, Contact, Status } = request.body;
     ParentId = ParentId != undefined ? ParentId : null;
@@ -140,7 +140,7 @@ branchRouter.post('/Entry', [
         });
 });
 
-branchRouter.post('/remove/:Branch', isLoggedIn, (request, response) => {
+branchRouter.post('/remove/:Branch', isLoggedIn, AllowAccess, (request, response) => {
     const { Branch } = request.params;
     if (Branch != null) {
         Exe.queryExecuator(queryBox.Branch.Delete, parseInt(Branch), (error, result) => {

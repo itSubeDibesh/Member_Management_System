@@ -48,7 +48,7 @@
             "Routes": "/Role"
         },
         {
-            "Permission_Name": "RolePermission",
+            "Permission_Name": "Role Permission",
             "Routes": "/RolePermission"
         },
         {

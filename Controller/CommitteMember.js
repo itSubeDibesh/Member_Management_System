@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     committeMemberRouter = express.Router();
 
 // Return List of All Committe Members as Json Dataset
-committeMemberRouter.get('/', isLoggedIn, (request, response) => {
+committeMemberRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     const UserInfromation = request.session.UserInfromation;
     if (page != null) {
@@ -35,7 +35,7 @@ committeMemberRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Committe Members Edit request
-committeMemberRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+committeMemberRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { CommitteMember } = request.query;
@@ -96,7 +96,7 @@ committeMemberRouter.post('/Entry', [
     check('MemberId')
     .notEmpty()
     .withMessage('Member is Required to set Committe Members!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, CommitteId, MemberId, Status } = request.body;
     const errors = validationResult(request);
@@ -141,7 +141,7 @@ committeMemberRouter.post('/Entry', [
         });
 });
 
-committeMemberRouter.post('/remove/:CommitteMember', isLoggedIn, (request, response) => {
+committeMemberRouter.post('/remove/:CommitteMember', isLoggedIn, AllowAccess, (request, response) => {
     const { CommitteMember } = request.params;
     if (CommitteMember != null) {
         Exe.queryExecuator(queryBox.CommitteMember.Delete.ById, parseInt(CommitteMember), (error, result) => {

@@ -1,10 +1,10 @@
 const { body } = require('express-validator');
 
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     paymentsRouter = express.Router();
 
 // Return List of All Payments as Json Dataset
-paymentsRouter.get('/', isLoggedIn, (request, response) => {
+paymentsRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -36,7 +36,7 @@ paymentsRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Payments Add Edit GET request
-paymentsRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+paymentsRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Payments } = request.query;
@@ -107,7 +107,7 @@ paymentsRouter.post('/Entry', [
     check('Amount')
     .notEmpty()
     .withMessage('Amount is Required to set Payments!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, MemberId, Payment_Title, Amount } = request.body;
     const errors = validationResult(request);
@@ -146,7 +146,7 @@ paymentsRouter.post('/Entry', [
         });
 });
 
-paymentsRouter.post('/remove/:Payments', isLoggedIn, (request, response) => {
+paymentsRouter.post('/remove/:Payments', isLoggedIn, AllowAccess, (request, response) => {
     const { Payments } = request.params;
     if (Payments != null) {
         Exe.queryExecuator(queryBox.Payment.Delete, parseInt(Payments), (error, result) => {

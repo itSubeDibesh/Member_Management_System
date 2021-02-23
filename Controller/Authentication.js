@@ -1,7 +1,7 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn } = require('../Config/Http'), authenticationRouter = express.Router();
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess } = require('../Config/Http'), authenticationRouter = express.Router();
 
 // Dashboard if the Session has data set Else Login
-authenticationRouter.get('/', isLoggedIn, (request, response) => {
+authenticationRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     if (request.session.LoginInformation === undefined && request.session.UserInfromation != undefined) {
         response.render('login', { title: 'Login', layout: false });
     } else {
@@ -22,7 +22,7 @@ authenticationRouter.get('/Logout', (request, response) => {
 });
 
 // Redirects To Dashboard
-authenticationRouter.get('/Dashboard', isLoggedIn, (request, response) => {
+authenticationRouter.get('/Dashboard', isLoggedIn, AllowAccess, (request, response) => {
     const { UserName } = request.query;
     if (UserName.length != 0 && request.session.LoginInformation != undefined && request.session.UserInfromation != undefined) {
         if (UserName == request.session.LoginInformation.UserName && request.session.UserInfromation.UserName == UserName) {

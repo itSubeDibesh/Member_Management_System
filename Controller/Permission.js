@@ -1,9 +1,9 @@
 require('dotenv').config()
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     permissionRouter = express.Router();
 
 // Return List of All Permissions as Json Dataset
-permissionRouter.get('/', isLoggedIn, (request, response) => {
+permissionRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -36,7 +36,7 @@ permissionRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Permission Add Edit GET request
-permissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+permissionRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Permission } = request.query;
@@ -84,7 +84,7 @@ permissionRouter.post('/Entry', [
     check('Name')
     .notEmpty()
     .withMessage('Name is Required to set Permission!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, Name, Remarks } = request.body;
     const errors = validationResult(request);
@@ -123,7 +123,7 @@ permissionRouter.post('/Entry', [
         });
 });
 
-permissionRouter.post('/remove/:Permission', isLoggedIn, (request, response) => {
+permissionRouter.post('/remove/:Permission', isLoggedIn, AllowAccess, (request, response) => {
     const { Permission } = request.params;
     if (Permission != null) {
         Exe.queryExecuator(queryBox.Permission.Delete, parseInt(Permission), (error, result) => {

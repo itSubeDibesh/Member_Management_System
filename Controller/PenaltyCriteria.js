@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     penaltyCriteriaRouter = express.Router();
 
 // Return List of All Penalty Criteria as Json Dataset
-penaltyCriteriaRouter.get('/', isLoggedIn, (request, response) => {
+penaltyCriteriaRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ penaltyCriteriaRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // PenaltyCriteria Add Edit GET request
-penaltyCriteriaRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+penaltyCriteriaRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { PenaltyCriteria } = request.query;
@@ -89,7 +89,7 @@ penaltyCriteriaRouter.post('/Entry', [
     .withMessage('Amount must be number')
     .notEmpty()
     .withMessage('Amount is Required to set PenaltyCriteria!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, Number_of_Exceeded_Days, Amount } = request.body;
     const errors = validationResult(request);
@@ -128,7 +128,7 @@ penaltyCriteriaRouter.post('/Entry', [
         });
 });
 
-penaltyCriteriaRouter.post('/remove/:PenaltyCriteria', isLoggedIn, (request, response) => {
+penaltyCriteriaRouter.post('/remove/:PenaltyCriteria', isLoggedIn, AllowAccess, (request, response) => {
     const { PenaltyCriteria } = request.params;
     if (PenaltyCriteria != null) {
         Exe.queryExecuator(queryBox.PenaltyCriteria.Delete, parseInt(PenaltyCriteria), (error, result) => {

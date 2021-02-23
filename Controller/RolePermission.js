@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     rolePermissionRouter = express.Router();
 
 // Return List of All Roles and Permission as Json Dataset
-rolePermissionRouter.get('/', isLoggedIn, (request, response) => {
+rolePermissionRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ rolePermissionRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Role Permission Edit request
-rolePermissionRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+rolePermissionRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { RolePermission } = request.query;
@@ -94,7 +94,7 @@ rolePermissionRouter.post('/Entry', [
     check('PermissionId')
     .notEmpty()
     .withMessage('Permission is Required to set Role Permission!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, RoleId, PermissionId, Status } = request.body;
     const errors = validationResult(request);
@@ -141,7 +141,7 @@ rolePermissionRouter.post('/Entry', [
         });
 });
 
-rolePermissionRouter.post('/remove/:RolePermission', isLoggedIn, (request, response) => {
+rolePermissionRouter.post('/remove/:RolePermission', isLoggedIn, AllowAccess, (request, response) => {
     const { RolePermission } = request.params;
     if (RolePermission != null) {
         Exe.queryExecuator(queryBox.RolePermission.Delete.ByRolePermissionId, parseInt(RolePermission), (error, result) => {

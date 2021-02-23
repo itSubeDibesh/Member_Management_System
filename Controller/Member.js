@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     memberRouter = express.Router();
 
 // Return List of All Member as Json Dataset
-memberRouter.get('/', isLoggedIn, (request, response) => {
+memberRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     const LoggedInUser = request.session.UserInfromation;
     if (page != null) {
@@ -51,7 +51,7 @@ memberRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Member Add Edit GET request
-memberRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+memberRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Member } = request.query;
@@ -144,7 +144,7 @@ memberRouter.post('/Entry', [
     check('Contact')
     .notEmpty()
     .withMessage('Contact is Required to set Member!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, UserId, DesignationId, Name, DOB, Address, Profession, Gender, Contact, Status, Joined_Date, Membership_Renew_Status, Last_Renewed_Date } = request.body;
     const errors = validationResult(request);
@@ -187,7 +187,7 @@ memberRouter.post('/Entry', [
         });
 });
 
-memberRouter.post('/remove/:Member', isLoggedIn, (request, response) => {
+memberRouter.post('/remove/:Member', isLoggedIn, AllowAccess, (request, response) => {
     const { Member } = request.params;
     if (Member != null) {
         Exe.queryExecuator(queryBox.Member.Delete, parseInt(Member), (error, result) => {

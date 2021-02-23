@@ -33,6 +33,9 @@ const { Error } = require('../Config/Logs');
 // Extracting Middleware
 const isLoggedIn = require('../Middlewares/isLoggedIn');
 
+// Extracting Access handler
+const AllowAccess = require('../Middlewares/AccessHandler');
+
 /**
  * Route and Validator Export
  * 
@@ -42,4 +45,4 @@ const isLoggedIn = require('../Middlewares/isLoggedIn');
  * 
  * @description Export Http Requirements
  */
-module.exports = { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT }
+module.exports = { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT }

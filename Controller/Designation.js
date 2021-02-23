@@ -1,8 +1,8 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
     designationRouter = express.Router();
 
 // Return List of All Designation as Json Dataset
-designationRouter.get('/', isLoggedIn, (request, response) => {
+designationRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
     let page = parseInt(request.query.page) || 1;
     if (page != null) {
         const { paginate, count } = require('../Database/ExtraQuery'),
@@ -34,7 +34,7 @@ designationRouter.get('/', isLoggedIn, (request, response) => {
 });
 
 // Designation Add Edit GET request
-designationRouter.get('/action/:Task', isLoggedIn, (request, response) => {
+designationRouter.get('/action/:Task', isLoggedIn, AllowAccess, (request, response) => {
     // Extracting to define the condition
     const { Task } = request.params;
     const { Designation } = request.query;
@@ -92,7 +92,7 @@ designationRouter.post('/Entry', [
     .withMessage('Hierarchy Value Must be number!')
     .notEmpty()
     .withMessage('Hierarchy Value is Required to set Designation!')
-], isLoggedIn, (request, response) => {
+], isLoggedIn, AllowAccess, (request, response) => {
     // Extracted Elements from request body
     let { Task, Name, Membership_Fee, Hierarchy_Value, Remarks } = request.body;
     const errors = validationResult(request);
@@ -131,7 +131,7 @@ designationRouter.post('/Entry', [
         });
 });
 
-designationRouter.post('/remove/:Designation', isLoggedIn, (request, response) => {
+designationRouter.post('/remove/:Designation', isLoggedIn, AllowAccess, (request, response) => {
     const { Designation } = request.params;
     if (Designation != null) {
         Exe.queryExecuator(queryBox.Designation.Delete, parseInt(Designation), (error, result) => {
