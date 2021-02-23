@@ -1,59 +1,59 @@
 {
     "AccessList": [{
             "Permission_Name": "Settings",
-            "Routes": "/Settings"
+            "Routes": ["/Settings"]
         },
         {
             "Permission_Name": "Committe Member",
-            "Routes": "/CommitteMember"
+            "Routes": ["/CommitteMember"]
         },
         {
             "Permission_Name": "Committe",
-            "Routes": "/Committe"
+            "Routes": ["/Committe"]
         },
         {
             "Permission_Name": "Payments",
-            "Routes": "/Payments"
+            "Routes": ["/Payments"]
         },
         {
             "Permission_Name": "Alligations And Rewards",
-            "Routes": "/AlligationsAndRewards"
+            "Routes": ["/AlligationsAndRewards"]
         },
         {
             "Permission_Name": "Branch",
-            "Routes": "/Branch"
+            "Routes": ["/Branch"]
         },
         {
             "Permission_Name": "Member",
-            "Routes": "/Member"
+            "Routes": ["/Member"]
         },
         {
             "Permission_Name": "User",
-            "Routes": "/User"
+            "Routes": ["/User"]
         },
         {
             "Permission_Name": "Designation",
-            "Routes": "/Designation"
+            "Routes": ["/Designation"]
         },
         {
             "Permission_Name": "Penalty Criteria",
-            "Routes": "/PenaltyCriteria"
+            "Routes": ["/PenaltyCriteria"]
         },
         {
             "Permission_Name": "Permission",
-            "Routes": "/Permission"
-        },
-        {
-            "Permission_Name": "Role",
-            "Routes": "/Role"
+            "Routes": ["/Permission"]
         },
         {
             "Permission_Name": "Role Permission",
-            "Routes": "/RolePermission"
+            "Routes": ["/RolePermission"]
+        },
+        {
+            "Permission_Name": "Role",
+            "Routes": ["/Role"]
         },
         {
             "Permission_Name": "Authentication",
-            "Routes": "/"
+            "Routes": ["/Dashboard", "/"]
         }
     ]
 }

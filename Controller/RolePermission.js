@@ -113,14 +113,27 @@ rolePermissionRouter.post('/Entry', [
             // Executing Sql Query
             Exe.queryExecuator(sqlParams, null, (error, result) => {
                 if (error != null) Error.log(error);
-                if (result) response.redirect('/RolePermission');
+                if (result) {
+                    Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRoleId, parseInt(request.session.UserInfromation.RoleId), (roleError, roleResult) => {
+                        if (roleError) Error.log(roleError);
+                        if (roleResult)
+                            request.session.UserRolePermissionList = roleResult;
+                        response.redirect('/RolePermission');
+                    });
+                }
+
             });
         } else if (Task == 'edit') {
             const { RolePermission } = request.body;
             // Perform edit operation
             Exe.queryExecuator(queryBox.RolePermission.Update, [parseInt(RoleId), parseInt(PermissionId), `${Status}`, parseInt(RolePermission)], (error, result) => {
                 if (error != null) Error.log(error);
-                if (result) response.redirect('/RolePermission');
+                Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRoleId, parseInt(request.session.UserInfromation.RoleId), (roleError, roleResult) => {
+                    if (roleError) Error.log(roleError);
+                    if (roleResult)
+                        request.session.UserRolePermissionList = roleResult;
+                    if (result) response.redirect('/RolePermission');
+                });
             });
         } else response.render('RolePermission/rolePermission', {
             title: 'Roles Permission',
@@ -147,7 +160,13 @@ rolePermissionRouter.post('/remove/:RolePermission', isLoggedIn, AllowAccess, (r
         Exe.queryExecuator(queryBox.RolePermission.Delete.ByRolePermissionId, parseInt(RolePermission), (error, result) => {
             if (error != null) Error.log(error);
             // Check if Result is not null
-            if (result) response.redirect('/RolePermission');
+            if (result)
+                Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRoleId, parseInt(request.session.UserInfromation.RoleId), (roleError, roleResult) => {
+                    if (roleError) Error.log(roleError);
+                    if (roleResult)
+                        request.session.UserRolePermissionList = roleResult;
+                    if (result) response.redirect('/RolePermission');
+                });
         });
     } else response.render('RolePermission/rolePermission', {
         title: 'Roles Permission',

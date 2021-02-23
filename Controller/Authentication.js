@@ -26,19 +26,12 @@ authenticationRouter.get('/Dashboard', isLoggedIn, AllowAccess, (request, respon
     const { UserName } = request.query;
     if (UserName.length != 0 && request.session.LoginInformation != undefined && request.session.UserInfromation != undefined) {
         if (UserName == request.session.LoginInformation.UserName && request.session.UserInfromation.UserName == UserName) {
-            // Need to fetch all the role permission associated with user using RolePermisionByRoleId
-            Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRoleId, request.session.UserInfromation.RoleId, (error, result) => {
-                if (error != null) Error.log(error);
-                if (result)
-                    if (result.length !== 0) request.session.RoleInformation = result;
-                response.render('dashboard', {
-                    title: 'Dashboard',
-                    layout: 'main',
-                    success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
-                    UserInfromation: request.session.UserInfromation,
-                    LoginInformation: request.session.LoginInformation,
-                    RoleInformation: request.session.RoleInformation
-                });
+            response.render('dashboard', {
+                title: 'Dashboard',
+                layout: 'main',
+                success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
+                UserInfromation: request.session.UserInfromation,
+                LoginInformation: request.session.LoginInformation
             });
         } else
             response.redirect(`/Logout`);
@@ -65,18 +58,32 @@ authenticationRouter.post('/Login', [
             Exe.queryExecuator(queryBox.User.Login, [UserName, Password], (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) {
-                    if (result.length !== 0) {
-                        request.session.LoginInformation = { UserName, LoggedIn: true };
-                        request.session.UserInfromation = result[0];
-                        response.redirect(`/Dashboard?UserName=${UserName}`);
-                    } else {
-                        response.render('login', {
-                            title: 'Login',
-                            layout: false,
-                            errors: [{ msg: `Invalid Username or Password!` }],
-                            data: request.body
-                        });
-                    }
+                    // Need to fetch all the role permission associated with user using RolePermisionByRoleId
+                    Exe.queryExecuator(queryBox.RolePermission.Select.All.ByRoleId, parseInt(result[0].RoleId), (roleError, roleResult) => {
+                        if (roleError != null) Error.log(roleError);
+                        if (roleResult) {
+                            if (result.length !== 0) {
+                                request.session.LoginInformation = { UserName, LoggedIn: true };
+                                request.session.UserInfromation = result[0];
+                                request.session.UserRolePermissionList = roleResult;
+                                response.redirect(`/Dashboard?UserName=${UserName}`);
+                            } else {
+                                response.render('login', {
+                                    title: 'Login',
+                                    layout: false,
+                                    errors: [{ msg: `Invalid Username or Password!` }],
+                                    data: request.body
+                                });
+                            }
+                        } else {
+                            response.render('dashboard', {
+                                title: 'Dashboard',
+                                layout: false,
+                                errors: [{ msg: `Unauthorized Access! Contact Administrator!` }],
+                                data: request.body
+                            });
+                        }
+                    });
                 } else {
                     response.render('login', {
                         title: 'Login',
