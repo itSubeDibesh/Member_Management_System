@@ -1,5 +1,4 @@
 ## __Member Management System__ [![time tracker](https://wakatime.com/badge/github/itSubeDibesh/Member_Management_System.svg)](https://wakatime.com/@itSubeDibesh/projects/cokmemttkk)
-___
 There is the organization that does have branches and sub branches like lion's club. There is a head branch under
 which other are operated. Every branch has executive committee and general members. So, it is necessary to build
 the database to keep the record of these members.
