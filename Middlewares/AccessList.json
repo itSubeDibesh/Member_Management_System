@@ -1,0 +1,59 @@
+{
+    "AccessList": [{
+            "Permission_Name": "Settings",
+            "Routes": "/Settings"
+        },
+        {
+            "Permission_Name": "Committe Member",
+            "Routes": "/CommitteMember"
+        },
+        {
+            "Permission_Name": "Committe",
+            "Routes": "/Committe"
+        },
+        {
+            "Permission_Name": "Payments",
+            "Routes": "/Payments"
+        },
+        {
+            "Permission_Name": "Alligations And Rewards",
+            "Routes": "/AlligationsAndRewards"
+        },
+        {
+            "Permission_Name": "Branch",
+            "Routes": "/Branch"
+        },
+        {
+            "Permission_Name": "Member",
+            "Routes": "/Member"
+        },
+        {
+            "Permission_Name": "User",
+            "Routes": "/User"
+        },
+        {
+            "Permission_Name": "Designation",
+            "Routes": "/Designation"
+        },
+        {
+            "Permission_Name": "Penalty Criteria",
+            "Routes": "/PenaltyCriteria"
+        },
+        {
+            "Permission_Name": "Permission",
+            "Routes": "/Permission"
+        },
+        {
+            "Permission_Name": "Role",
+            "Routes": "/Role"
+        },
+        {
+            "Permission_Name": "RolePermission",
+            "Routes": "/RolePermission"
+        },
+        {
+            "Permission_Name": "Authentication",
+            "Routes": "/"
+        }
+    ]
+}

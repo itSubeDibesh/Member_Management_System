@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, SELECT_LIMIT } = require('../Config/Http'),
     permissionRouter = express.Router();
 
@@ -16,7 +17,8 @@ permissionRouter.get('/', isLoggedIn, (request, response) => {
                         layout: 'main',
                         link: "/Permission",
                         UserInfromation: request.session.UserInfromation,
-                        PermissionInformation: res.response
+                        PermissionInformation: res.response,
+                        HIDE_PERMISSION_ACTIONS: process.env.HIDE_PERMISSION_ACTIONS
                     });
                 });
         });

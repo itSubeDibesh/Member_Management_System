@@ -1,4 +1,7 @@
 <div class="card">
+    {{#ifEquals HIDE_PERMISSION_ACTIONS 'true'}}
+    <h5 class="card-header">Permission List</h5>
+    {{else}}
     <div class="card-header">
         <div class="row">
             <div class="col-6">
@@ -9,6 +12,8 @@
             </div>
         </div>
     </div>
+    {{/ifEquals}}
+
     <div class="card-body">
         {{#ifEquals PermissionInformation.success true}}
         <div class="table-responsive">
@@ -18,7 +23,10 @@
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Remarks</th>
+                        {{#ifEquals HIDE_PERMISSION_ACTIONS 'true'}}
+                        {{else}}
                         <th class="text-center" colspan="2">Action</th>
+                        {{/ifEquals}}
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +35,8 @@
                         <td>{{SN @index}}</td>
                         <td>{{this.Name}}</td>
                         <td>{{this.Remarks}}</td>
+                        {{#ifEquals ../HIDE_PERMISSION_ACTIONS 'true'}}
+                        {{else}}
                         <td class="text-center"><a href="/Permission/action/edit?Permission={{this.PermissionId}}"
                                 style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
                                 Edit</a>
@@ -39,6 +49,7 @@
                                     Delete</button>
                             </form>
                         </td>
+                        {{/ifEquals}}
                     </tr>
                     {{/each}}
                 </tbody>
