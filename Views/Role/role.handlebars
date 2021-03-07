@@ -27,18 +27,24 @@
                         <td>{{SN @index}}</td>
                         <td>{{this.Name}}</td>
                         <td>{{this.Remarks}}</td>
-                        <td class="text-center"><a
-                                href="/Role/action/edit?Role={{this.RoleId}}"
+                        {{#ifEquals this.RoleId ../UserInfromation.RoleId}}
+                        <td colspan="2" class="text-center">
+                           <span class="badge rounded-pill bg-danger text-light"> N/A</span>
+                        </td>
+                        {{else}}
+                        <td class="text-center"><a href="/Role/action/edit?Role={{this.RoleId}}"
                                 style="text-decoration:none;color:white;"><i class="fas fa-edit text-success"></i>
                                 Edit</a>
                             </form>
                         </td>
                         <td class="text-center">
                             <form method="POST" action="/Role/remove/{{this.RoleId}}">
-                                <button type="submit" style="background: transparent; color:white;border:none;"><i class="fas fa-trash text-danger"></i>
+                                <button type="submit" style="background: transparent; color:white;border:none;"><i
+                                        class="fas fa-trash text-danger"></i>
                                     Delete</button>
                             </form>
                         </td>
+                        {{/ifEquals}}
                     </tr>
                     {{/each}}
                 </tbody>

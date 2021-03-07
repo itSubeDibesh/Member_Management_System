@@ -259,4 +259,9 @@ __Result__
 1. If you want change root log directory then set `LOG_DIR = LOGS` flag to any directory name you desire.
 1. If you want to change pagination limit then simply change `SELECT_LIMIT = 10` flag value to amount of data you want to fetch while using pagination.
 
-   
+___ 
+## Todo
+1. Implement back up and auto backup for dba
+1. Implement password hashing
+1. Implement fallback backup mailing process
+1. Create Techinical and User Documentation

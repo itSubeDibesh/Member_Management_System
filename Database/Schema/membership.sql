@@ -246,8 +246,9 @@ INSERT INTO `rolepermission` (`RolePermissionId`, `RoleId`, `PermissionId`, `Sta
 (9, 1, 9, 'Active'),
 (10, 1, 10, 'Active'),
 (11, 1, 11, 'Active'),
-(12, 1, 13, 'Active'),
-(13, 1, 14, 'Active');
+(12, 1, 12, 'Active'),
+(13, 1, 13, 'Active'),
+(14, 1, 14, 'Active');
 
 -- --------------------------------------------------------
 
