@@ -22,6 +22,9 @@ const { PORT, SECRET } = process.env;
 // Create New Application Instance To Utilize Express
 const APP = express();
 
+// Dissables X-Powered By
+APP.disable('x-powered-by');
+
 // Handle Bar Helpers 
 const handleBars = expressHandleBars.create({
     helpers: {
@@ -68,9 +71,6 @@ APP.use(session({
     resave: true,
     saveUninitialized: true
 }))
-
-// Dissables X-Powered By
-APP.disable('x-powered-by');
 
 // Parse requests of content-type - application/x-www-form-urlencoded
 APP.use(express.urlencoded({ extended: true }));
