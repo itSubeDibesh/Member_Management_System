@@ -102,7 +102,7 @@ CREATE TABLE `designation` (
 --
 
 INSERT INTO `designation` (`DesignationId`, `Name`, `Membership_Fee`, `Hierarchy_Value`, `Remarks`, `CreatedAt`, `UpdatedAt`) VALUES
-(1, 'Developer', 0, 0, 'Can Access Everything', '2021-02-22 16:15:17', NULL);
+(1, 'Developer', 0, 0, 'Can Access Everything', current_timestamp(), NULL);
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`MemberId`, `UserId`, `DesignationId`, `Name`, `DOB`, `Address`, `Profession`, `Gender`, `Contact`, `Status`, `Joined_Date`, `Membership_Renew_Status`, `Last_Renewed_Date`, `CreatedAt`, `UpdatedAt`) VALUES
-(1, 1, 1, 'Dibesh Raj Subedi', '1999-07-14', 'Gaushala, Pinglasthan', 'Full-Stack Developer', 'Male', '9861315234', 'Active', NULL, NULL, NULL, '2021-02-22 16:16:29', NULL);
+(1, 1, 1, 'Dibesh Raj Subedi', '1999-07-14', 'Gaushala, Pinglasthan', 'Full-Stack Developer', 'Male', '9861315234', 'Active', NULL, NULL, NULL, current_timestamp(), NULL);
 
 -- --------------------------------------------------------
 
@@ -181,20 +181,20 @@ CREATE TABLE `permission` (
 --
 
 INSERT INTO `permission` (`PermissionId`, `Name`, `Remarks`, `CreatedAt`, `UpdatedAt`) VALUES
-(1, 'Settings', 'Access Settings Endpoints', '2021-02-23 15:53:24', NULL),
-(2, 'Committe Member', 'Access Committe Member Endpoints', '2021-02-23 15:53:33', NULL),
-(3, 'Committe', 'Access Committe Endpoints', '2021-02-23 15:53:38', NULL),
-(4, 'Payments', 'Access Payments Endpoints', '2021-02-23 15:53:45', NULL),
-(5, 'Alligations And Rewards', 'Access Alligation and Rewards Endpoints', '2021-02-23 15:53:53', NULL),
-(6, 'Branch', 'Access Branch Endpoints', '2021-02-23 15:53:59', NULL),
-(7, 'Member', 'Access Member Endpoints', '2021-02-23 15:54:06', NULL),
-(8, 'User', 'Access User Endpoints', '2021-02-23 15:54:10', NULL),
-(9, 'Designation', 'Access Designation  Endpoints', '2021-02-23 15:54:16', NULL),
-(10, 'Penalty Criteria', 'Access Penalty Criteria Endpoints', '2021-02-23 15:54:23', NULL),
-(11, 'Permission', 'Access Permission Endpoints', '2021-02-23 15:54:29', NULL),
-(12, 'Role', 'Access Role Endpoints', '2021-02-23 15:54:35', NULL),
-(13, 'Role Permission', 'Access Role Permission Endpoints', '2021-02-23 15:54:41', NULL),
-(14, 'Authentication', 'Access authentication Endpoints', '2021-02-23 15:54:47', NULL);
+(1, 'Settings', 'Access Settings Endpoints', current_timestamp(), NULL),
+(2, 'Committe Member', 'Access Committe Member Endpoints', current_timestamp(), NULL),
+(3, 'Committe', 'Access Committe Endpoints',current_timestamp(), NULL),
+(4, 'Payments', 'Access Payments Endpoints', current_timestamp(), NULL),
+(5, 'Alligations And Rewards', 'Access Alligation and Rewards Endpoints', current_timestamp(), NULL),
+(6, 'Branch', 'Access Branch Endpoints', current_timestamp(), NULL),
+(7, 'Member', 'Access Member Endpoints', current_timestamp(), NULL),
+(8, 'User', 'Access User Endpoints', current_timestamp(), NULL),
+(9, 'Designation', 'Access Designation  Endpoints',current_timestamp(), NULL),
+(10, 'Penalty Criteria', 'Access Penalty Criteria Endpoints', current_timestamp(), NULL),
+(11, 'Permission', 'Access Permission Endpoints', current_timestamp(), NULL),
+(12, 'Role', 'Access Role Endpoints', current_timestamp(), NULL),
+(13, 'Role Permission', 'Access Role Permission Endpoints', current_timestamp(), NULL),
+(14, 'Authentication', 'Access authentication Endpoints', current_timestamp(), NULL);
 
 -- --------------------------------------------------------
 
@@ -215,7 +215,7 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`RoleId`, `Name`, `Remarks`, `CreatedAt`, `UpdatedAt`) VALUES
-(1, 'Developer', 'Developer Role', '2021-02-21 19:12:30', NULL);
+(1, 'Developer', 'Developer Role', current_timestamp(), NULL);
 
 -- --------------------------------------------------------
 
@@ -270,7 +270,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserId`, `RoleId`, `UserName`, `Password`, `CreatedAt`, `UpdatedAt`) VALUES
-(1, 1, 'Dibesh', 'Dibesh@2019', '2021-02-21 19:12:46', NULL);
+(1, 1, 'Dibesh', 'Dibesh@2019', current_timestamp(), NULL);
 
 --
 -- Indexes for dumped tables

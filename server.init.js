@@ -1,5 +1,4 @@
 // Dependencies Requirement
-// const dashboard_monitor = require('appmetrics-dash');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
