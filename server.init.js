@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require("express-rate-limit");
 const expressHandleBars = require('express-handlebars');
 
 // Custome Logger
@@ -23,6 +25,9 @@ const APP = express();
 
 // Dissables X-Powered By
 APP.disable('x-powered-by');
+
+// Preventing from XSS
+APP.use(xss())
 
 // Handle Bar Helpers 
 const handleBars = expressHandleBars.create({
@@ -55,6 +60,12 @@ const handleBars = expressHandleBars.create({
         }
     }
 });
+
+// Limmiting request rate limit
+APP.use(rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 500 // limit each IP to 100 requests per windowMs
+}))
 
 // Configuration Management
 APP.use(helmet());
