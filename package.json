@@ -26,6 +26,8 @@
         "express-validator": "^6.9.2",
         "helmet": "^4.4.1",
         "mysql": "^2.18.1",
+        "mysqldump": "^3.2.0",
+        "node-schedule": "^2.0.0",
         "nodefslogger": "^0.0.3",
         "xss-clean": "^0.1.1"
     },

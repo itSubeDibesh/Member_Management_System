@@ -14,6 +14,10 @@ const Request_Logger = require('./Config/RequestLogger');
 const WebRoutes = require('./Routes/webRoutes');
 const session = require('express-session');
 
+// Query Execuator for database
+const queryExecuator = require('./Database/QueryExe'),
+    Exe = new queryExecuator();
+
 // Initialize Environment Variable
 require('dotenv').config();
 
@@ -107,6 +111,10 @@ APP.get('*', function(_request, _response) {
     // Set 404 Partial view
     return _response.status(404).send({ status: !1, status_code: 404, response: 'Page not found' });
 });
+
+Exe.scheduleTask(() => console.log("Triggered The Event"))
+
+// console.log(Exe.setDatabaseBackup())
 
 //  Listen to The Port
 APP.listen(PORT, console.log(`Website Url : http://localhost:${PORT}`));

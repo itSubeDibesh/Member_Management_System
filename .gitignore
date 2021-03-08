@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Logs Folder
+# Logs And Backup Folder
 LOGS/
+BACKUPS/
