@@ -18,7 +18,6 @@ Late membership fine also should be applied.
  - [X] Store Membership and Penalty Details
  - [X] Store Payment Details
  - [X] Implement Login, Logout and Reset Password
-___
 
 ## __Tools and Languages Utilized__
 
@@ -35,8 +34,6 @@ ___
 | __PhpMyAdmin__ 	| Database Management Software    	| Helps to Organize MariaDb Database(MySql)    	| !["phpMyAdmin"](https://img.shields.io/badge/phpMyAdmin-ff8800?style=for-the-badge&logo=phpmyadmin&logoColor=white)                             	|
 | __Npm__        	| Package Manager                 	| Package Server                               	| !["NPM"](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)                              	|
 | __MD__        	| Documenting Tool                 	| Document on Github                              	| !["MD"](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)                              	|
-
-___
 
 ## __Setup__ 
 Setting up project is piece of cake. Follow the steps below.
@@ -61,7 +58,6 @@ Your project wont work yet now all you need to do is create and setup database.
 ## __Serving the Project__
 You need to have node installed and all the dependencies fetched inorder to run the project. Simply
  __now execuate `npm run watch` on terminal with project directory pointed to launch the website.__
- ___
 
 ## __Database Schema__
 A Basic database Schema Concept is shown below.
@@ -104,7 +100,7 @@ A Basic database Schema Concept is shown below.
 [User]-------> UserID [PK]
          |-----> RoleID [FK]
          |-----> UserName [Varchar(20)]
-         |-----> Password [Varchar(20)]
+         |-----> Password [Text]
          |-----> CreatedAt [TimeStamp]
          |-----> UpdatedAt [TimeStamp(ON Update)]
 
@@ -160,13 +156,10 @@ Following schema diagram can be extracted after implementing the above schema
 
 <img src="./Images/Schema Diagram.png">
 
-____
-
 ## __Setting Json Logs__
 If you need to set your logs in `.json` extension then simply update your environment variable `SET_JSON` to `true` in [`.env` file](#Setup) and run your application using `npm start`.
 
 __Note : Don't set `SET_JSON` to `true` if you are using `npm run watch` becasus it utilizes `nodemon` module which monitors all the `json` and `js files` which will restart the server itself time and again and crash the project.__
-___
 
 ## __Folder Structure__
 Folder Structure  along with uses are visualized below.
@@ -215,8 +208,6 @@ The image below shows the implementation of these folder structure.
 
 <img src="./Images/Folder Structure.png">
 
-____
-
 ## __Work flow__
 Lets follow the clients approach to get the resources.
 
@@ -233,7 +224,6 @@ Lets follow the clients approach to get the resources.
 1. Every Execuated Query Returns 2 response. i.e `Result or error` Result are manupulated as per requirement where as errors are logged on `Error.log` file using [`nodefslogger` module](https://www.npmjs.com/package/nodefslogger) which is also set as dependency on `Http.js`.
 
 These were the basic workflow how project works. All the Logs are maintained under [`LOGS`] logs directory which is generated when server needs to maintain log.
-____
 
 ## __Some Extra Features__
 There are some extra fatures which will only be visible on certain circumstances.
@@ -258,7 +248,6 @@ __Result__
 1. If you want to clear logs everytime server restarts or starts then set `CLEAR_LOGS = false` to true.
 1. If you want change root log directory then set `LOG_DIR = LOGS` flag to any directory name you desire.
 1. If you want to change pagination limit then simply change `SELECT_LIMIT = 10` flag value to amount of data you want to fetch while using pagination.
-___ 
 
 ## __Todo__
 1. Create Techinical and User Documentation
