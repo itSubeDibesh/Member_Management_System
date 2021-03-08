@@ -258,7 +258,8 @@ __Result__
 1. If you want to clear logs everytime server restarts or starts then set `CLEAR_LOGS = false` to true.
 1. If you want change root log directory then set `LOG_DIR = LOGS` flag to any directory name you desire.
 1. If you want to change pagination limit then simply change `SELECT_LIMIT = 10` flag value to amount of data you want to fetch while using pagination.
-
 ___ 
-## Todo
+
+## __Todo__
 1. Create Techinical and User Documentation
+1. Add Monitoring functionality as well
