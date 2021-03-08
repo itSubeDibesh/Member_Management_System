@@ -48,5 +48,8 @@ module.exports = class WebRoutes {
 
         // Settings Route handeled By SettingsController
         APP.use('/Settings', require('../Controller/Settings'));
+
+        // Backup Route handeled By BackupController
+        APP.use('/Backup', require('../Controller/Backup'));
     }
 }

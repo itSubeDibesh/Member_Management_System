@@ -31,7 +31,8 @@ authenticationRouter.get('/Dashboard', isLoggedIn, AllowAccess, (request, respon
                 layout: 'main',
                 success: { msg: `Welcome ${UserName}, Have a wonderful day!` },
                 UserInfromation: request.session.UserInfromation,
-                LoginInformation: request.session.LoginInformation
+                LoginInformation: request.session.LoginInformation,
+                UserRolePermissionList: request.session.UserRolePermissionList
             });
         } else
             response.redirect(`/Logout`);

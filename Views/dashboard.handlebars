@@ -1,0 +1,15 @@
+{{#each UserRolePermissionList as |permission|}}
+{{#ifEquals permission.Permission "Backup"}}
+<div class="card" style="width: 18rem;">
+    <img src="./Assets/Images/Lions_Clubs.png" alt="" width="auto" height="200"
+        class="card-img-top bg-transparent img-thumbnail" alt="Logo">
+    <div class="card-body">
+        <h5 class="card-title">Backup Database</h5>
+        <p class="card-text">Set database backup manually. Please use this feature to keep database backup as per
+            required. <span class="rounded-pill bg-primary text-light badge">This feature requires backup
+                permission</span></p>
+        <a href="/Backup" class="btn btn-success"><i class="fas fa-save"></i> Backup Database</a>
+    </div>
+</div>
+{{/ifEquals}}
+{{/each}}

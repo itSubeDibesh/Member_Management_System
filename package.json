@@ -29,6 +29,7 @@
         "mysqldump": "^3.2.0",
         "node-schedule": "^2.0.0",
         "nodefslogger": "^0.0.3",
+        "nodemailer": "^6.5.0",
         "xss-clean": "^0.1.1"
     },
     "devDependencies": {

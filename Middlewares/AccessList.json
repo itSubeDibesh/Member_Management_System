@@ -4,6 +4,10 @@
             "Routes": ["/Settings"]
         },
         {
+            "Permission_Name": "Backup",
+            "Routes": ["/Backup"]
+        },
+        {
             "Permission_Name": "Committe Member",
             "Routes": ["/CommitteMember"]
         },

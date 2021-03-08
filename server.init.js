@@ -18,6 +18,9 @@ const session = require('express-session');
 const queryExecuator = require('./Database/QueryExe'),
     Exe = new queryExecuator();
 
+// Importing Mailbox
+const mailBox = require('./Config/Mailer');
+
 // Initialize Environment Variable
 require('dotenv').config();
 
@@ -112,9 +115,15 @@ APP.get('*', function(_request, _response) {
     return _response.status(404).send({ status: !1, status_code: 404, response: 'Page not found' });
 });
 
-Exe.scheduleTask(() => console.log("Triggered The Event"))
-
-// console.log(Exe.setDatabaseBackup())
+//  Set Scheduler for backup purpose 
+Exe.scheduleTask(() => {
+    if (!Exe.setDatabaseBackup())
+        mailBox(
+            "Alert, Database Backup Failure!😔😔",
+            `Hi there, Something went wrong in server so auto backup is not working as intended so need your attention ASAP!`,
+            `<b>Hi there!<b><br><br> Something went wrong in server so auto backup is not working as intended so need your attention ASAP!<br>`
+        )
+});
 
 //  Listen to The Port
 APP.listen(PORT, console.log(`Website Url : http://localhost:${PORT}`));

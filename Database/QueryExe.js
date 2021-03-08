@@ -12,6 +12,7 @@ const
     sql = require('mysql'),
     { Error, Query } = require("../Config/Logs"),
     fs = require('fs'),
+    mailbox = require('../Config/Mailer'),
     /**
      * Mysql Dump modul to backup and restore database module
      */
@@ -24,7 +25,7 @@ const
 // Initializing Environment Variable
 require("dotenv").config();
 
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DUMP_DIRECTORY, BACKUP_SCHEDULE_HOUR, BACKUP_SCHEDULE_MINUTE, COMPRESS_FILE } = process.env,
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DUMP_DIRECTORY, BACKUP_SCHEDULE_HOUR, BACKUP_SCHEDULE_MINUTE, BACKUP_SCHEDULE_SECONDS, COMPRESS_FILE } = process.env,
     database_exists = `SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = "${DB_NAME}";`;
 
 let
@@ -172,8 +173,9 @@ module.exports = class mysql_database {
     scheduleTask(task) {
         // Creating Schedule Rule
         const ScheduleRule = new schedule.RecurrenceRule();
-        // ScheduleRule.hour = parseInt(BACKUP_SCHEDULE_HOUR);
-        ScheduleRule.second = parseInt(BACKUP_SCHEDULE_MINUTE);
+        ScheduleRule.hour = parseInt(BACKUP_SCHEDULE_HOUR);
+        ScheduleRule.minute = parseInt(BACKUP_SCHEDULE_MINUTE);
+        ScheduleRule.second = parseInt(BACKUP_SCHEDULE_SECONDS);
 
         // Creating a Recurrent Job
         try {
@@ -181,7 +183,11 @@ module.exports = class mysql_database {
         } catch (error) {
             Error.log(error);
             // Send Email As Well
-            console.log("Send An Email as Schequler fail");
+            mailbox(
+                "Alert, Scheduler not working!😔😔",
+                `Hi there, Something went wrong in server so scheduler is not working as intended so need your attention ASAP! Log Message : ${error.message}`,
+                `<b>Hi there!<b><br><br> Something went wrong in server so scheduler is not working as intended so need your attention ASAP!<br> Log Message : ${error.message}`
+            )
         }
     }
 
