@@ -262,6 +262,5 @@ __Result__
 ___ 
 ## Todo
 1. Implement back up and auto backup for dba
-1. Implement password hashing
 1. Implement fallback backup mailing process
 1. Create Techinical and User Documentation

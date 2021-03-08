@@ -260,7 +260,7 @@ CREATE TABLE `user` (
   `UserId` int(11) NOT NULL,
   `RoleId` int(11) NOT NULL COMMENT 'Relation Between Role and User',
   `UserName` varchar(20) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password`  TEXT NOT NULL,
   `CreatedAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -270,7 +270,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserId`, `RoleId`, `UserName`, `Password`, `CreatedAt`, `UpdatedAt`) VALUES
-(1, 1, 'Dibesh', 'Dibesh@2019', current_timestamp(), NULL);
+(1, 1, 'Dibesh', '$2a$10$zdlEiX.rucSo.7F6CxgdIOfyAet3i9xfn1kzCDZSBV3Di4iQ4xul.', current_timestamp(), NULL);
 
 --
 -- Indexes for dumped tables

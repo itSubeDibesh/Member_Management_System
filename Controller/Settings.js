@@ -1,4 +1,4 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, bcrypt } = require('../Config/Http'),
     settingsRouter = express.Router();
 
 // Return List of All Settings as Json Dataset
@@ -96,8 +96,10 @@ settingsRouter.post('/UserName', [
     const UserInfromation = request.session.UserInfromation;
     const { CurrentPassword, UserName, User, RoleId } = request.body;
     if (errors.isEmpty()) {
-        if (UserInfromation.Password == CurrentPassword) {
-            Exe.queryExecuator(queryBox.User.Update, [RoleId, `${UserName}`, `${CurrentPassword}`, parseInt(User)], (error, result) => {
+        // Compare user passwords
+        const comparision = bcrypt.compareSync(CurrentPassword, UserInfromation.Password);
+        if (comparision) {
+            Exe.queryExecuator(queryBox.User.Update, [RoleId, `${UserName}`, `${UserInfromation.Password}`, parseInt(User)], (error, result) => {
                 if (error) Error.log(error);
                 if (result) {
                     request.session.destroy((err) => {
@@ -141,13 +143,17 @@ settingsRouter.post('/Password', [
     check('Password')
     .notEmpty()
     .withMessage('New Password is Required to update your user credentials!'),
-], isLoggedIn, AllowAccess, (request, response) => {
+], isLoggedIn, AllowAccess, async(request, response) => {
     const errors = validationResult(request);
     const UserInfromation = request.session.UserInfromation;
     const { Old_Password, Password, UserName, User, RoleId } = request.body;
     if (errors.isEmpty()) {
-        if (UserInfromation.Password == Old_Password) {
-            Exe.queryExecuator(queryBox.User.Update, [RoleId, `${UserName}`, `${Password}`, parseInt(User)], (error, result) => {
+        // Compare user passwords
+        const comparision = bcrypt.compareSync(Old_Password, UserInfromation.Password);
+        if (comparision) {
+            // Hash the password
+            const hashedPassword = await bcrypt.hash(Password, 10);
+            Exe.queryExecuator(queryBox.User.Update, [RoleId, `${UserName}`, `${hashedPassword}`, parseInt(User)], (error, result) => {
                 if (error) Error.log(error);
                 if (result) {
                     request.session.destroy((err) => {

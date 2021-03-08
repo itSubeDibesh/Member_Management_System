@@ -5,6 +5,7 @@
             "Count": "SELECT count(*) AS Total_Count FROM `user` WHERE UserId !=?",
             "All": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId` !=? ORDER BY USER.`UserName`",
             "ById": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId`=? ORDER BY USER.`UserName`",
+            "ByName": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserName`=? ORDER BY USER.`UserName`",
             "Paginate": "SELECT USER.`UserId`, USER.`RoleId`,ROLE.Name AS Role, ROLE.Remarks AS Role_Remarks, USER.`UserName`, USER.`Password` FROM `user` USER  LEFT JOIN ROLE ON ROLE.RoleId = USER.RoleId WHERE USER.`UserId` !=? ORDER BY USER.`UserName` LIMIT ? OFFSET ?"
         },
         "Insert": "INSERT INTO `user` (`RoleId`, `UserName`, `Password`) VALUES ",

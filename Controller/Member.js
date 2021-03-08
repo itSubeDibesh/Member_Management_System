@@ -20,7 +20,6 @@ memberRouter.get('/', isLoggedIn, AllowAccess, (request, response) => {
                         paginate(request.baseUrl, request.url, page, queryBox.Member.Select.PaginateWithoutUser, [parseInt(SELECT_LIMIT), parseInt(offset)], withoutResult.result.Total_Count, (responseLogin) => {
                             request.session.MemberInformation = res.response;
                             request.session.MemberWithLoginInformation = responseLogin.response;
-                            console.log(responseLogin.response)
                             response.render('Member/member', {
                                 title: 'Member',
                                 layout: 'main',

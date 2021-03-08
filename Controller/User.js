@@ -1,4 +1,4 @@
-const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT } = require('../Config/Http'),
+const { express, check, validationResult, queryBox, Exe, Error, isLoggedIn, AllowAccess, SELECT_LIMIT, bcrypt } = require('../Config/Http'),
     userRouter = express.Router();
 
 // Return List of All User as Json Dataset
@@ -110,21 +110,23 @@ userRouter.post('/Entry', [
     .withMessage('Password must have 8-20 characters.')
     .notEmpty()
     .withMessage('Password is Required to set User!')
-], isLoggedIn, AllowAccess, (request, response) => {
+], isLoggedIn, AllowAccess, async(request, response) => {
     // Extracted Elements from request body
     let { Task, RoleId, Password, UserName } = request.body;
     const errors = validationResult(request);
     if (errors.isEmpty()) {
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(Password, 10);
         if (Task == 'add') {
             // Executing Sql Query
-            Exe.queryExecuator(queryBox.User.Insert + `(${RoleId},'${UserName}','${Password}')`, null, (error, result) => {
+            Exe.queryExecuator(queryBox.User.Insert + `(${RoleId},'${UserName}','${hashedPassword}')`, null, (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/User');
             });
         } else if (Task == 'edit') {
             const { User } = request.body;
             // Perform edit operation
-            Exe.queryExecuator(queryBox.User.Update, [RoleId, `${UserName}`, `${Password}`, parseInt(User)], (error, result) => {
+            Exe.queryExecuator(queryBox.User.Update, [RoleId, `${UserName}`, `${hashedPassword}`, parseInt(User)], (error, result) => {
                 if (error != null) Error.log(error);
                 if (result) response.redirect('/User');
             });
