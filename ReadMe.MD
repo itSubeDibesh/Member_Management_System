@@ -224,6 +224,7 @@ Lets follow the clients approach to get the resources.
 1. Every Execuated Query Returns 2 response. i.e `Result or error` Result are manupulated as per requirement where as errors are logged on `Error.log` file using [`nodefslogger` module](https://www.npmjs.com/package/nodefslogger) which is also set as dependency on `Http.js`.
 
 These were the basic workflow how project works. All the Logs are maintained under [`LOGS`] logs directory which is generated when server needs to maintain log.
+And all the [database backups](#Database-Backup) generated automatically and manually are stored under [`BACKUPS`] directory.  
 
 ## __Some Extra Features__
 There are some extra fatures which will only be visible on certain circumstances.
@@ -249,6 +250,69 @@ __Result__
 1. If you want change root log directory then set `LOG_DIR = LOGS` flag to any directory name you desire.
 1. If you want to change pagination limit then simply change `SELECT_LIMIT = 10` flag value to amount of data you want to fetch while using pagination.
 
-## __Todo__
-1. Create Techinical and User Documentation
-1. Add Monitoring functionality as well
+## __Setting Email__
+You can set Mail Server easily with minimal configuration
+You can observe this block on your `.env` file if you followed [__Setup__](#Setup) properly.
+```
+# ------------------------------
+# Node Mailer Configuration Starts
+# ------------------------------
+    MAILER_HOST = smtp.mailtrap.io
+    MAILER_PORT = 2525
+    MAILER_USER = 553582324dac8f
+    MAILER_PASSWORD = b77dfe9eca847f
+    DBA_EMAILS = "dibeshrsubedi@gmail.com"
+# Node Mailer Configuration Starts
+```
+So, 
+- `MAILER_HOST` Defines the host used for mail service.
+- `MAILER_PORT` Defines the port used for mail service.
+- `MAILER_USER` is the email address from which email is being sent.
+- `MAILER_PASSWORD` is the password of email address.
+- `DBA_EMAILS` will be used to send error mails to DBA. You can add multiple mails using "__comma__" sign after every valid email.
+
+
+## __Database Backup__
+There are two ways of database backup.
+1. Automatic 
+1. Manual
+
+### __Automatic Backup__
+Backing up Database Automatically needs a littel onetime configuration an all th eprocess would be execuating at it's owne.
+You can observe this block on your `.env` file if you followed [__Setup__](#Setup) properly.
+```
+# ------------------------------
+#  MySql Backup and Restore Configuration Starts
+# ------------------------------
+    DUMP_DIRECTORY = BACKUPS
+    COMPRESS_FILE = true
+    BACKUP_SCHEDULE_HOUR = 16 
+    BACKUP_SCHEDULE_MINUTE = 30
+    BACKUP_SCHEDULE_SECONDS = 05
+#  MySql Backup and Restore Configuration Ends
+```
+So, 
+- `DUMP_DIRECTORY` Defines the directory where the backup files should be stored.
+- `COMPRESS_FILE` Lets you to compress the backup file as save the file with `.sql.gz` instade of `.sql` reducing the size of the backup
+- `BACKUP_SCHEDULE_HOUR` Lets you to repeate the backup at defined time hour every day. Set the values between `0-23`.
+- `BACKUP_SCHEDULE_MINUTE` Lets you to repeate the backup at defined time minute every day. Set the values between `0-59`.
+- `BACKUP_SCHEDULE_SECONDS` Lets you to repeate the backup at defined time seconds every day. Set the values between `0-59`.
+
+Another Important Factor for automatic backup is mailing address. Administrators will receive emails when automatic server fails in backup.
+Read [Setting Email](#Setting-Email) section if you have any confusion about email configuartion. 
+
+### __Manual Backup__
+So to have manual backup access you must have `Backup permission` and you will be propmt with backup facility on your dashboard.
+Just click the `Backup Database` button and your database backup would be stored on the backup directory. The picture below shows the backup view in dashboard.
+<img src="./Images/Manual Backup Function.png">
+
+## __Setting Server Port__
+If you want to change the server port then simply open `.env` file and update the fillowing section.
+```
+# ------------------------------
+#  Server Configuration Starts
+# ------------------------------
+    PORT = 9876
+#  Server Configuration Ends
+```
+Update the `PORT` value as your desire if dont want to serve the project at `9876` port.
